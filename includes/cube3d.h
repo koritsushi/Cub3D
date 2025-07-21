@@ -31,4 +31,25 @@
 # include "../libft/libft.h"
 
 //test
+typedef struct	s_point
+{
+	float	x;
+	float	y;
+}			t_pt;
+
+typedef struct	s_cub
+{
+	t_pt	p1;			// location of player1
+	float	dir_angle;	// direction (0-360) that p1 is facing
+	t_pt	dir_pt;		// use this for point translation
+
+	char	**map;
+	char	*no;
+	char	*so;
+	char	*ea;
+	char	*we;
+	int		*f_col;
+	int		*c_col;
+}				t_cub;
+
 #endif
