@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/07/21 11:31:53 by booi             ###   ########.fr       */
+/*   Updated: 2025/07/21 11:37:00 by booi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <math.h>
 # include "../libft/libft.h"
 
-//test
 typedef struct	s_point
 {
 	float	x;
@@ -50,6 +49,6 @@ typedef struct	s_cub
 	char	*we;
 	int		*f_col;
 	int		*c_col;
-}				t_cub;
+}			t_cub;
 
 #endif
