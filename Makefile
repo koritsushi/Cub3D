@@ -6,13 +6,14 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/07/17 14:20:29 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/12 11:01:33 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = 
+SRCS 		=	 srcs/error.c
 
 OBJS		=	$(SRCS:%.c=%.o)
+
 %.o: %.c	$(HEADER)
 			$(COMPILE) $(CCFLAGS) $(GGDB) -I. -c $< -o $(<:.c=.o)
 
@@ -21,18 +22,28 @@ LIBFT		=	$(LIBFTDIR)libft.a
 MLXDIR		=	./minilibx-linux/
 MLX			=	$(MLXDIR)libmlx_Linux.a
 MLXCOMPILE	=	-L$(MLXDIR) -L$(LIBFTDIR) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-PROGRAM		=	Cube3D
+PROGRAM		=	cube3D
 COMPILE		=	gcc
 CCFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
-HEADER		=
+HEADER		= 
 
-$(NAME): $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(OBJS) srcs/main.c -o $(NAME)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+		@cp $(LIBFT) $(NAME)
+		ar rcs $(PROGRAM) $(LIBFT) $(MLX) 
+		$(COMPILE) $(CCFLAGS) $(OBJS) $(MLXCOMPILE) srcs/main.c -o $(PROGRAM)
 
 $(DEBUG): $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(FSAN) srcs/main.c -o $(NAME)
+		@cp $(LIBFT) $(NAME)
+		ar rcs $(PROGRAM) $(LIBFT) $(MLX) 
+		$(COMPILE) $(CCFLAGS) $(OBJS) $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(PROGRAM)
+
+$(LIBFT):
+		@make -C $(LIBFTDIR) all
+
+$(MLX):
+		@make -C $(MLXDIR) all
 
 all:			$(NAME)
 
@@ -42,8 +53,8 @@ clean:
 				@rm -rf $(OBJS)
 
 fclean:			clean
-				@rm -rf $(NAME)
+				@rm -rf $(PROGRAM)
 
 re:				fclean all
 
-.PHONY	= all debug clean fclean re
+.PHONY	= all debug clean fclean re libft mlx
