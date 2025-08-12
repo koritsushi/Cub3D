@@ -12,9 +12,9 @@
 
 #include "../includes/cube3d.h"
 
-void	error(void)
+void	ft_error(void)
 {
-	perror("./cub3d: Error!\n");
-	perror("./cub3d: usage: ./cub3d filename.cub\n");
+	ft_putstr_fd("./cub3d: Error!\n", 2);
+	ft_putstr_fd("./cub3d: usage: ./cub3d filename.cub\n", 2);
 	exit(1);
 }
