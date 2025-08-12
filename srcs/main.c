@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/07/17 14:21:58 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/12 13:03:02 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,11 @@
 
 int	main(int argc, char **argv)
 {
+	//t_cub	data;
+
+	(void) argv;
+	if (argc != 2)
+		error();
+
 	return 0;
 }

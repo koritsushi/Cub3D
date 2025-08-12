@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/07/21 11:37:00 by booi             ###   ########.fr       */
+/*   Updated: 2025/08/12 11:05:52 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ typedef struct	s_cub
 	int		*f_col;
 	int		*c_col;
 }			t_cub;
+
+void	error(void);
 
 #endif
