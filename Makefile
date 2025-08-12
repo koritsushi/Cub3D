@@ -6,11 +6,13 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/12 11:01:33 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/12 11:09:31 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS 		=	 srcs/error.c
+
+HEADER		=	includes/cub3d.h
 
 OBJS		=	$(SRCS:%.c=%.o)
 
@@ -27,16 +29,15 @@ COMPILE		=	gcc
 CCFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
-HEADER		= 
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
-		@cp $(LIBFT) $(NAME)
-		ar rcs $(PROGRAM) $(LIBFT) $(MLX) 
+$(NAME): $(LIBFT) $(MLX)
+		@cp $(LIBFT) ./
+		ar rcs $(LIBFT) $(MLX) 
 		$(COMPILE) $(CCFLAGS) $(OBJS) $(MLXCOMPILE) srcs/main.c -o $(PROGRAM)
 
-$(DEBUG): $(OBJS)
-		@cp $(LIBFT) $(NAME)
-		ar rcs $(PROGRAM) $(LIBFT) $(MLX) 
+$(DEBUG): $(LIBFT) $(MLX)
+		@cp $(LIBFT) ./
+		ar rcs $(LIBFT) $(MLX) 
 		$(COMPILE) $(CCFLAGS) $(OBJS) $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(PROGRAM)
 
 $(LIBFT):
