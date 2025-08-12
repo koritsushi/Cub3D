@@ -6,11 +6,13 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/07/17 14:20:29 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/12 13:37:36 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = 
+SRCS 		=	
+
+HEADER		=	includes/cub3d.h
 
 OBJS		=	$(SRCS:%.c=%.o)
 %.o: %.c	$(HEADER)
@@ -26,23 +28,35 @@ COMPILE		=	gcc
 CCFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
-HEADER		=
 
-$(NAME): $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(OBJS) srcs/main.c -o $(NAME)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+		ar rcs $(PROGRAM).a $(OBJS) $(LIBFT) $(MLX)
+		$(COMPILE) $(CCFLAGS) $(PROGRAM).a $(MLXCOMPILE) srcs/main.c -o $(PROGRAM)
+		@rm $(OBJS) $(PROGRAM).a 
 
-$(DEBUG): $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(FSAN) srcs/main.c -o $(NAME)
+$(DEBUG): $(LIBFT) $(MLX) $(OBJS)
+		ar rcs $(PROGRAM).a $(OBJS) $(LIBFT) $(MLX)		
+		$(COMPILE) $(CCFLAGS) $(PROGRAM).a $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(PROGRAM)
+		@rm $(OBJS) $(PROGRAM).a 
+
+$(LIBFT):
+		@make -C $(LIBFTDIR) all
+
+$(MLX):
+		@make -C $(MLXDIR) all
 
 all:			$(NAME)
 
 debug:			$(DEBUG)
 
 clean:			
+				@make clean -C $(LIBFTDIR)
 				@rm -rf $(OBJS)
 
 fclean:			clean
-				@rm -rf $(NAME)
+				@make clean -C $(MLXDIR)
+				@make fclean -C $(LIBFTDIR)
+				@rm $(PROGRAM)
 
 re:				fclean all
 
