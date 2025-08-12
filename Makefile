@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/12 11:09:31 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/12 13:00:11 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,15 +30,15 @@ CCFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
 
-$(NAME): $(LIBFT) $(MLX)
-		@cp $(LIBFT) ./
-		ar rcs $(LIBFT) $(MLX) 
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(MLXCOMPILE) srcs/main.c -o $(PROGRAM)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+		ar rcs $(PROGRAM).a $(OBJS) $(LIBFT) $(MLX)
+		$(COMPILE) $(CCFLAGS) $(PROGRAM).a $(MLXCOMPILE) srcs/main.c -o $(PROGRAM)
+		@rm $(OBJS) $(PROGRAM).a 
 
-$(DEBUG): $(LIBFT) $(MLX)
-		@cp $(LIBFT) ./
-		ar rcs $(LIBFT) $(MLX) 
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(PROGRAM)
+$(DEBUG): $(LIBFT) $(MLX) $(OBJS)
+		ar rcs $(PROGRAM).a $(OBJS) $(LIBFT) $(MLX)		
+		$(COMPILE) $(CCFLAGS) $(PROGRAM).a $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(PROGRAM)
+		@rm $(OBJS) $(PROGRAM).a 
 
 $(LIBFT):
 		@make -C $(LIBFTDIR) all
@@ -51,10 +51,13 @@ all:			$(NAME)
 debug:			$(DEBUG)
 
 clean:			
+				@make clean -C $(LIBFTDIR)
 				@rm -rf $(OBJS)
 
 fclean:			clean
-				@rm -rf $(PROGRAM)
+				@make clean -C $(MLXDIR)
+				@make fclean -C $(LIBFTDIR)
+				@rm $(PROGRAM)
 
 re:				fclean all
 
