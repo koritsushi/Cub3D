@@ -14,7 +14,26 @@
 
 void	ft_error(void)
 {
-	ft_putstr_fd("./cub3d: Error!\n", 2);
-	ft_putstr_fd("./cub3d: usage: ./cub3d filename.cub\n", 2);
+	ft_putstr_fd("./cub3D: Error!\n", 2);
+	ft_putstr_fd("./cub3D: usage: ./cub3d filename.cub\n", 2);
 	exit(1);
+}
+
+int		check_cub(int *fd, const char *file)
+{
+	int	i;
+
+	i = ft_strlen(file);
+	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 &&\
+open(file, __O_DIRECTORY) == -1)
+	{
+		*fd = open(file, O_RDONLY);
+		if (*fd == -1)
+		{
+			close(*fd);
+			return (0);
+		}
+		return (1);
+	}
+	return (0);
 }

@@ -6,19 +6,35 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/12 13:47:40 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/12 16:40:07 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 
+void	struct_init(t_cub *data)
+{
+	data->p1.x = 0;
+	data->p1.y = 0;
+	data->dir_angle = 0;
+	data->dir_pt.x = 0;
+	data->dir_pt.y = 0;
+	data->map = NULL;
+	data->no = NULL;
+	data->so = NULL;
+	data->ea = NULL;
+	data->we = NULL;
+	data->f_col = 0;
+	data->c_col = 0;
+}
+
 int	main(int argc, char **argv)
 {
-	//t_cub	data;
-
-	(void) argv;
-	if (argc != 2)
+	t_cub	data;
+	int		fd_cub;
+	
+	if (argc != 2 || check_cub(&fd_cub, argv[1]) == 0)
 		ft_error();
-
+	struct_init(&data);
 	return 0;
 }
