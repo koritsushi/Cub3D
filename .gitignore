@@ -29,6 +29,7 @@
 *.dylib
 
 # Executables
+cube3D
 *.exe
 *.out
 *.app
