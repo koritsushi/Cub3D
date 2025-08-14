@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/12 16:40:07 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/13 13:42:06 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 	t_cub	data;
 	int		fd_cub;
 	
+	fd_cub = 0;
 	if (argc != 2 || check_cub(&fd_cub, argv[1]) == 0)
 		ft_error();
 	struct_init(&data);

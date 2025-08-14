@@ -24,9 +24,11 @@ int		check_cub(int *fd, const char *file)
 	int	i;
 
 	i = ft_strlen(file);
+	*fd = open(file, __O_DIRECTORY);
 	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 &&\
-open(file, __O_DIRECTORY) == -1)
+ *fd == -1)
 	{
+		close(*fd);
 		*fd = open(file, O_RDONLY);
 		if (*fd == -1)
 		{
@@ -35,5 +37,6 @@ open(file, __O_DIRECTORY) == -1)
 		}
 		return (1);
 	}
+	close(*fd);
 	return (0);
 }
