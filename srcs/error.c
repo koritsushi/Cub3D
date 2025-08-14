@@ -28,13 +28,9 @@ int		check_cub(int *fd, const char *file)
 	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 &&\
  *fd == -1)
 	{
-		close(*fd);
 		*fd = open(file, O_RDONLY);
 		if (*fd == -1)
-		{
-			close(*fd);
 			return (0);
-		}
 		return (1);
 	}
 	close(*fd);
