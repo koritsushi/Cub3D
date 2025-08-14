@@ -6,11 +6,12 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/13 13:41:27 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/14 14:22:50 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS 		=	srcs/error.c
+SRCS 		=	srcs/error.c	\
+				srcs/parser.c
 
 HEADER		=	includes/cub3d.h
 

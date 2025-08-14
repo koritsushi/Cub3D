@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/12 16:38:56 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/14 15:16:43 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ typedef struct	s_cub
 
 void	ft_error(void);
 int		check_cub(int *fd, const char *file);
+
+char	*read_file(int fd);
 
 #endif
