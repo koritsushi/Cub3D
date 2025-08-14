@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/12 14:06:43 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/13 13:41:27 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ all:			$(NAME)
 debug:			$(DEBUG)
 
 clean:			
+				@rm $(OBJS)
 				@make clean -C $(LIBFTDIR)
-				@rm -rf $(OBJS)
 
 fclean:			clean
 				@make clean -C $(MLXDIR)
