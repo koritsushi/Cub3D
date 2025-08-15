@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/14 14:17:40 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/15 17:16:26 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,10 @@ DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) srcs/main.c -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) srcs/main.c $(MLXCOMPILE) -o $(NAME)
 
 $(DEBUG): $(LIBFT) $(MLX) $(OBJS)	
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(FSAN) srcs/main.c $(MLXCOMPILE) -o $(NAME)
 		
 $(LIBFT):
 		@make -C $(LIBFTDIR) all
