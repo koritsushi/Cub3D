@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/14 16:12:19 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/15 14:57:38 by booi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,19 @@ int	main(int argc, char **argv)
 		ft_error();
 	struct_init(&data);
 	file = read_file(fd_cub);
+
+	printf("file is %p\n", file);
+
+	void	*mlx;
+
+	// mlx = 0;
+	mlx = mlx_init();
+	if (!mlx)
+		return (1);
+
+
+	mlx_destroy_display(mlx);
+	// printf("file is %p\n", mlx);
+	free(mlx);
 	return 0;
 }
