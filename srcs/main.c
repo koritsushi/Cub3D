@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
+#include "../minilibx-linux/mlx.h"
 
 void	struct_init(t_cub *data)
 {
@@ -48,6 +49,7 @@ int	main(int argc, char **argv)
 	mlx = mlx_init();
 	if (!mlx)
 		return (1);
+	
 
 
 	mlx_destroy_display(mlx);

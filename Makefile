@@ -32,7 +32,7 @@ DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) srcs/main.c -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) srcs/main.c $(MLXCOMPILE) -o $(NAME)
 
 $(DEBUG): $(LIBFT) $(MLX) $(OBJS)	
 		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(NAME)
