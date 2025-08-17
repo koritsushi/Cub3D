@@ -39,21 +39,13 @@ int	main(int argc, char **argv)
 	if (argc != 2 || check_cub(&fd_cub, argv[1]) == 0)
 		ft_error();
 	struct_init(&data);
+	file = NULL;
 	file = read_file(fd_cub);
 
 	printf("file is %p\n", file);
+	printf("data is %p\n", &data);
 
-	void	*mlx;
-
-	// mlx = 0;
-	mlx = mlx_init();
-	if (!mlx)
-		return (1);
-	
-
-
-	mlx_destroy_display(mlx);
-	// printf("file is %p\n", mlx);
-	free(mlx);
+	cub_exec(data);
+	free(file);
 	return 0;
 }

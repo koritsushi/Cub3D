@@ -56,4 +56,6 @@ int		check_cub(int *fd, const char *file);
 
 char	*read_file(int fd);
 
+int cub_exec(t_cub data);
+
 #endif
