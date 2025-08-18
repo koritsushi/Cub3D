@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/14 15:16:43 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/15 16:11:06 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	ft_error(void);
 int		check_cub(int *fd, const char *file);
 
 char	*read_file(int fd);
+int		checking_file(char *file);
 
 #endif
