@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 	printf("file is %p\n", file);
 	printf("data is %p\n", &data);
 
-	cub_exec(data);
+	cub_exec(&data);
 	free(file);
 	return 0;
 }

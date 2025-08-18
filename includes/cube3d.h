@@ -36,11 +36,19 @@ typedef struct	s_point
 	float	y;
 }			t_pt;
 
+typedef struct	s_vars
+{
+	void*	mlx;
+	void*	win;
+
+}				t_vars;
+
 typedef struct	s_cub
 {
 	t_pt	p1;			// location of player1
 	float	dir_angle;	// direction (0-360) that p1 is facing
 	t_pt	dir_pt;		// use this for point translation
+	t_vars*	vars;
 
 	char	**map;
 	char	*no;
@@ -56,6 +64,8 @@ int		check_cub(int *fd, const char *file);
 
 char	*read_file(int fd);
 
-int cub_exec(t_cub data);
+int cub_exec(t_cub* data);
+int	player_turn(t_cub* data);
+int	key_hook(int keycode, t_cub* data);
 
 #endif
