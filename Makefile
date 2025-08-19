@@ -12,7 +12,8 @@
 
 SRCS 		=	srcs/error.c	\
 				srcs/parser.c	\
-				srcs/exec.c
+				srcs/exec.c		\
+				srcs/update_state.c 
 
 HEADER		=	includes/cub3d.h
 

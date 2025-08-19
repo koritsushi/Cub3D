@@ -15,10 +15,11 @@
 #include <math.h>
 #include <stdlib.h>
 
-int	adjust_dir_pt(t_cub* data)
-{
-	return (0);
-}
+int		mlx_close(int keycode, t_vars *vars);
+void	update_movement(t_cub* data, int keycode, int state);
+int		key_press(int keycode, t_cub* data);
+int		key_release(int keycode, t_cub* data);
+int 	cub_exec(t_cub* data);
 
 int	mlx_close(int keycode, t_vars *vars)
 {
@@ -26,37 +27,6 @@ int	mlx_close(int keycode, t_vars *vars)
 	exit(0);
 }
 
-int	player_turn(t_cub* data)
-{
-	printf("player_turn: running\n");
-	if (data->turn_left)
-	{
-		if (data->dir_angle == 359)
-			data->dir_angle = 0;
-		else
-			data->dir_angle++;
-		printf("player_turn: left. angle is now %d\n", data->dir_angle);
-	}
-	else if (data->turn_right)
-	{
-		if (data->dir_angle == 0)
-			data->dir_angle = 359;
-		else
-			data->dir_angle--;
-		printf("player_turn: right. angle is now %d\n", data->dir_angle);
-	}
-	adjust_dir_pt(data);
-	return (0);
-}
-
-int	update_state(t_cub* data)
-{
-	usleep(500000);
-	printf("update_state: running\n");
-	if (!(data->turn_left && data->turn_right) && (data->turn_left || data->turn_right))
-		player_turn(data);
-	return (0);
-}
 
 void	update_movement(t_cub* data, int keycode, int state)
 {

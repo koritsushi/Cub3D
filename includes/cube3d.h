@@ -30,6 +30,9 @@
 # include <math.h>
 # include "../libft/libft.h"
 
+# define TURN_SPEED 1
+# define MOVE_SPEED 1
+
 typedef struct	s_point
 {
 	float	x;
@@ -71,7 +74,16 @@ int		check_cub(int *fd, const char *file);
 
 char	*read_file(int fd);
 
-int cub_exec(t_cub* data);
-int	key_hook(int keycode, t_cub* data);
+//exec
+int		mlx_close(int keycode, t_vars *vars);
+void	update_movement(t_cub* data, int keycode, int state);
+int		key_press(int keycode, t_cub* data);
+int		key_release(int keycode, t_cub* data);
+int 	cub_exec(t_cub* data);
 
+//update_stete
+void	adjust_dir_pt(t_cub* data);
+void    player_turn(t_cub* data);
+void	player_move(t_cub* data, char dir);
+int	    update_state(t_cub* data);
 #endif
