@@ -6,23 +6,30 @@
 /*   By: booi <booi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 00:06:06 by booi              #+#    #+#             */
-/*   Updated: 2025/08/18 00:06:22 by booi             ###   ########.fr       */
+/*   Updated: 2025/08/19 11:16:42 by booi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 #include "../minilibx-linux/mlx.h"
 #include <math.h>
+#include <stdlib.h>
 
 int	adjust_dir_pt(t_cub* data)
 {
 	return (0);
 }
 
-int	player_turn(t_cub* data, int keycode)
+int	mlx_close(int keycode, t_vars *vars)
 {
-	printf("player_turn: running %d\n", keycode);
-	if (keycode == KEY_LEFT)
+	printf("mlx_close: keycode %d, vars %p\n", keycode, vars);
+	exit(0);
+}
+
+int	player_turn(t_cub* data)
+{
+	printf("player_turn: running\n");
+	if (data->turn_left)
 	{
 		if (data->dir_angle == 359)
 			data->dir_angle = 0;
@@ -30,7 +37,7 @@ int	player_turn(t_cub* data, int keycode)
 			data->dir_angle++;
 		printf("player_turn: left. angle is now %d\n", data->dir_angle);
 	}
-	else if (keycode == KEY_RIGHT)
+	else if (data->turn_right)
 	{
 		if (data->dir_angle == 0)
 			data->dir_angle = 359;
@@ -42,26 +49,65 @@ int	player_turn(t_cub* data, int keycode)
 	return (0);
 }
 
-int	key_hook(int keycode, t_cub* data)
+int	update_state(t_cub* data)
 {
-	printf("key_hook: executed!\n");
+	usleep(500000);
+	printf("update_state: running\n");
+	if (!(data->turn_left && data->turn_right) && (data->turn_left || data->turn_right))
+		player_turn(data);
+	return (0);
+}
+
+void	update_movement(t_cub* data, int keycode, int state)
+{
+	if (keycode == KEY_LEFT)
+		data->turn_left = state;
+	else if (keycode == KEY_RIGHT)
+		data->turn_right = state;
+	else if (keycode == KEY_W)
+		data->move_fwd = state;
+	else if (keycode == KEY_S)
+		data->move_back = state;
+	else if (keycode == KEY_A)
+		data->move_left = state;
+	else if (keycode == KEY_D)
+		data->move_right = state;
+	printf("WASD key is %d%d%d%d\n", data->move_fwd, data->move_back, data->move_left, data->move_right);
+}
+
+int	key_press(int keycode, t_cub* data)
+{
+	printf("key_press: executed!\n");
 	if (keycode == ESC)
 	{
 		printf("key_hook: ESC pressed.\n");
+		system("xset r on");
 		exit(0);
 	}
-	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
-		player_turn(data, keycode);
-	else if (keycode == KEY_W || 
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT ||
+			keycode == KEY_W || 
 			keycode == KEY_S ||
 			keycode == KEY_A ||
 			keycode == KEY_D)
-		player_turn(data, keycode);
+		update_movement(data, keycode, 1);
+	return (0);
+}
+
+int	key_release(int keycode, t_cub* data)
+{
+	printf("key_release: executed!\n");
+	if (keycode == KEY_LEFT || keycode == KEY_RIGHT ||
+			keycode == KEY_W || 
+			keycode == KEY_S ||
+			keycode == KEY_A ||
+			keycode == KEY_D)
+		update_movement(data, keycode, 0);
 	return (0);
 }
 
 int cub_exec(t_cub* data)
 {
+	system("xset r off");
 	printf("\e[32mcub_exec running.\n\e[0m");
 	t_vars	vars;
  
@@ -69,10 +115,12 @@ int cub_exec(t_cub* data)
 	if (!vars.mlx)
 		return (1);
 	vars.win = mlx_new_window(vars.mlx, 640, 480, "Screen name");	
-	mlx_key_hook(vars.win, key_hook, data); //on key press
-	//list of events to listen for
-	// keypress
-	// keyrealase
+	// mlx_key_hook(vars.win, key_press, data);
+	mlx_hook(vars.win, 2, 1L<<0, key_press, data);
+	mlx_hook(vars.win, 3, 1L<<1, key_release, data);
+	mlx_hook(vars.win, 17, 0, mlx_close, &vars);
+
+	mlx_loop_hook(vars.mlx, update_state, data);
 
 	mlx_loop(vars.mlx);
 

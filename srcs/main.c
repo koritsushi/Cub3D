@@ -20,6 +20,12 @@ void	struct_init(t_cub *data)
 	data->dir_angle = 0;
 	data->dir_pt.x = 0;
 	data->dir_pt.y = 0;
+	data->move_fwd = 0;
+	data->move_back = 0;
+	data->move_left = 0;
+	data->move_right = 0;
+	data->turn_left = 0;
+	data->turn_right = 0;
 	data->map = NULL;
 	data->no = NULL;
 	data->so = NULL;
@@ -47,5 +53,6 @@ int	main(int argc, char **argv)
 
 	cub_exec(&data);
 	free(file);
+	system("xset r on");
 	return 0;
 }
