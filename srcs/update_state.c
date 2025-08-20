@@ -15,15 +15,21 @@
 #include <math.h>
 #include <stdlib.h>
 
+int		is_clear(t_cub* data);
 void	adjust_dir_pt(t_cub* data);
 void    player_turn(t_cub* data);
 void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
 
+int		is_clear(t_cub* data)
+{
+	return (1);
+}
+
 void	adjust_dir_pt(t_cub* data)
 {
-	data->dir_pt.x = sin((float)data->dir_angle / 180 * M_PI) * MOVE_SPEED;
-	data->dir_pt.y = cos((float)data->dir_angle / 180 * M_PI) * MOVE_SPEED;
+	data->dir_pt.x = cos((float)data->dir_angle / 180 * M_PI) * MOVE_SPEED;
+	data->dir_pt.y = sin((float)data->dir_angle / 180 * M_PI) * MOVE_SPEED * (-1);
 	printf("adjust_dir_pt: (%f, %f)\n", data->dir_pt.x, data->dir_pt.y);
 }
 
@@ -44,25 +50,25 @@ void	player_turn(t_cub* data)
 
 void	player_move(t_cub* data, char dir)
 {
-	if (dir == 'f')
+	if (dir == 'f' && is_clear(data))
 	{
 		data->p1.x += (data->dir_pt.x * MOVE_SPEED);
 		data->p1.y += (data->dir_pt.y * MOVE_SPEED);
 	}
-	else if (dir == 'b')
+	else if (dir == 'b' && is_clear(data))
 	{
 		data->p1.x -= (data->dir_pt.x * MOVE_SPEED);
 		data->p1.y -= (data->dir_pt.y * MOVE_SPEED);
 	}
-	else if (dir == 'l')
-	{
-		data->p1.x -= (data->dir_pt.y * MOVE_SPEED);
-		data->p1.y += (data->dir_pt.x * MOVE_SPEED);
-	}
-	else if (dir == 'r')
+	else if (dir == 'l' && is_clear(data))
 	{
 		data->p1.x += (data->dir_pt.y * MOVE_SPEED);
 		data->p1.y -= (data->dir_pt.x * MOVE_SPEED);
+	}
+	else if (dir == 'r' && is_clear(data))
+	{
+		data->p1.x -= (data->dir_pt.y * MOVE_SPEED);
+		data->p1.y += (data->dir_pt.x * MOVE_SPEED);
 	}
 	printf("player_move: p1 (%f, %f)\n", data->p1.x, data->p1.y);
 }

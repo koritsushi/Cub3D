@@ -81,9 +81,14 @@ int		key_press(int keycode, t_cub* data);
 int		key_release(int keycode, t_cub* data);
 int 	cub_exec(t_cub* data);
 
-//update_stete
+//update_state
 void	adjust_dir_pt(t_cub* data);
 void    player_turn(t_cub* data);
 void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
+
+
+
+float	d_to_border(float pt, float dir);
+t_pt	next_checkpoint(t_cub* data);
 #endif

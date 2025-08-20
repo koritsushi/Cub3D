@@ -19,7 +19,7 @@ void	struct_init(t_cub *data)
 {
 	data->p1.x = 0;
 	data->p1.y = 0;
-	data->dir_angle = 45; //init depending on starting p1 orientation
+	data->dir_angle = 30; //init depending on starting p1 orientation
 	data->dir_pt.x = 0;
 	data->dir_pt.y = 1;
 	data->move_fwd = 0;
