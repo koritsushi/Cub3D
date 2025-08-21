@@ -6,7 +6,7 @@
 /*   By: booi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:51:26 by booi              #+#    #+#             */
-/*   Updated: 2025/08/20 13:51:28 by booi             ###   ########.fr       */
+/*   Updated: 2025/08/21 22:00:05 by booi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,15 @@
 // if cell is solid, return pt
 // else, loop
 
-int	is_int(float n);
 float	d_to_border(float pt, float dir);
-int		pt_on_solid(t_cub* data, t_pt pt);
-t_pt	next_checkpoint(t_cub* data);
+int	is_wholenum(float n);
+int	orthogonal_solid(t_cub* data, t_pt pt);
+int	diagonal_solid(t_cub* data, t_pt pt);
+int	pt_on_solid(t_cub* data, t_pt pt);
+float	dst_xy(float p, float vector);
+t_pt	next_checkpoint(t_pt src, t_pt vector);
+int		is_solid(t_cub* data, t_pt pt);
+t_pt	end_point(t_cub* data);
 
 
 float	d_to_border(float pt, float dir)
@@ -46,6 +51,7 @@ int	is_wholenum(float n)
 		return (1);
 	return (0);
 }
+
 int	orthogonal_solid(t_cub* data, t_pt pt)
 {
 	if (data->dir_pt.x > 0)
@@ -153,33 +159,48 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 	return (0);
 }
 
-t_pt	next_checkpoint(t_cub* data)
+float	dst_xy(float p, float vector)
 {
-	float 	x; 
-	float 	y;
+	if (fabsf(vector) > PRECISION)
+	{
+		if  (vector > 0)
+			return (floor(p + PRECISION) + 1); 
+		else if  (vector < 0)
+			return (ceil(p - PRECISION) - 1); 
+	}
+	return (-1);
+}
+
+t_pt	next_checkpoint(t_pt src, t_pt vector)
+{
+	int	dst_x;
+	int	dst_y;
+	float	factor;
 	t_pt	p;
 
-	x = d_to_border(data->p1.x, data->dir_pt.x);
-	y = d_to_border(data->p1.y, data->dir_pt.y);
-	p.x = 0;
-	p.y = 0;
+	dst_x = dst_xy(src.x, vector.x);
+	dst_y = dst_xy(src.y, vector.y);
 
-	// while (!pt_on_solid)
-	// {
-	
-	// }
+	factor = fmin((dst_x - src.x) / vector.x, (dst_y - src.y) / vector.y);
+	p.x = src.x + (vector.x * factor);
+	p.y = src.y + (vector.y * factor);
 
-	// if (x < y)
-	// {
-	// 	p.x = data->p1.x + (x * data->dir_pt.x) ;
-	// 	p.y = data->p1.y + (x * data->dir_pt.y) ;
-	// }
-	// else
-	// {
-	// 	p.x = data->p1.x + (y * data->dir_pt.x) ;
-	// 	p.y = data->p1.y + (y * data->dir_pt.y) ;
-	// }
-	// printf("p (%f, %f)\n", 1.0, 1.0); 
-	// printf("p\n");
 	return (p);
+}
+
+int		is_solid(t_cub* data, t_pt pt)
+{
+	return (1);
+}
+
+t_pt	end_point(t_cub* data)
+{
+	t_pt	src;
+
+	src = data->p1;
+	// if p1 is on cell border and facing the wall, terminate.
+	while (!is_solid(data, src))
+	{
+		src = next_checkpoint(src, data->dir_pt);
+	}
 }

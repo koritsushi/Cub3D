@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/21 15:07:00 by booi             ###   ########.fr        #
+#    Updated: 2025/08/21 23:05:02 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS 		=	srcs/error.c	\
 				srcs/exec.c		\
 				srcs/update_state.c \
 				srcs/dda.c		\
+				srcs/utils.c	\
 				srcs/main.c
 
 HEADER		=	includes/cub3d.h

@@ -50,7 +50,7 @@ typedef struct	s_vars
 typedef struct	s_cub
 {
 	t_pt	p1;			// location of player1
-	int		dir_angle;	// direction (0-360) that p1 is facing. east is 0, numbers increase anti-clockwise (follow trig)
+	float	dir_angle;	// direction (0-360) that p1 is facing. east is 0, numbers increase anti-clockwise (follow trig)
 	t_pt	dir_pt;		// use this for point translation
 	// t_vars*	vars;
 
@@ -89,9 +89,13 @@ void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
 
 //dda
-int	is_wholenum(float n);
 float	d_to_border(float pt, float dir);
+int		is_wholenum(float n);
+int		orthogonal_solid(t_cub* data, t_pt pt);
+int		diagonal_solid(t_cub* data, t_pt pt);
 int		pt_on_solid(t_cub* data, t_pt pt);
-t_pt	next_checkpoint(t_cub* data);
-
+float	dst_xy(float p, float vector);
+t_pt	next_checkpoint(t_pt src, t_pt vector);
+int		is_solid(t_cub* data, t_pt pt);
+t_pt	end_point(t_cub* data);
 #endif

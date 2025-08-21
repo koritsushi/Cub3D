@@ -28,8 +28,8 @@ int		is_clear(t_cub* data)
 
 void	adjust_dir_pt(t_cub* data)
 {
-	data->dir_pt.x = cos((float)data->dir_angle / 180 * M_PI) * MOVE_SPEED;
-	data->dir_pt.y = sin((float)data->dir_angle / 180 * M_PI) * MOVE_SPEED * (-1);
+	data->dir_pt.x = cos((float)data->dir_angle / 180 * M_PI);
+	data->dir_pt.y = sin((float)data->dir_angle / 180 * M_PI) * (-1);
 	printf("adjust_dir_pt: (%f, %f)\n", data->dir_pt.x, data->dir_pt.y);
 }
 
@@ -37,14 +37,14 @@ void	player_turn(t_cub* data)
 {
 	printf("player_turn: running\n");
 	if (data->turn_left)
-		data->dir_angle = (data->dir_angle + TURN_SPEED) % 360;
+		data->dir_angle = fmod((data->dir_angle + TURN_SPEED), 360);
 	else if (data->turn_right)
 	{
 		data->dir_angle = (data->dir_angle - TURN_SPEED);
 		if (data->dir_angle < 0)
 			data->dir_angle = 360 + data->dir_angle;
 	}
-	printf("player_turn: angle is now %d\n", data->dir_angle);
+	printf("player_turn: angle is now %f\n", data->dir_angle);
 	adjust_dir_pt(data);
 }
 

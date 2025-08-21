@@ -17,11 +17,11 @@
 
 void	struct_init(t_cub *data)
 {
-	data->p1.x = 2;
-	data->p1.y = 1;
+	data->p1.x = 2.5;
+	data->p1.y = 1.5;
 	data->dir_angle = 30; //init depending on starting p1 orientation
-	data->dir_pt.x = 0;
-	data->dir_pt.y = -1;
+	data->dir_pt.x = 10;
+	data->dir_pt.y = -0.5;
 	data->move_fwd = 0;
 	data->move_back = 0;
 	data->move_left = 0;
@@ -53,8 +53,10 @@ int	main(int argc, char **argv)
 	printf("file is %p\n", file);
 	printf("data is %p\n", &data);
 
-
-	pt_on_solid(&data, data.p1);
+	t_pt	pt;
+	pt = next_checkpoint(data.p1, data.dir_pt);
+	printf("next point (%f, %f)\n", pt.x, pt.y);
+	// pt_on_solid(&data, data.p1);
 	// cub_exec(&data);
 	free(file);
 	system("xset r on");
