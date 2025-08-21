@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/20 13:51:43 by booi             ###   ########.fr        #
+#    Updated: 2025/08/21 15:07:00 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ SRCS 		=	srcs/error.c	\
 				srcs/parser.c	\
 				srcs/exec.c		\
 				srcs/update_state.c \
-				srcs/dda.c
+				srcs/dda.c		\
+				srcs/main.c
 
 HEADER		=	includes/cub3d.h
 
@@ -35,10 +36,12 @@ DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) srcs/main.c $(MLXCOMPILE) -o $(NAME)
+#		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) srcs/main.c $(MLXCOMPILE) -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) -o $(NAME)
 
 $(DEBUG): $(LIBFT) $(MLX) $(OBJS)	
-		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(NAME)
+#		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) $(FSAN) srcs/main.c -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) $(FSAN) -o $(NAME)
 		
 $(LIBFT):
 		@make -C $(LIBFTDIR) all
