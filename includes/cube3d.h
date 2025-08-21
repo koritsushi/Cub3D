@@ -32,6 +32,7 @@
 
 # define TURN_SPEED 1
 # define MOVE_SPEED 1
+# define PRECISION 0.001
 
 typedef struct	s_point
 {
@@ -87,8 +88,10 @@ void    player_turn(t_cub* data);
 void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
 
-
-
+//dda
+int	is_wholenum(float n);
 float	d_to_border(float pt, float dir);
+int		pt_on_solid(t_cub* data, t_pt pt);
 t_pt	next_checkpoint(t_cub* data);
+
 #endif
