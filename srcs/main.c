@@ -53,11 +53,11 @@ int	main(int argc, char **argv)
 	printf("file is %p\n", file);
 	printf("data is %p\n", &data);
 
-	t_pt	pt;
-	pt = next_checkpoint(data.p1, data.dir_pt);
-	printf("next point (%f, %f)\n", pt.x, pt.y);
+	// t_pt	pt;
+	// pt = next_checkpoint(data.p1, data.dir_pt);
+	// printf("next point (%f, %f)\n", pt.x, pt.y);
 	// pt_on_solid(&data, data.p1);
-	// cub_exec(&data);
+	cub_exec(&data);
 	free(file);
 	system("xset r on");
 	return 0;

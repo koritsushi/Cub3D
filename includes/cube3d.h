@@ -83,7 +83,6 @@ int		key_release(int keycode, t_cub* data);
 int 	cub_exec(t_cub* data);
 
 //update_state
-void	adjust_dir_pt(t_cub* data);
 void    player_turn(t_cub* data);
 void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
@@ -98,4 +97,7 @@ float	dst_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
 int		is_solid(t_cub* data, t_pt pt);
 t_pt	end_point(t_cub* data);
+
+//utils
+t_pt    vector_of(float angle);
 #endif
