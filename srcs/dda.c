@@ -46,6 +46,65 @@ int	is_wholenum(float n)
 		return (1);
 	return (0);
 }
+int	orthogonal_solid(t_cub* data, t_pt pt)
+{
+	if (data->dir_pt.x > 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x));
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x));
+	}
+	else if (data->dir_pt.x < 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x) - 1);
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x) - 1);
+	}
+	else if (data->dir_pt.y > 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x) - 1);
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x));
+	}
+	else if (data->dir_pt.y < 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x) - 1);
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x));
+	}
+	return (0);
+}
+
+int	diagonal_solid(t_cub* data, t_pt pt)
+{
+	//if diagonal is solid || two sides are solid, return 1
+	// else return 0
+	if (data->dir_pt.x > 0 && data->dir_pt.y > 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x));
+		printf(" OR \n");
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x) - 1);
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x));
+	}
+	else if (data->dir_pt.x > 0 && data->dir_pt.y < 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x));
+		printf(" OR \n");
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x));
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x) - 1);
+	}
+	else if (data->dir_pt.x < 0 && data->dir_pt.y > 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x) - 1);
+		printf(" OR \n");
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x) - 1);
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x));
+	}
+	else if (data->dir_pt.x < 0 && data->dir_pt.y < 0)
+	{
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x) - 1);
+		printf(" OR \n");
+		printf("check cell[%d][%d]\n", (int)round(pt.y), (int)round(pt.x) - 1);
+		printf("check cell[%d][%d]\n", (int)round(pt.y) - 1, (int)round(pt.x));
+	}
+	return (0);
+}
 
 int	pt_on_solid(t_cub* data, t_pt pt)
 {
@@ -55,9 +114,19 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 	if (is_wholenum(pt.x) && is_wholenum(pt.y))
 	{
 		printf("pt is on a diagonal\n");
-
+		if (fabsf(data->dir_pt.x) > PRECISION && fabsf(data->dir_pt.y) > PRECISION)
+		{
+			diagonal_solid(data, pt);
+			printf("pt will move diagonally\n");
+		}
+		else if (fabsf(data->dir_pt.x) > PRECISION || fabsf(data->dir_pt.y) > PRECISION)
+		{
+			orthogonal_solid(data, pt);
+			printf("pt will move orthogonally\n");
+		}
+		// both x and y == 0 is not possible, since struct initialises with a direction
 	}
-	if (is_wholenum(pt.x))
+	else if (is_wholenum(pt.x))
 	{
 		if (data->dir_pt.x > 0)
 			printf("check cell[%d][%d]\n", (int)floor(pt.y), (int)round(pt.x));
@@ -71,6 +140,8 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 		if (data->dir_pt.y < 0)
 			printf("check cell[%d][%d]\n", (int)floor(pt.y) - 1, (int)floor(pt.x));
 	}
+	else
+		printf("keep running, no need to check cell yet\n");
 	
 	//check if x or y is on border
 	// check direction
@@ -80,9 +151,6 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 	// if y and y.dir < 0, check up cell[round(y) - 1][floor(x)]
 
 	return (0);
-
-
-
 }
 
 t_pt	next_checkpoint(t_cub* data)
