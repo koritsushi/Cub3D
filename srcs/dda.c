@@ -28,7 +28,7 @@ int	diagonal_solid(t_cub* data, t_pt pt);
 int	pt_on_solid(t_cub* data, t_pt pt);
 float	dst_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
-int		is_solid(t_cub* data, t_pt pt);
+int		is_solid(char cell);
 t_pt	end_point(t_cub* data);
 
 
@@ -116,8 +116,13 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 {
 	printf("pt_on_solid: running\n");
 
+	if (!is_wholenum(pt.x) && !is_wholenum(pt.y))
+	{
+		printf("keep running, no need to check cell yet\n");
+		return (0);
+	}
 	//else check for edge and diagonal cases
-	if (is_wholenum(pt.x) && is_wholenum(pt.y))
+	else if (is_wholenum(pt.x) && is_wholenum(pt.y))
 	{
 		printf("pt is on a diagonal\n");
 		if (fabsf(data->dir_pt.x) > PRECISION && fabsf(data->dir_pt.y) > PRECISION)
@@ -161,12 +166,14 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 
 float	dst_xy(float p, float vector)
 {
-	if (fabsf(vector) > PRECISION)
+	if (!is_zero(vector))
 	{
 		if  (vector > 0)
-			return (floor(p + PRECISION) + 1); 
-		else if  (vector < 0)
-			return (ceil(p - PRECISION) - 1); 
+			return (floor(p) + 1); 
+		else if (vector < 0 && is_wholenum(p))
+			return (floor(p) - 1); 
+		else if (vector < 0)
+			return (floor(p)); 
 	}
 	return (-1);
 }
@@ -178,6 +185,7 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	float	factor;
 	t_pt	p;
 
+	src = snap_xy(src);
 	dst_x = dst_xy(src.x, vector.x);
 	dst_y = dst_xy(src.y, vector.y);
 
@@ -188,9 +196,11 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	return (p);
 }
 
-int		is_solid(t_cub* data, t_pt pt)
+int		is_solid(char cell)
 {
-	return (1);
+	if (cell == '1')
+		return (1);
+	return (0);
 }
 
 t_pt	end_point(t_cub* data)
@@ -199,8 +209,9 @@ t_pt	end_point(t_cub* data)
 
 	src = data->p1;
 	// if p1 is on cell border and facing the wall, terminate.
-	while (!is_solid(data, src))
-	{
-		src = next_checkpoint(src, data->dir_pt);
-	}
+	// while (!is_solid(data, src))
+	// {
+	// 	src = next_checkpoint(src, data->dir_pt);
+	// }
+	return (src);
 }

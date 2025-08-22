@@ -34,6 +34,15 @@
 # define MOVE_SPEED 1
 # define PRECISION 0.001
 
+# define NORTHWEST 	1
+# define NORTH 		2
+# define NORTHEAST 	3
+# define WEST 		4
+# define HERE 		5
+# define EAST 		6
+# define SOUTHWEST 	7
+# define SOUTH 		8
+# define SOUTHEAST 	9
 typedef struct	s_point
 {
 	float	x;
@@ -95,11 +104,13 @@ int		diagonal_solid(t_cub* data, t_pt pt);
 int		pt_on_solid(t_cub* data, t_pt pt);
 float	dst_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
-int		is_solid(t_cub* data, t_pt pt);
+int		is_solid(char cell);
 t_pt	end_point(t_cub* data);
 
 //utils
 t_pt    vector_of(float angle);
+int     is_zero(float n);
+int     direction_of(t_pt vector);
 
 //cell checks
 t_pt    snap_xy(t_pt pt);
