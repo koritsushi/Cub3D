@@ -17,8 +17,8 @@
 
 void	struct_init(t_cub *data)
 {
-	data->p1.x = 2.5;
-	data->p1.y = 1.5;
+	data->p1.x = 1.999;
+	data->p1.y = 1.999;
 	data->dir_angle = 30; //init depending on starting p1 orientation
 	data->dir_pt.x = 10;
 	data->dir_pt.y = -0.5;
@@ -28,7 +28,7 @@ void	struct_init(t_cub *data)
 	data->move_right = 0;
 	data->turn_left = 0;
 	data->turn_right = 0;
-	data->map = NULL;
+	data->map = create_dummy();
 	data->no = NULL;
 	data->so = NULL;
 	data->ea = NULL;
@@ -43,6 +43,19 @@ int	main(int argc, char **argv)
 	int		fd_cub;
 	char	*file;
 
+	// char	map[10][10] = {
+	// 	{49, 49, 49, 49, 49, 49, 49, 49, 49, 49},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	// 	{49, 49, 49, 49, 49, 49, 49, 49, 49, 49},
+	// };
+
 	fd_cub = 0;
 	if (argc != 2 || check_cub(&fd_cub, argv[1]) == 0)
 		ft_error();
@@ -53,11 +66,13 @@ int	main(int argc, char **argv)
 	printf("file is %p\n", file);
 	printf("data is %p\n", &data);
 
+	// print_arr(data.map);
 	// t_pt	pt;
+	// pt = snap_xy(data.p1);
 	// pt = next_checkpoint(data.p1, data.dir_pt);
 	// printf("next point (%f, %f)\n", pt.x, pt.y);
 	// pt_on_solid(&data, data.p1);
-	cub_exec(&data);
+	// cub_exec(&data);
 	free(file);
 	system("xset r on");
 	return 0;

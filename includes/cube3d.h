@@ -100,4 +100,12 @@ t_pt	end_point(t_cub* data);
 
 //utils
 t_pt    vector_of(float angle);
+
+//cell checks
+t_pt    snap_xy(t_pt pt);
+char    n_of(char** map, t_pt pt);
+
+//dummy
+int    print_arr(char **arr);
+char**  create_dummy();
 #endif
