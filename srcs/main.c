@@ -53,20 +53,20 @@ int	main(int argc, char **argv)
 	printf("file is %p\n", file);
 	printf("data is %p\n", &data);
 
-	// n_of(data.map, data.p1);
-	// e_of(data.map, data.p1);
-	// s_of(data.map, data.p1);
-	// w_of(data.map, data.p1);
-	// ne_of(data.map, data.p1);
-	// se_of(data.map, data.p1);
-	// sw_of(data.map, data.p1);
-	// nw_of(data.map, data.p1);
+	cell_beside(data.map, data.p1, NORTH);
+	cell_beside(data.map, data.p1, NORTHEAST);
+	cell_beside(data.map, data.p1, EAST);
+	cell_beside(data.map, data.p1, SOUTHEAST);
+	cell_beside(data.map, data.p1, SOUTH);
+	cell_beside(data.map, data.p1, SOUTHWEST);
+	cell_beside(data.map, data.p1, WEST);
+	cell_beside(data.map, data.p1, NORTHWEST);
 	// printf("cell(%f,%f) is %c\n", data.p1.x, data.p1.y, data.map[(int)data.p1.y][(int)data.p1.x]);
 
 	// print_arr(data.map);
-	t_pt	pt;
-	pt = snap_xy(data.p1);
-	printf("%f\n", dst_xy(pt.x, data.dir_pt.x));
+	// t_pt	pt;
+	// pt = snap_xy(data.p1);
+	// printf("%f\n", dst_xy(pt.x, data.dir_pt.x));
 	// pt = next_checkpoint(data.p1, data.dir_pt);
 	// printf("next point (%f, %f)\n", pt.x, pt.y);
 	// pt_on_solid(&data, data.p1);

@@ -28,7 +28,6 @@ int	diagonal_solid(t_cub* data, t_pt pt);
 int	pt_on_solid(t_cub* data, t_pt pt);
 float	dst_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
-int		is_solid(char cell);
 t_pt	end_point(t_cub* data);
 
 
@@ -194,13 +193,6 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	p.y = src.y + (vector.y * factor);
 
 	return (p);
-}
-
-int		is_solid(char cell)
-{
-	if (cell == '1')
-		return (1);
-	return (0);
 }
 
 t_pt	end_point(t_cub* data)

@@ -17,6 +17,7 @@
 
 t_pt    vector_of(float angle);
 int     is_zero(float n);
+int		is_solid(char cell);
 int     direction_of(t_pt vector);
 
 t_pt    vector_of(float angle)
@@ -33,6 +34,13 @@ int     is_zero(float n)
     if(fabsf(n) < PRECISION)
         return (1);
     return (0);
+}
+
+int		is_solid(char cell)
+{
+	if (cell == '1')
+		return (1);
+	return (0);
 }
 
 int     direction_of(t_pt vector)

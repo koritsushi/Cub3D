@@ -104,24 +104,20 @@ int		diagonal_solid(t_cub* data, t_pt pt);
 int		pt_on_solid(t_cub* data, t_pt pt);
 float	dst_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
-int		is_solid(char cell);
 t_pt	end_point(t_cub* data);
 
 //utils
 t_pt    vector_of(float angle);
 int     is_zero(float n);
+int		is_solid(char cell);
 int     direction_of(t_pt vector);
 
 //cell checks
 t_pt    snap_xy(t_pt pt);
-char    n_of(char** map, t_pt pt);
-char    e_of(char** map, t_pt pt);
-char    s_of(char** map, t_pt pt);
-char    w_of(char** map, t_pt pt);
-char    ne_of(char** map, t_pt pt);
-char    se_of(char** map, t_pt pt);
-char    sw_of(char** map, t_pt pt);
-char    nw_of(char** map, t_pt pt);
+char    cell_beside_ipt(char** map, t_pt pt, int dir);
+char    cell_beside_wpt(char** map, t_pt pt, int dir);
+char    cell_beside_bpt(char** map, t_pt pt, int dir);
+char    cell_beside(char** map, t_pt pt, int dir);
 
 //dummy
 int    print_arr(char **arr);
