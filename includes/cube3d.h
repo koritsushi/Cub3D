@@ -104,6 +104,13 @@ t_pt    vector_of(float angle);
 //cell checks
 t_pt    snap_xy(t_pt pt);
 char    n_of(char** map, t_pt pt);
+char    e_of(char** map, t_pt pt);
+char    s_of(char** map, t_pt pt);
+char    w_of(char** map, t_pt pt);
+char    ne_of(char** map, t_pt pt);
+char    se_of(char** map, t_pt pt);
+char    sw_of(char** map, t_pt pt);
+char    nw_of(char** map, t_pt pt);
 
 //dummy
 int    print_arr(char **arr);

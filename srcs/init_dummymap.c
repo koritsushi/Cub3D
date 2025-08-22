@@ -41,8 +41,8 @@ char**  create_dummy()
     char* row0 = "1111111111";   
     char* row1 = "1235467890";   
     char* row2 = "0987654321";   
-    char* row3 = "0000000000";   
-    char* row4 = "0000000000";   
+    char* row3 = "abcdefghij";   
+    char* row4 = "klmnopqrst";   
     char* row5 = "0000000000";   
     char* row6 = "0000000000";   
     char* row7 = "0000000000";   
