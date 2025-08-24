@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 	// pt = next_checkpoint(data.p1, data.dir_pt);
 	// printf("next point (%f, %f)\n", pt.x, pt.y);
 	// pt_on_solid(&data, data.p1);
-	// cub_exec(&data);
+	cub_exec(&data);
 	free(file);
 	system("xset r on");
 	return 0;

@@ -84,7 +84,7 @@ int cub_exec(t_cub* data)
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
 		return (1);
-	vars.win = mlx_new_window(vars.mlx, 640, 480, "Screen name");	
+	vars.win = mlx_new_window(vars.mlx, S_WIDTH, S_HEIGHT, "Screen name");	
 	// mlx_key_hook(vars.win, key_press, data);
 	mlx_hook(vars.win, 2, 1L<<0, key_press, data);
 	mlx_hook(vars.win, 3, 1L<<1, key_release, data);

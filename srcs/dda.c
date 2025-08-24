@@ -21,27 +21,12 @@
 // if cell is solid, return pt
 // else, loop
 
-float	d_to_border(float pt, float dir);
 int	orthogonal_solid(t_cub* data, t_pt pt);
 int	diagonal_solid(t_cub* data, t_pt pt);
 int	pt_on_solid(t_cub* data, t_pt pt);
 float	next_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
 t_pt	end_point(t_cub* data);
-
-
-float	d_to_border(float pt, float dir)
-{
-	float	final;
-
-	final = 0;	
-
-	if (dir > 0)
-		final = ceil(pt);
-	else
-		final = floor(pt);
-	return ((final - pt) / dir); 
-}
 
 int	orthogonal_solid(t_cub* data, t_pt pt)
 {
@@ -198,15 +183,24 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	return (p);
 }
 
+int		is_wallhit(t_pt pt, t_pt vector)
+{
+	if (!(is_wholenum(pt.x) || is_wholenum(pt.y)))
+	{
+		printf("point must be on a cell border.\n");
+		return (-1);
+	}
+		return()
+	// given a pt on a border and a vector, is the pt running into a solid? 1 yes, 0 no
+	return (0);
+}
+
 t_pt	end_point(t_cub* data)
 {
 	t_pt	src;
 
 	src = data->p1;
-	// if p1 is on cell border and facing the wall, terminate.
-	// while (!is_solid(data, src))
-	// {
-	// 	src = next_checkpoint(src, data->dir_pt);
-	// }
+	// while(!is_wallhit(pt, vector))
+		// pt = next_checkpoint(pt, vector);`
 	return (src);
 }

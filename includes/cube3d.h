@@ -32,7 +32,10 @@
 
 # define TURN_SPEED 1
 # define MOVE_SPEED 1
-# define PRECISION 0.001
+# define PRECISION 	0.001
+# define FOV 		120
+# define S_WIDTH	640
+# define S_HEIGHT	480
 
 # define NORTHWEST 	1
 # define NORTH 		2
@@ -97,7 +100,6 @@ void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
 
 //dda
-float	d_to_border(float pt, float dir);
 int		is_wholenum(float n);
 int		orthogonal_solid(t_cub* data, t_pt pt);
 int		diagonal_solid(t_cub* data, t_pt pt);
