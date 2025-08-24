@@ -22,11 +22,10 @@
 // else, loop
 
 float	d_to_border(float pt, float dir);
-int	is_wholenum(float n);
 int	orthogonal_solid(t_cub* data, t_pt pt);
 int	diagonal_solid(t_cub* data, t_pt pt);
 int	pt_on_solid(t_cub* data, t_pt pt);
-float	dst_xy(float p, float vector);
+float	next_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
 t_pt	end_point(t_cub* data);
 
@@ -42,13 +41,6 @@ float	d_to_border(float pt, float dir)
 	else
 		final = floor(pt);
 	return ((final - pt) / dir); 
-}
-
-int	is_wholenum(float n)
-{
-	if (fabsf(n - round(n)) < PRECISION)
-		return (1);
-	return (0);
 }
 
 int	orthogonal_solid(t_cub* data, t_pt pt)
@@ -163,7 +155,7 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 	return (0);
 }
 
-float	dst_xy(float p, float vector)
+float	next_xy(float p, float vector)
 {
 	if (!is_zero(vector))
 	{
@@ -179,16 +171,27 @@ float	dst_xy(float p, float vector)
 
 t_pt	next_checkpoint(t_pt src, t_pt vector)
 {
-	int	dst_x;
-	int	dst_y;
+	int	next_x;
+	int	next_y;
 	float	factor;
 	t_pt	p;
+	t_pt	temp;
 
-	src = snap_xy(src);
-	dst_x = dst_xy(src.x, vector.x);
-	dst_y = dst_xy(src.y, vector.y);
+	p.x = -1;
+	p.y = -1;
+	temp = snap_xy(src);
+	next_x = next_xy(temp.x, vector.x);
+	next_y = next_xy(temp.y, vector.y);
 
-	factor = fmin((dst_x - src.x) / vector.x, (dst_y - src.y) / vector.y);
+	if (next_x == -1 && next_y == -1)
+		return (p);
+	else if (next_x == -1)
+		factor = (next_y - src.y) / vector.y;
+	else if (next_y == -1)
+		factor = (next_x - src.x) / vector.x;
+	else
+		factor = fmin((next_x - src.x) / vector.x, (next_y - src.y) / vector.y);
+
 	p.x = src.x + (vector.x * factor);
 	p.y = src.y + (vector.y * factor);
 

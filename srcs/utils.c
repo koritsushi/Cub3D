@@ -16,6 +16,7 @@
 #include <stdlib.h>
 
 t_pt    vector_of(float angle);
+int	    is_wholenum(float n);
 int     is_zero(float n);
 int		is_solid(char cell);
 int     direction_of(t_pt vector);
@@ -27,6 +28,13 @@ t_pt    vector_of(float angle)
 	p.x = cos(angle / 180 * M_PI) * MOVE_SPEED;
 	p.y = sin(angle / 180 * M_PI) * MOVE_SPEED * (-1);
     return (p);
+}
+
+int	is_wholenum(float n)
+{
+	if (fabsf(n - round(n)) < PRECISION)
+		return (1);
+	return (0);
 }
 
 int     is_zero(float n)
