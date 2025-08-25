@@ -39,14 +39,14 @@ char**  create_dummy()
 {
     char** map;
     char* row0 = "1111111111";   
-    char* row1 = "1235467890";   
-    char* row2 = "0987654321";   
-    char* row3 = "abcdefghij";   
-    char* row4 = "klmnopqrst";   
-    char* row5 = "0000000000";   
-    char* row6 = "0000000000";   
-    char* row7 = "0000000000";   
-    char* row8 = "0000000000";   
+    char* row1 = "1235467891";   
+    char* row2 = "1987654321";   
+    char* row3 = "1bcdefghi1";   
+    char* row4 = "1lmnopqrs1";   
+    char* row5 = "1000000001";   
+    char* row6 = "1000000001";   
+    char* row7 = "1000000001";   
+    char* row8 = "1000000001";   
     char* row9 = "1111111111";   
 
 

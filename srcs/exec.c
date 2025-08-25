@@ -47,7 +47,7 @@ void	update_movement(t_cub* data, int keycode, int state)
 
 int	key_press(int keycode, t_cub* data)
 {
-	printf("key_press: executed!\n");
+	// printf("key_press: executed!\n");
 	if (keycode == ESC)
 	{
 		printf("key_hook: ESC pressed.\n");
@@ -60,12 +60,20 @@ int	key_press(int keycode, t_cub* data)
 			keycode == KEY_A ||
 			keycode == KEY_D)
 		update_movement(data, keycode, 1);
+	// remove this part below after testing
+	else if (keycode == KEY_UP)
+	{
+		t_pt temp;
+		// temp = next_checkpoint(data->p1, data->dir_pt);
+		temp = end_point(data, data->dir_pt);
+		printf("update_state: endpoint (%f,%f)\n", temp.x, temp.y);
+	}
 	return (0);
 }
 
 int	key_release(int keycode, t_cub* data)
 {
-	printf("key_release: executed!\n");
+	// printf("key_release: executed!\n");
 	if (keycode == KEY_LEFT || keycode == KEY_RIGHT ||
 			keycode == KEY_W || 
 			keycode == KEY_S ||

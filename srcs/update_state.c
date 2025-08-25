@@ -27,7 +27,7 @@ int		is_clear(t_cub* data)
 
 void	player_turn(t_cub* data)
 {
-	printf("player_turn: running\n");
+	// printf("player_turn: running\n");
 	if (data->turn_left)
 		data->dir_angle = fmod((data->dir_angle + TURN_SPEED), 360);
 	else if (data->turn_right)
@@ -36,9 +36,9 @@ void	player_turn(t_cub* data)
 		if (data->dir_angle < 0)
 			data->dir_angle = 360 + data->dir_angle;
 	}
-	printf("player_turn: angle is now %f\n", data->dir_angle);
 	data->dir_pt = vector_of(data->dir_angle);
-	printf("player turn: dir_pt is (%f, %f)\n", data->dir_pt.x, data->dir_pt.y);
+	printf("player_turn: angle %f ", data->dir_angle);
+	printf("dir_pt is (%f, %f)\n", data->dir_pt.x, data->dir_pt.y);
 }
 
 void	player_move(t_cub* data, char dir)
@@ -65,11 +65,12 @@ void	player_move(t_cub* data, char dir)
 	}
 	printf("player_move: p1 (%f, %f)\n", data->p1.x, data->p1.y);
 }
+
 // this is the main function for auto-refreshing state and rendering view.
 int	update_state(t_cub* data)
 {
-	usleep(500000);
-	printf("update_state: running\n");
+	usleep(100000);
+	// printf("update_state: running\n");
 	if (!(data->turn_left && data->turn_right) && (data->turn_left || data->turn_right))
 		player_turn(data);
 	if (data->move_fwd && !data->move_back)

@@ -31,7 +31,7 @@
 # include "../libft/libft.h"
 
 # define TURN_SPEED 1
-# define MOVE_SPEED 1
+# define MOVE_SPEED 0.1
 # define PRECISION 	0.001
 # define FOV 		120
 # define S_WIDTH	640
@@ -106,16 +106,18 @@ int		diagonal_solid(t_cub* data, t_pt pt);
 int		pt_on_solid(t_cub* data, t_pt pt);
 float	next_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
-t_pt	end_point(t_cub* data);
+t_pt	end_point(t_cub* data, t_pt vector);
 
 //utils
 t_pt    vector_of(float angle);
+int	    is_wholenum(float n);
 int     is_zero(float n);
 int		is_solid(char cell);
+int     is_bordering(t_pt pt);
 int     direction_of(t_pt vector);
+t_pt    snap_xy(t_pt pt);
 
 //cell checks
-t_pt    snap_xy(t_pt pt);
 char    cell_beside_ipt(char** map, t_pt pt, int dir);
 char    cell_beside_wpt(char** map, t_pt pt, int dir);
 char    cell_beside_bpt(char** map, t_pt pt, int dir);
@@ -124,4 +126,5 @@ char    cell_beside(char** map, t_pt pt, int dir);
 //dummy
 int    print_arr(char **arr);
 char**  create_dummy();
+
 #endif

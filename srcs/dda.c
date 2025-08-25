@@ -20,7 +20,6 @@ int	diagonal_solid(t_cub* data, t_pt pt);
 int	pt_on_solid(t_cub* data, t_pt pt);
 float	next_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
-t_pt	end_point(t_cub* data);
 
 int	orthogonal_solid(t_cub* data, t_pt pt)
 {
@@ -162,6 +161,7 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	next_x = next_xy(temp.x, vector.x);
 	next_y = next_xy(temp.y, vector.y);
 
+	// printf("next: x %d, y %d\n", next_x, next_y);
 	if (next_x == -1 && next_y == -1)
 		return (p);
 	else if (next_x == -1)
@@ -170,6 +170,8 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 		factor = (next_x - src.x) / vector.x;
 	else
 		factor = fmin((next_x - src.x) / vector.x, (next_y - src.y) / vector.y);
+	// printf("next: factor %f\n", factor);
+	// printf("next: src (%f,%f)\n", src.x, src.y);
 
 	p.x = src.x + (vector.x * factor);
 	p.y = src.y + (vector.y * factor);
@@ -215,12 +217,19 @@ int		is_wallhit(t_pt pt, t_pt vector, char** map)
 	return (0);
 }
 
-t_pt	end_point(t_cub* data)
+t_pt	end_point(t_cub* data, t_pt vector)
 {
-	t_pt	vector;
+	t_pt	pt;
 
-	while (!is_solid(cell_beside(data->map, data->p1, direction_of(vector))))
-		// pt = next_checkpoint(pt, vector);`
-	// return (src);
-	return (vector);
+	pt = data->p1;
+	if (!is_bordering(pt))
+		pt = next_checkpoint(pt, vector);
+
+	// while (!is_solid(cell_beside(data->map, pt, direction_of(vector))))
+	for (int i=0;i<10;i++)
+	{
+		pt = next_checkpoint(pt, vector);
+		printf("end_point: pt(%f,%f)\n", pt.x, pt.y);
+	}
+	return (pt);
 }

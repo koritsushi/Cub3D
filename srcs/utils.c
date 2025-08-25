@@ -19,6 +19,7 @@ t_pt    vector_of(float angle);
 int	    is_wholenum(float n);
 int     is_zero(float n);
 int		is_solid(char cell);
+int     is_bordering(t_pt pt);
 int     direction_of(t_pt vector);
 t_pt    snap_xy(t_pt pt);
 
@@ -52,6 +53,20 @@ int		is_solid(char cell)
 	return (0);
 }
 
+int     is_bordering(t_pt pt)
+{
+	int	loc;
+
+	loc = 0;
+	if (is_wholenum(pt.x))
+		loc++;
+	if (is_wholenum(pt.y))
+		loc += 2;
+
+    return (loc);
+    // 0 is within cell, 1 is on vside, 2 is on hside, 3 is on corner.
+}
+
 int     direction_of(t_pt vector)
 {
 	if (is_zero(vector.x) && is_zero(vector.y))
@@ -80,11 +95,11 @@ int     direction_of(t_pt vector)
 
 t_pt    snap_xy(t_pt pt)
 {
-    printf("before snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
+    // printf("before snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
     if (is_wholenum(pt.x))
         pt.x = roundf(pt.x);
     if (is_wholenum(pt.y))
         pt.y = roundf(pt.y);
-    printf("after snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
+    // printf("after snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
     return (pt);
 }

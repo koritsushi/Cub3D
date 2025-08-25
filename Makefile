@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/25 11:51:59 by booi             ###   ########.fr        #
+#    Updated: 2025/08/25 13:48:42 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ HEADER		=	includes/cub3d.h
 OBJS		=	$(SRCS:%.c=%.o)
 
 %.o: %.c	$(HEADER)
-			$(COMPILE) $(CCFLAGS) $(GGDB) -I. -c $< -o $(<:.c=.o)
+			$(COMPILE) $(CCFLAGS) $(DEBUG) -I. -c $< -o $(<:.c=.o)
 
 LIBFTDIR	=	./libft/
 LIBFT		=	$(LIBFTDIR)libft.a
@@ -34,7 +34,7 @@ MLXDIR		=	./minilibx-linux/
 MLX			=	$(MLXDIR)libmlx_Linux.a
 MLXCOMPILE	=	-L$(MLXDIR) -L$(LIBFTDIR) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 NAME		=	cube3D
-COMPILE		=	gcc
+COMPILE		=	gcc -no-pie
 CCFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
