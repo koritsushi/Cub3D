@@ -195,6 +195,12 @@ int		is_wallhit(t_pt pt, t_pt vector, char** map)
 	}
 	else if (is_wholenum(pt.x))
 	{
+	
+		// cell_beside(map, pt, direction_of(vector));
+		// gives the char of the cell beside pt
+		if (is_solid(cell_beside(map, pt, direction_of(vector))))
+			return (1);
+
 		if ((vector.x > 0 && is_solid(map[(int)floorf(temp.y)][(int)temp.x])) ||
 			(vector.x < 0 && is_solid(map[(int)floorf(temp.y)][(int)temp.x - 1])))
 			return (1);
@@ -211,10 +217,10 @@ int		is_wallhit(t_pt pt, t_pt vector, char** map)
 
 t_pt	end_point(t_cub* data)
 {
-	t_pt	src;
+	t_pt	vector;
 
-	src = data->p1;
-	// while(!is_wallhit(pt, vector, data->map))
+	while (!is_solid(cell_beside(data->map, data->p1, direction_of(vector))))
 		// pt = next_checkpoint(pt, vector);`
-	return (src);
+	// return (src);
+	return (vector);
 }

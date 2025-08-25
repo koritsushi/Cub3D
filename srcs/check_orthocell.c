@@ -43,7 +43,7 @@ char    cell_beside_ipt(char** map, t_pt pt, int dir)
         pt.y = -1;
 
     printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-    return (0);
+    return (map[(int)pt.y][(int)pt.x]);
 }
 
 char    cell_beside_bpt(char** map, t_pt pt, int dir)
@@ -71,7 +71,7 @@ char    cell_beside_bpt(char** map, t_pt pt, int dir)
             pt.y = -1;
     }
     printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-    return (0);
+    return (map[(int)pt.y][(int)pt.x]);
 }
 
 char    cell_beside_wpt(char** map, t_pt pt, int dir)
@@ -92,7 +92,7 @@ char    cell_beside_wpt(char** map, t_pt pt, int dir)
     else if (dir == SOUTHWEST || dir == SOUTH || dir == SOUTHEAST)
         pt.y = floorf(pt.y) + 1;
     printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-    return (0);
+    return (map[(int)pt.y][(int)pt.x]);
 }
 
 char    cell_beside(char** map, t_pt pt, int dir)
