@@ -13,7 +13,6 @@
 #include "../includes/cube3d.h"
 #include "../minilibx-linux/mlx.h"
 
-t_pt    snap_xy(t_pt pt);
 char    cell_beside_ipt(char** map, t_pt pt, int dir);
 char    cell_beside_wpt(char** map, t_pt pt, int dir);
 char    cell_beside_bpt(char** map, t_pt pt, int dir);
@@ -23,16 +22,6 @@ char    cell_beside(char** map, t_pt pt, int dir);
 // char    s_of(char** map, t_pt pt);
 // char    w_of(char** map, t_pt pt);
 
-t_pt    snap_xy(t_pt pt)
-{
-    printf("before snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
-    if (is_wholenum(pt.x))
-        pt.x = roundf(pt.x);
-    if (is_wholenum(pt.y))
-        pt.y = roundf(pt.y);
-    printf("after snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
-    return (pt);
-}
 
 char    cell_beside_ipt(char** map, t_pt pt, int dir)
 {
@@ -116,6 +105,7 @@ char    cell_beside(char** map, t_pt pt, int dir)
         return (cell_beside_wpt(map, pt, dir));
     else if (is_wholenum(pt.x) || is_wholenum(pt.y))
         return (cell_beside_bpt(map, pt, dir));
+    return (0);
 }
 
 int    is_endpoint_ipt(char** map, t_pt pt, int dir)
@@ -140,6 +130,7 @@ int    is_endpoint_ipt(char** map, t_pt pt, int dir)
     else if (dir == NORTHWEST)
         return (is_solid(cell_beside_ipt(map, pt, dir)) ||
             (is_solid(cell_beside_ipt(map, pt, SOUTHWEST)) && is_solid(cell_beside_ipt(map, pt, NORTHEAST))));
+    return (0);
 }
 
 int    is_endpoint(char** map, t_pt pt, int dir)

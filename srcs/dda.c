@@ -15,12 +15,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-//p1, direction
-// find next checkpoint pt
-// determine which cell to check
-// if cell is solid, return pt
-// else, loop
-
 int	orthogonal_solid(t_cub* data, t_pt pt);
 int	diagonal_solid(t_cub* data, t_pt pt);
 int	pt_on_solid(t_cub* data, t_pt pt);
@@ -183,15 +177,35 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	return (p);
 }
 
-int		is_wallhit(t_pt pt, t_pt vector)
+// given a border pt and a vector, is the pt running into a solid? 1 yes, 0 no
+int		is_wallhit(t_pt pt, t_pt vector, char** map)
 {
-	if (!(is_wholenum(pt.x) || is_wholenum(pt.y)))
+	t_pt	temp;
+
+	temp = snap_xy(pt);
+	if (!is_wholenum(pt.x) && !is_wholenum(pt.y))
 	{
 		printf("point must be on a cell border.\n");
 		return (-1);
 	}
-		return()
-	// given a pt on a border and a vector, is the pt running into a solid? 1 yes, 0 no
+	if (is_wholenum(pt.x) && is_wholenum(pt.y))
+	{
+		printf("pt is on a corner\n");
+		return (0);
+	}
+	else if (is_wholenum(pt.x))
+	{
+		if ((vector.x > 0 && is_solid(map[(int)floorf(temp.y)][(int)temp.x])) ||
+			(vector.x < 0 && is_solid(map[(int)floorf(temp.y)][(int)temp.x - 1])))
+			return (1);
+
+	}
+	else if (is_wholenum(pt.y))
+	{
+		if ((vector.y > 0 && is_solid(map[(int)floorf(temp.y)][(int)temp.x])) ||
+			(vector.y < 0 && is_solid(map[(int)floorf(temp.y) - 1][(int)temp.x - 1])))
+			return (1);
+	}
 	return (0);
 }
 
@@ -200,7 +214,7 @@ t_pt	end_point(t_cub* data)
 	t_pt	src;
 
 	src = data->p1;
-	// while(!is_wallhit(pt, vector))
+	// while(!is_wallhit(pt, vector, data->map))
 		// pt = next_checkpoint(pt, vector);`
 	return (src);
 }

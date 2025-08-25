@@ -20,6 +20,7 @@ int	    is_wholenum(float n);
 int     is_zero(float n);
 int		is_solid(char cell);
 int     direction_of(t_pt vector);
+t_pt    snap_xy(t_pt pt);
 
 t_pt    vector_of(float angle)
 {
@@ -32,14 +33,14 @@ t_pt    vector_of(float angle)
 
 int	is_wholenum(float n)
 {
-	if (fabsf(n - round(n)) < PRECISION)
+	if (fabs(n - round(n)) < PRECISION)
 		return (1);
 	return (0);
 }
 
 int     is_zero(float n)
 {
-    if(fabsf(n) < PRECISION)
+    if(fabs(n) < PRECISION)
         return (1);
     return (0);
 }
@@ -74,4 +75,16 @@ int     direction_of(t_pt vector)
         if (vector.x < 0 && vector.y < 0)
             return (NORTHWEST);
     }
+    return (-1);
+}
+
+t_pt    snap_xy(t_pt pt)
+{
+    printf("before snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
+    if (is_wholenum(pt.x))
+        pt.x = roundf(pt.x);
+    if (is_wholenum(pt.y))
+        pt.y = roundf(pt.y);
+    printf("after snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
+    return (pt);
 }
