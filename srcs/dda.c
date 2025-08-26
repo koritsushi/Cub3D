@@ -225,7 +225,6 @@ t_pt	end_point(t_cub* data, t_pt vector)
 	if (!is_bordering(pt))
 		pt = next_checkpoint(pt, vector);
 
-	// for (int i=0;i<10;i++)
 	while (!is_solid(cell_beside(data->map, pt, direction_of(vector))))
 	{
 		printf("is solid cell beside %d\n", is_solid(cell_beside(data->map, pt, direction_of(vector))));

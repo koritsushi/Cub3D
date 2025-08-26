@@ -22,6 +22,8 @@ int		is_solid(char cell);
 int     is_bordering(t_pt pt);
 int     direction_of(t_pt vector);
 t_pt    snap_xy(t_pt pt);
+float   d_fisheye(t_pt pt1, t_pt pt2, float angle);
+float   d_betw(t_pt pt1, t_pt pt2, float angle);
 
 t_pt    vector_of(float angle)
 {
@@ -102,4 +104,28 @@ t_pt    snap_xy(t_pt pt)
         pt.y = roundf(pt.y);
     // printf("after snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
     return (pt);
+}
+
+float   d_fisheye(t_pt pt1, t_pt pt2, float angle)
+{
+    int x;
+    int y;
+    int p_fisheye;
+
+    x = (pt1.x - pt2.x) * (pt1.x - pt2.x);
+    y = (pt1.y - pt2.y) * (pt1.y - pt2.y);
+    p_fisheye = sqrtf(x + y) * cos(angle / 180 * M_PI);
+
+    return (p_fisheye);
+}
+
+float   d_betw(t_pt pt1, t_pt pt2, float angle)
+{
+    int x;
+    int y;
+
+    x = (pt1.x - pt2.x) * (pt1.x - pt2.x);
+    y = (pt1.y - pt2.y) * (pt1.y - pt2.y);
+
+    return (sqrtf(x + y));
 }

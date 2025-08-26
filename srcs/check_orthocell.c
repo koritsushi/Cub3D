@@ -17,16 +17,13 @@ char    cell_beside_ipt(char** map, t_pt pt, int dir);
 char    cell_beside_wpt(char** map, t_pt pt, int dir);
 char    cell_beside_bpt(char** map, t_pt pt, int dir);
 char    cell_beside(char** map, t_pt pt, int dir);
-// char    n_of(char** map, t_pt pt);
-// char    e_of(char** map, t_pt pt);
-// char    s_of(char** map, t_pt pt);
-// char    w_of(char** map, t_pt pt);
 
 
 char    cell_beside_ipt(char** map, t_pt pt, int dir)
 {
     //pt is on intersection
-    // printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    printf("%d\n", dir);
 
     if (dir == NORTHEAST || dir == SOUTHEAST)
         pt.x = floorf(pt.x);
@@ -104,7 +101,9 @@ char    cell_beside(char** map, t_pt pt, int dir)
     //only if pt is not on border/intersection
     pt = snap_xy(pt);
     if (is_wholenum(pt.x) && is_wholenum(pt.y))
+    {
         return (cell_beside_ipt(map, pt, dir));
+    }
     else if (!is_wholenum(pt.x) && !is_wholenum(pt.y))
         return (cell_beside_wpt(map, pt, dir));
     else if (is_wholenum(pt.x) || is_wholenum(pt.y))
@@ -155,45 +154,10 @@ int    is_endpoint(char** map, t_pt pt, int dir)
         printf("is_endpoint error: checkpoint is not on a cell border\n");
         return (-1);
     }
-
-
-
 }
 
-// char    n_of(char** map, t_pt pt)
-// {
-//     pt = snap_xy(pt);
-//     printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     pt.x = floorf(pt.x);
-//     pt.y = floorf(pt.y) - 1;
-//     printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     return (0);
-// }
+//assume pt is on corner 
+char is_solidcpt(char** map, t_pt pt, int dir)
+{
 
-// char    e_of(char** map, t_pt pt)
-// {
-//     pt = snap_xy(pt);
-//     printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     pt.x = floorf(pt.x) + 1;
-//     pt.y = floorf(pt.y);
-//     printf("e_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     return (0);
-// }
-// char    s_of(char** map, t_pt pt)
-// {
-//     pt = snap_xy(pt);
-//     printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     pt.x = floorf(pt.x);
-//     pt.y = floorf(pt.y) + 1;
-//     printf("s_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     return (0);
-// }
-// char    w_of(char** map, t_pt pt)
-// {
-//     pt = snap_xy(pt);
-//     printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     pt.x = floorf(pt.x) - 1;
-//     pt.y = floorf(pt.y);
-//     printf("w_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
-//     return (0);
-// }
+}

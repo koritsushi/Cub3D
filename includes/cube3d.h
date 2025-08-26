@@ -116,6 +116,8 @@ int		is_solid(char cell);
 int     is_bordering(t_pt pt);
 int     direction_of(t_pt vector);
 t_pt    snap_xy(t_pt pt);
+float   d_fisheye(t_pt pt1, t_pt pt2, float angle);
+float   d_betw(t_pt pt1, t_pt pt2, float angle);
 
 //cell checks
 char    cell_beside_ipt(char** map, t_pt pt, int dir);
