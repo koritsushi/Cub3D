@@ -26,7 +26,7 @@ char    cell_beside(char** map, t_pt pt, int dir);
 char    cell_beside_ipt(char** map, t_pt pt, int dir)
 {
     //pt is on intersection
-    printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    // printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
 
     if (dir == NORTHEAST || dir == SOUTHEAST)
         pt.x = floorf(pt.x);
@@ -42,14 +42,16 @@ char    cell_beside_ipt(char** map, t_pt pt, int dir)
     else
         pt.y = -1;
 
-    printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    if (pt.x == -1 || pt.y == -1)
+        return (0);
+    // printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
     return (map[(int)pt.y][(int)pt.x]);
 }
 
 char    cell_beside_bpt(char** map, t_pt pt, int dir)
 {
     //pt is on border
-    printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    // printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
     if (is_wholenum(pt.x) && !is_wholenum(pt.y))
     {
         if (dir == NORTHEAST || dir == EAST || dir == SOUTHEAST)
@@ -70,14 +72,16 @@ char    cell_beside_bpt(char** map, t_pt pt, int dir)
         else
             pt.y = -1;
     }
-    printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    if (pt.x == -1 || pt.y == -1)
+        return (0);
+    // printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
     return (map[(int)pt.y][(int)pt.x]);
 }
 
 char    cell_beside_wpt(char** map, t_pt pt, int dir)
 {
     //pt is within a cell
-    printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    // printf("     pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
     if (dir == NORTHWEST || dir == WEST || dir == SOUTHWEST)
         pt.x = floorf(pt.x) - 1;
     else if (dir == HERE || dir == NORTH || dir == SOUTH)
@@ -91,7 +95,7 @@ char    cell_beside_wpt(char** map, t_pt pt, int dir)
         pt.y = floorf(pt.y);
     else if (dir == SOUTHWEST || dir == SOUTH || dir == SOUTHEAST)
         pt.y = floorf(pt.y) + 1;
-    printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
+    // printf("n_of pt(%f,%f) is %c\n", pt.x, pt.y, map[(int)pt.y][(int)pt.x]);
     return (map[(int)pt.y][(int)pt.x]);
 }
 
