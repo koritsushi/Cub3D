@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/26 16:49:33 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/26 18:16:53 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,21 @@ typedef struct s_texture
 	int		endian;
 }			t_texture;
 
+typedef struct s_var
+{
+	void	*mlx;
+	void	*win;
+}				t_var;
+
 typedef struct	s_cub
 {
 	t_pt		p1;			// location of player1
 	float		dir_angle;	// direction (0-360) that p1 is facing
 	t_pt		dir_pt;		// use this for point translation
 
+	t_var		exec;
 	char		**map;
-	int			*map_height;
-	int			*map_length;
-	t_texture	*no;
-	t_texture	*so;
-	t_texture	*ea;
-	t_texture	*we;
+	t_texture	texture[4];
 	int			f_col;
 	int			c_col;
 }				t_cub;
