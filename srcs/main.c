@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/18 10:02:52 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/21 22:59:50 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ int	main(int argc, char **argv)
 	char	*file;
 
 	fd_cub = 0;
-	if (argc != 2 || check_cub(&fd_cub, argv[1]) == 0)
+	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
 		ft_error();
 	struct_init(&data);
 	file = read_file(fd_cub);
-	checker = checking_file(file);
+	checker = parse_file(&data, file);
 	if (checker == 0)
 		return (1);
-	
+	printf("%d\n", data.f_col);
+	printf("%d\n", data.c_col);
 	free(file);
 	return 0;
 }

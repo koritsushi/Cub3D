@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/16 16:49:46 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/21 16:38:46 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,6 @@ The map must be parsed as it looks in the file. Spaces are a valid part of the
 map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map.
 */
-
-int	parse_texture(char *pathname, int type)
-{
-	
-}
-
-int	parse_color(char *rgb, int type)
-{
-
-}
-
-char	*read_file(int fd)
-{
-	char	*line;
-	char	*tmp;
-	char	*final;
-
-	final = ft_strdup("");
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		tmp = ft_strjoin(final, line);
-		free(final);
-		final = ft_strdup(tmp);
-		free(line);
-		free(tmp);
-	}
-	close(fd);
-	return (final);
-}
 
 void	typechecker_init(char *type[], int flags[])
 {
@@ -93,7 +61,47 @@ int	check_flags(int flags[])
 	return (1);
 }
 
-int	checking_file(char *file)
+int		check_ext(int *fd, const char *file, char *ext)
+{
+	int	i;
+
+	i = ft_strlen(file);
+	*fd = open(file, __O_DIRECTORY);
+	if (ft_strncmp(file + (i - 4), ext, ft_strlen(ext)) == 0 &&\
+ *fd == -1)
+	{
+		*fd = open(file, O_RDONLY);
+		if (*fd == -1)
+			return (0);
+		return (1);
+	}
+	close(*fd);
+	return (0);
+}
+
+char	*read_file(int fd)
+{
+	char	*line;
+	char	*tmp;
+	char	*final;
+
+	final = ft_strdup("");
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		tmp = ft_strjoin(final, line);
+		free(final);
+		final = ft_strdup(tmp);
+		free(line);
+		free(tmp);
+	}
+	close(fd);
+	return (final);
+}
+
+int	parse_file(t_cub *data, char *file)
 {
 	int		i;
 	int		j;
@@ -113,10 +121,10 @@ int	checking_file(char *file)
 		{
 			if (ft_strncmp(content[i], type[j], ft_strlen(type[j])) == 0)
 			{
-				if (j < 5)
-					parse_texture(content[i], j);
+				if (j < 4)
+					parse_texture(data, content[i], j);
 				else
-					parse_color(content[i], j);
+					parse_color(data, content[i], j);
 				flags[j] += 1;
 			}
 			j++;

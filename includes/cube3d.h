@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/15 16:11:06 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/21 19:27:39 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,49 @@ typedef struct	s_point
 	float	y;
 }			t_pt;
 
+typedef struct s_texture
+{
+	void 	*img;
+	char	*address;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}			t_texture;
+
 typedef struct	s_cub
 {
 	t_pt	p1;			// location of player1
 	float	dir_angle;	// direction (0-360) that p1 is facing
 	t_pt	dir_pt;		// use this for point translation
 
-	char	**map;
-	char	*no;
-	char	*so;
-	char	*ea;
-	char	*we;
-	int		*f_col;
-	int		*c_col;
+	int		**map;
+	t_texture	*no;
+	t_texture	*so;
+	t_texture	*ea;
+	t_texture	*we;
+	int		f_col;
+	int		c_col;
 }			t_cub;
 
-void	ft_error(void);
-int		check_cub(int *fd, const char *file);
 
+
+//utils.c
+int		ft_isspace(char c);
+int		ft_arr_len(char **ar);
+//free.c
+void	ft_free_arr(void **arr);
+//error.c
+void	ft_error(void);
+//parser.c
 char	*read_file(int fd);
-int		checking_file(char *file);
+int		parse_file(t_cub *data, char *file);
+int		check_ext(int *fd, const char *file, char *ext);
+//parser_colors.c
+int		colors(t_cub *data, char *color);
+//parser_utils.c
+int		parse_texture(t_cub *data, char *pathname, int type);
+int		parse_color(t_cub *data, char *rgb, int type);
+//parser_utils2.c
+char	**ft_split_str(char *str, char *set);
 
 #endif

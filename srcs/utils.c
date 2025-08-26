@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 19:31:37 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/11 19:31:37 by mliyuan          ###   ########.fr       */
+/*   Created: 2025/08/21 16:36:28 by mliyuan           #+#    #+#             */
+/*   Updated: 2025/08/21 16:36:28 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 
-void	ft_error(void)
+int	ft_isspace(char c)
 {
-	ft_putstr_fd("./cub3D: Error!\n", 2);
-	ft_putstr_fd("./cub3D: usage: ./cub3d filename.cub\n", 2);
-	exit(1);
+	if (c == 32 || (c >= 7 && c <= 13))
+		return (1);
+	return (0);
+}
+
+int	ft_arr_len(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (arr == NULL)
+		return (i);
+	while (arr[i] != NULL)
+		i++;
+	return (i);
 }

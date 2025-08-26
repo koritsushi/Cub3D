@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 19:31:37 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/11 19:31:37 by mliyuan          ###   ########.fr       */
+/*   Created: 2025/08/19 15:17:22 by mliyuan           #+#    #+#             */
+/*   Updated: 2025/08/19 15:17:22 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 
-void	ft_error(void)
+void	ft_free_arr(void **arr)
 {
-	ft_putstr_fd("./cub3D: Error!\n", 2);
-	ft_putstr_fd("./cub3D: usage: ./cub3d filename.cub\n", 2);
-	exit(1);
+	int	i;
+
+	i = 0;
+	if (arr == NULL)
+		return ;
+	while (arr[i] != NULL)
+		free(arr[i++]);
+	free(arr);
 }
