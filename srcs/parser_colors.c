@@ -41,7 +41,7 @@ int colors(t_cub *data, char *color)
 	rgbs = ft_split_str(color + 1, " ,");
 	i = ft_arr_len(rgbs);
 	if (i < 3 || i > 3)
-		return (0);
+		return (-1);
 	i = 0;
 	while (i < 3)
 	{
@@ -54,4 +54,18 @@ int colors(t_cub *data, char *color)
 	}
 	valid = create_rgb(colors[0], colors[1], colors[2]);
 	return (valid);
+}
+
+int	parse_color(t_cub *data, char *rgb, int type)
+{
+	int	status;
+
+	status = colors(data, rgb);
+	if (status == -1)
+		return (0);
+	if (type == 5)
+		data->f_col = status;
+	else 
+		data->c_col = status;
+	return (1);
 }

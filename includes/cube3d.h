@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/21 19:27:39 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/26 16:49:33 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,20 @@ typedef struct s_texture
 
 typedef struct	s_cub
 {
-	t_pt	p1;			// location of player1
-	float	dir_angle;	// direction (0-360) that p1 is facing
-	t_pt	dir_pt;		// use this for point translation
+	t_pt		p1;			// location of player1
+	float		dir_angle;	// direction (0-360) that p1 is facing
+	t_pt		dir_pt;		// use this for point translation
 
-	int		**map;
+	char		**map;
+	int			*map_height;
+	int			*map_length;
 	t_texture	*no;
 	t_texture	*so;
 	t_texture	*ea;
 	t_texture	*we;
-	int		f_col;
-	int		c_col;
-}			t_cub;
+	int			f_col;
+	int			c_col;
+}				t_cub;
 
 
 
@@ -70,13 +72,14 @@ void	ft_free_arr(void **arr);
 //error.c
 void	ft_error(void);
 //parser.c
-char	*read_file(int fd);
 int		parse_file(t_cub *data, char *file);
+//parser_utils.c
 int		check_ext(int *fd, const char *file, char *ext);
+char	*read_file(int fd);
+//parser_texture.c
+int		parse_texture(t_cub *data, char *pathname, int type);
 //parser_colors.c
 int		colors(t_cub *data, char *color);
-//parser_utils.c
-int		parse_texture(t_cub *data, char *pathname, int type);
 int		parse_color(t_cub *data, char *rgb, int type);
 //parser_utils2.c
 char	**ft_split_str(char *str, char *set);

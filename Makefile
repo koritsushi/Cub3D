@@ -6,16 +6,18 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/21 19:57:21 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/08/26 16:41:56 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS 		=	srcs/error.c			\
+SRCS 		=	srcs/main.c				\
+				srcs/error.c			\
 				srcs/utils.c			\
 				srcs/free.c				\
 				srcs/parser.c			\
-				srcs/parser_map.c		\
+				srcs/parser_texture.c	\
 				srcs/parser_colors.c	\
+				srcs/parser_map.c		\
 				srcs/parser_utils.c		\
 				srcs/parser_utils2.c
 
@@ -38,10 +40,10 @@ DEBUG		=	-ggdb3
 FSAN		=	-fsanitize=address
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-		$(COMPILE) $(CCFLAGS) $(DEBUG) $(OBJS) $(LIBFT) $(MLX) srcs/main.c $(MLXCOMPILE) -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(DEBUG) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) -o $(NAME)
 
 $(DEBUG): $(LIBFT) $(MLX) $(OBJS)	
-		$(COMPILE) $(CCFLAGS) $(DEBUG) $(OBJS) $(LIBFT) $(MLX) $(FSAN) srcs/main.c $(MLXCOMPILE) -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(DEBUG) $(OBJS) $(LIBFT) $(MLX) $(FSAN) $(MLXCOMPILE) -o $(NAME)
 		
 $(LIBFT):
 		@make -C $(LIBFTDIR) all

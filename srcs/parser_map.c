@@ -21,3 +21,8 @@ int	flood_fill()
 {
 
 }
+
+int	parse_map(t_cub *data, char *file)
+{
+	
+}

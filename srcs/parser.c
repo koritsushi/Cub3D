@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/21 16:38:46 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/26 17:06:51 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,44 +61,12 @@ int	check_flags(int flags[])
 	return (1);
 }
 
-int		check_ext(int *fd, const char *file, char *ext)
+int	parse_tc(t_cub *data, char *content, int type)
 {
-	int	i;
-
-	i = ft_strlen(file);
-	*fd = open(file, __O_DIRECTORY);
-	if (ft_strncmp(file + (i - 4), ext, ft_strlen(ext)) == 0 &&\
- *fd == -1)
-	{
-		*fd = open(file, O_RDONLY);
-		if (*fd == -1)
-			return (0);
-		return (1);
-	}
-	close(*fd);
-	return (0);
-}
-
-char	*read_file(int fd)
-{
-	char	*line;
-	char	*tmp;
-	char	*final;
-
-	final = ft_strdup("");
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		tmp = ft_strjoin(final, line);
-		free(final);
-		final = ft_strdup(tmp);
-		free(line);
-		free(tmp);
-	}
-	close(fd);
-	return (final);
+	if (type < 4)
+		return (parse_texture(data, content, type));
+	else
+		return (parse_color(data, content, type));
 }
 
 int	parse_file(t_cub *data, char *file)
@@ -120,16 +88,15 @@ int	parse_file(t_cub *data, char *file)
 		while (type[j] != NULL)
 		{
 			if (ft_strncmp(content[i], type[j], ft_strlen(type[j])) == 0)
-			{
-				if (j < 4)
-					parse_texture(data, content[i], j);
-				else
-					parse_color(data, content[i], j);
-				flags[j] += 1;
-			}
+				flags[j] += parse_tc(data, content[i], j);
 			j++;
 		}
 		i++;
 	}
+	j = 0;
+	data->map = malloc(sizeof(char *) * (ft_arr_len(content+i)));
+	while (content[i] != NULL)
+		data->map[j++] = content[i++];
+	data->map[j] = NULL;
 	return (check_flags(flags));
 }
