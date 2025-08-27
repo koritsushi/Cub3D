@@ -90,6 +90,7 @@ int	check_dcpt(char** map, int x, int y, t_pt vector)
 				is_solid(map[y][x - 1]));
 }
 
+// pt should be on border
 int	is_stop(char** map, t_pt pt, t_pt vector)
 {
 	int		x;
@@ -110,6 +111,8 @@ int	is_stop(char** map, t_pt pt, t_pt vector)
 		else if (direction_of(vector) <= 8)
 			return(check_dcpt(map, x, y, vector));
 	}
+	else
+		return (-1);
 }
 
 t_pt	end_point(t_cub* data, t_pt vector)

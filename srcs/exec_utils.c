@@ -23,7 +23,8 @@ int     is_bordering(t_pt pt);
 int     direction_of(t_pt vector);
 t_pt    snap_xy(t_pt pt);
 float   d_fisheye(t_pt pt1, t_pt pt2, float angle);
-float   d_betw(t_pt pt1, t_pt pt2, float angle);
+float   d_betw(t_pt pt1, t_pt pt2);
+float   mod_angle(float angle, float mod);
 
 t_pt    vector_of(float angle)
 {
@@ -108,9 +109,9 @@ t_pt    snap_xy(t_pt pt)
 
 float   d_fisheye(t_pt pt1, t_pt pt2, float angle)
 {
-    int x;
-    int y;
-    int p_fisheye;
+    float x;
+    float y;
+    float p_fisheye;
 
     x = (pt1.x - pt2.x) * (pt1.x - pt2.x);
     y = (pt1.y - pt2.y) * (pt1.y - pt2.y);
@@ -119,13 +120,25 @@ float   d_fisheye(t_pt pt1, t_pt pt2, float angle)
     return (p_fisheye);
 }
 
-float   d_betw(t_pt pt1, t_pt pt2, float angle)
+float   d_betw(t_pt pt1, t_pt pt2)
 {
-    int x;
-    int y;
+    float x;
+    float y;
 
     x = (pt1.x - pt2.x) * (pt1.x - pt2.x);
     y = (pt1.y - pt2.y) * (pt1.y - pt2.y);
 
     return (sqrtf(x + y));
+}
+
+float   mod_angle(float angle, float mod)
+{
+    while (angle < 0 || angle > mod)
+    {
+        if (angle < 0)
+            angle += mod;
+        else if (angle > mod)
+            angle -= mod;
+    }
+    return (angle);
 }
