@@ -12,14 +12,14 @@
 
 #include "../includes/cube3d.h"
 
-int		check_ext(int *fd, const char *file, char *ext)
+int	check_ext(int *fd, const char *file, char *ext)
 {
 	int	i;
 
 	i = ft_strlen(file);
 	*fd = open(file, __O_DIRECTORY);
-	if (ft_strncmp(file + (i - 4), ext, ft_strlen(ext)) == 0 &&\
- *fd == -1)
+	if (ft_strncmp(file + (i - 4), ext, ft_strlen(ext)) == 0 && \
+*fd == -1)
 	{
 		*fd = open(file, O_RDONLY);
 		if (*fd == -1)

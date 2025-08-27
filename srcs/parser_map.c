@@ -12,6 +12,7 @@
 
 #include "../includes/cube3d.h"
 
+/*
 int	bfs()
 {
 
@@ -26,3 +27,4 @@ int	parse_map(t_cub *data, char *file)
 {
 	
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/26 19:20:55 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/27 15:00:57 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	t_cub	data;
 	int		fd_cub;
 	char	*file;
+	int		i;
 
 	fd_cub = 0;
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
@@ -52,5 +53,10 @@ int	main(int argc, char **argv)
 	if (parse_file(&data, file) == 0)
 		return (1);
 	free(file);
-	return 0;
+	i = 0;
+	ft_free_arr((void **) data.map);
+	while (i < 4)
+		mlx_destroy_image(data.exec.mlx, data.texture[i++].img);
+	free(data.exec.mlx);
+	return (0);
 }

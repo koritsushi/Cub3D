@@ -31,12 +31,12 @@ int	valid_num(char *str)
 	return (1);
 }
 
-int colors(t_cub *data, char *color)
+int	colors(t_cub *data, char *color)
 {
-	int	i;
-	char **rgbs;
-	int	colors[3];
-	int	valid;
+	int		i;
+	char	**rgbs;
+	int		colors[3];
+	int		valid;
 
 	rgbs = ft_split_str(color + 1, " ,");
 	i = ft_arr_len(rgbs);
@@ -52,6 +52,7 @@ int colors(t_cub *data, char *color)
 			return (-1);
 		i++;
 	}
+	ft_free_arr((void **)rgbs);
 	valid = create_rgb(colors[0], colors[1], colors[2]);
 	return (valid);
 }
@@ -65,7 +66,7 @@ int	parse_color(t_cub *data, char *rgb, int type)
 		return (0);
 	if (type == 5)
 		data->f_col = status;
-	else 
+	else
 		data->c_col = status;
 	return (1);
 }

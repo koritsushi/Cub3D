@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/26 17:59:20 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/08/27 15:11:33 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,20 @@ int	parse_tc(t_cub *data, char *content, int type)
 		return (parse_color(data, content, type));
 }
 
+int	append_map(t_cub *data, char **content, int len)
+{
+	int	i;
+
+	i = 0;
+	data->map = malloc(sizeof(char *) * (ft_arr_len(content + len)));
+	if (data->map == NULL)
+		return (0);
+	while (content[len] != NULL)
+		data->map[i++] = ft_strdup(content[len++]);
+	data->map[i] = NULL;
+	return (1);
+}
+
 int	parse_file(t_cub *data, char *file)
 {
 	int		i;
@@ -93,10 +107,7 @@ int	parse_file(t_cub *data, char *file)
 		}
 		i++;
 	}
-	j = 0;
-	data->map = malloc(sizeof(char *) * (ft_arr_len(content+i)));
-	while (content[i] != NULL)
-		data->map[j++] = content[i++];
-	data->map[j] = NULL;
-	return (check_flags(flags));
+	if (append_map(data, content, j) == 0)
+		return (ft_free_arr((void **)content), 0);
+	return (ft_free_arr((void **)content), check_flags(flags));
 }
