@@ -100,14 +100,16 @@ void    player_turn(t_cub* data);
 void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
 
+//exec_endpoint
+int		check_spt(char** map, t_pt pt, t_pt vector, int side);
+int		check_ocpt(char** map, int x, int y, t_pt vector);
+int		check_dcpt(char** map, int x, int y, t_pt vector);
+int		is_stop(char** map, t_pt pt, t_pt vector);
+t_pt	end_point(t_cub* data, t_pt vector);
+
 //dda
-int		is_wholenum(float n);
-int		orthogonal_solid(t_cub* data, t_pt pt);
-int		diagonal_solid(t_cub* data, t_pt pt);
-int		pt_on_solid(t_cub* data, t_pt pt);
 float	next_xy(float p, float vector);
 t_pt	next_checkpoint(t_pt src, t_pt vector);
-t_pt	end_point(t_cub* data, t_pt vector);
 
 //utils
 t_pt    vector_of(float angle);

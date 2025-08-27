@@ -6,19 +6,18 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/25 13:48:42 by booi             ###   ########.fr        #
+#    Updated: 2025/08/27 13:41:08 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS 		=	srcs/error.c	\
 				srcs/parser.c	\
 				srcs/exec.c		\
-				srcs/update_state.c \
-				srcs/dda.c		\
-				srcs/utils.c	\
-				srcs/check_orthocell.c	\
-				srcs/check_diagcell.c	\
+				srcs/exec_updatestate.c \
+				srcs/exec_dda.c		\
+				srcs/exec_utils.c	\
 				srcs/init_dummymap.c	\
+				srcs/exec_endpoint.c	\
 				srcs/main.c
 
 HEADER		=	includes/cub3d.h

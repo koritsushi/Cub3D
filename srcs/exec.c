@@ -66,7 +66,7 @@ int	key_press(int keycode, t_cub* data)
 		t_pt temp;
 		// temp = next_checkpoint(data->p1, data->dir_pt);
 		temp = end_point(data, data->dir_pt);
-		printf("update_state: endpoint (%f,%f)\n", temp.x, temp.y);
+		printf("key_press: endpoint (%f,%f)\n", temp.x, temp.y);
 	}
 	return (0);
 }
