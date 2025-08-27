@@ -87,22 +87,17 @@ int cub_exec(t_cub* data)
 {
 	system("xset r off");
 	printf("\e[32mcub_exec running.\n\e[0m");
-	t_vars	vars;
  
-	vars.mlx = mlx_init();
-	if (!vars.mlx)
-		return (1);
-	vars.win = mlx_new_window(vars.mlx, S_WIDTH, S_HEIGHT, "Screen name");	
 	// mlx_key_hook(vars.win, key_press, data);
-	mlx_hook(vars.win, 2, 1L<<0, key_press, data);
-	mlx_hook(vars.win, 3, 1L<<1, key_release, data);
-	mlx_hook(vars.win, 17, 0, mlx_close, &vars);
+	mlx_hook(data->exec.win, 2, 1L<<0, key_press, data);
+	mlx_hook(data->exec.win, 3, 1L<<1, key_release, data);
+	mlx_hook(data->exec.win, 17, 0, mlx_close, &(data->exec));
 
-	mlx_loop_hook(vars.mlx, update_state, data);
+	mlx_loop_hook(data->exec.mlx, update_state, data);
 
-	mlx_loop(vars.mlx);
+	mlx_loop(data->exec.mlx);
 
-	mlx_destroy_display(vars.mlx);
-	free(vars.mlx);
+	mlx_destroy_display(data->exec.mlx);
+	free(data->exec.mlx);
     return (0);
 }

@@ -136,28 +136,28 @@ int    is_endpoint_ipt(char** map, t_pt pt, int dir)
     return (0);
 }
 
-int    is_endpoint(char** map, t_pt pt, int dir)
-{
-    pt = snap_xy(pt);
-    if (is_wholenum(pt.x) && is_wholenum(pt.y))
-    {
-        printf("is_endpoint pt (%f, %f)\n", pt.x, pt.y);
-        return is_endpoint_ipt(map, pt, dir); 
-    }
-    else if (is_wholenum(pt.x) || is_wholenum(pt.y))
-    {
-        printf("is_endpoint pt (%f, %f)\n", pt.x, pt.y);
-        return (is_solid(cell_beside_bpt(map, pt, dir)));
-    }
-    else
-    {
-        printf("is_endpoint error: checkpoint is not on a cell border\n");
-        return (-1);
-    }
-}
+// int    is_endpoint(char** map, t_pt pt, int dir)
+// {
+//     pt = snap_xy(pt);
+//     if (is_wholenum(pt.x) && is_wholenum(pt.y))
+//     {
+//         printf("is_endpoint pt (%f, %f)\n", pt.x, pt.y);
+//         return is_endpoint_ipt(map, pt, dir); 
+//     }
+//     else if (is_wholenum(pt.x) || is_wholenum(pt.y))
+//     {
+//         printf("is_endpoint pt (%f, %f)\n", pt.x, pt.y);
+//         return (is_solid(cell_beside_bpt(map, pt, dir)));
+//     }
+//     else
+//     {
+//         printf("is_endpoint error: checkpoint is not on a cell border\n");
+//         return (-1);
+//     }
+// }
 
-//assume pt is on corner 
-char is_solidcpt(char** map, t_pt pt, int dir)
-{
+// //assume pt is on corner 
+// char is_solidcpt(char** map, t_pt pt, int dir)
+// {
 
-}
+// }

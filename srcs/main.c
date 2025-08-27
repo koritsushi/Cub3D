@@ -18,10 +18,10 @@
 void	struct_init(t_cub *data)
 {
 	data->p1.x = 3.5;
-	data->p1.y = 3.5;
-	data->dir_angle = 45; //init depending on starting p1 orientation
+	data->p1.y = 3;
+	data->dir_angle = 0; //init depending on starting p1 orientation
 	data->dir_pt.x = 0.1;
-	data->dir_pt.y = -0.1;
+	data->dir_pt.y = 0;
 	data->move_fwd = 0;
 	data->move_back = 0;
 	data->move_left = 0;
@@ -35,6 +35,10 @@ void	struct_init(t_cub *data)
 	data->we = NULL;
 	data->f_col = 0;
 	data->c_col = 0;
+	data->exec.mlx = mlx_init();
+	if (!data->exec.mlx)
+		printf("struct_init: error creating exec.mlx\n");
+	data->exec.win = mlx_new_window(data->exec.mlx, S_WIDTH, S_HEIGHT, "Screen name");	
 }
 
 int	main(int argc, char **argv)

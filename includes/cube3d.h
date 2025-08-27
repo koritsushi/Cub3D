@@ -37,15 +37,15 @@
 # define S_WIDTH	640
 # define S_HEIGHT	480
 
-# define NORTHWEST 	1
-# define NORTH 		2
-# define NORTHEAST 	3
-# define WEST 		4
-# define HERE 		5
-# define EAST 		6
+# define NORTHWEST  5
+# define NORTH 		1
+# define NORTHEAST 	6
+# define WEST 		2
+# define HERE 		9
+# define EAST 		3
 # define SOUTHWEST 	7
-# define SOUTH 		8
-# define SOUTHEAST 	9
+# define SOUTH 		4
+# define SOUTHEAST 	8
 typedef struct	s_point
 {
 	float	x;
@@ -73,6 +73,7 @@ typedef struct	s_cub
 	int		turn_left;
 	int		turn_right;
 
+	t_vars	exec;
 	char	**map;
 	char	*no;
 	char	*so;
