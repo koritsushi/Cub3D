@@ -46,6 +46,16 @@
 # define SOUTHWEST 	7
 # define SOUTH 		4
 # define SOUTHEAST 	8
+
+typedef struct s_texture
+{
+	void 	*img;
+	char	*address;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}			t_texture;
+
 typedef struct	s_point
 {
 	float	x;
@@ -79,8 +89,10 @@ typedef struct	s_cub
 	char	*so;
 	char	*ea;
 	char	*we;
+	
 	int		*f_col;
 	int		*c_col;
+	t_texture	texture[4];
 }			t_cub;
 
 void	ft_error(void);
@@ -137,4 +149,7 @@ char**  create_dummy();
 t_pt	movement1(t_pt src, t_pt vector, char** map);
 t_pt	movement2(t_pt src, t_pt vector, char** map);
 t_pt	dst_of2(t_pt src, t_pt vector, char** map);
+
+int render_map(t_cub* data);
+int	render_cell(t_cub* data, int x, int y);
 #endif

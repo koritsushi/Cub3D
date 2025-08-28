@@ -83,8 +83,56 @@ int	key_release(int keycode, t_cub* data)
 	return (0);
 }
 
+int	render_cell(t_cub* data, int x, int y)
+{
+	char	*path = "./wall.xpm";
+	int		img_width;
+	int		img_height;
+	t_vars	vars;
+
+	img_width = 64;
+	img_height = 64;
+	vars = data->exec;
+
+	void* img;
+	// path = get_path(cell->value);
+	// if (!path)
+	// 	return (0);
+	printf("before render_cell: %p\n", img);
+	data->texture[0].img = mlx_xpm_file_to_image(data->exec.mlx, path, &img_width, &img_height);
+	// data->texture[0].img = mlx_xpm_file_to_image(vars.mlx, path, &img_width, &img_height);
+	printf("after render_cell: %p\n", img);
+	mlx_put_image_to_window(vars.mlx, vars.win, data->texture[0].img, img_width * x, img_height * y);
+	// mlx_put_image_to_window(vars.mlx, vars.win, data->texture[0].img, 640, 640);
+	return (0);
+}
+
+int	render_map(t_cub *data)//char** map, t_vars vars)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (data->map[i])
+	{
+		// printf("render_map:done\n");
+		j = 0;
+		while (data->map[i][j])
+		{
+			// printf("cell[%d][%d]\n", i, j);
+			render_cell(data, i, j);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int cub_exec(t_cub* data)
 {
+	void* img;
+
 	system("xset r off");
 	printf("\e[32mcub_exec running.\n\e[0m");
  

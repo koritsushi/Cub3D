@@ -50,7 +50,7 @@ char**  create_dummy()
     char* row9 = "1111111111";   
 
 
-    map = malloc(10 * sizeof(char *));
+    map = malloc(11 * sizeof(char *));
     if (!map)
         return (NULL);
     map[0] = row0;

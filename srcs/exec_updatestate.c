@@ -221,5 +221,6 @@ int	update_state(t_cub* data)
 		player_move(data, 'l');
 	if (data->move_right && !data->move_left)
 		player_move(data, 'r');
+	// render_map(data);
 	return (0);
 }
