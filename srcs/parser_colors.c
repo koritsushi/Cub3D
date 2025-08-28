@@ -49,7 +49,7 @@ int	colors(t_cub *data, char *color)
 			return (0);
 		colors[i] = ft_atoi(rgbs[i]);
 		if (colors[i] < 0 || colors[i] > 255)
-			return (-1);
+			return (ft_free_arr((void **)rgbs), -1);
 		i++;
 	}
 	ft_free_arr((void **)rgbs);
