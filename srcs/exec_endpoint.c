@@ -72,6 +72,8 @@ int	check_ocpt(char** map, int x, int y, t_pt vector)
 				(is_solid(map[y][x - 1]) && is_solid(map[y - 1][x])) ||
 				(is_solid(map[y - 1][x - 1]) && is_solid(map[y][x - 1])) ||
 				(is_solid(map[y - 1][x - 1]) && is_solid(map[y][x])));
+	else
+		return (-1);
 }
 
 int	check_dcpt(char** map, int x, int y, t_pt vector)
@@ -88,6 +90,8 @@ int	check_dcpt(char** map, int x, int y, t_pt vector)
 	else if (direction_of(vector) == SOUTHWEST)
 		return ((is_solid(map[y][x]) && is_solid(map[y - 1][x - 1])) ||
 				is_solid(map[y][x - 1]));
+	else
+		return (-1);
 }
 
 // pt should be on border
@@ -111,8 +115,7 @@ int	is_stop(char** map, t_pt pt, t_pt vector)
 		else if (direction_of(vector) <= 8)
 			return(check_dcpt(map, x, y, vector));
 	}
-	else
-		return (-1);
+	return (-1);
 }
 
 t_pt	end_point(t_cub* data, t_pt vector)
