@@ -133,4 +133,8 @@ char    cell_beside(char** map, t_pt pt, int dir);
 int    print_arr(char **arr);
 char**  create_dummy();
 
+
+t_pt	movement1(t_pt src, t_pt vector, char** map);
+t_pt	movement2(t_pt src, t_pt vector, char** map);
+t_pt	dst_of2(t_pt src, t_pt vector, char** map);
 #endif
