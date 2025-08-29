@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/27 13:41:08 by booi             ###   ########.fr        #
+#    Updated: 2025/08/29 17:00:45 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS 		=	srcs/error.c	\
 				srcs/exec_utils.c	\
 				srcs/init_dummymap.c	\
 				srcs/exec_endpoint.c	\
+				srcs/exec_render.c	\
 				srcs/main.c
 
 HEADER		=	includes/cub3d.h
