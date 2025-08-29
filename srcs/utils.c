@@ -30,3 +30,20 @@ int	ft_arr_len(char **arr)
 		i++;
 	return (i);
 }
+
+char	**ft_arr_cpy(char **src)
+{
+	int			i;
+	int			j;
+	char	**dst;
+
+	i = 0;
+	j = 0;
+	dst = malloc(sizeof(char *) * (ft_arr_len(src)));
+	if (dst == NULL || src == NULL)
+		return (NULL);
+	while (src[i] != NULL)
+		dst[j++] = ft_strdup(src[i++]);
+	dst[j] = NULL;
+	return (dst);
+}
