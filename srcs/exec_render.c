@@ -15,9 +15,14 @@
 #include <math.h>
 #include <stdlib.h>
 
-int render_col(int i)
+int	render_col(t_cub* data)
 {
+	void* img;
+
+	img = mlx_new_image(data->vars.mlx, 1, S_HEIGHT);
+	//fill in 3 column parts
     return (0);
+
 }
 
 int render_screen()
@@ -27,7 +32,7 @@ int render_screen()
     i = 0;
     while (i < S_WIDTH)
     {
-        render_col(i);
+        // render_col(i);
         i++;
     }
     return (0);

@@ -83,26 +83,28 @@ int	key_release(int keycode, t_cub* data)
 	return (0);
 }
 
-int	render_cell(t_cub* data, int x, int y)
+int	render_cell(t_cub* data, int x, int y, void* img)
 {
-	char	*path = "./wall.xpm";
-	int		img_width;
-	int		img_height;
-	t_vars	vars;
+	// char	*path = "./wall.xpm";
+	// int		img_width;
+	// int		img_height;
+	// t_vars	vars;
 
-	img_width = 64;
-	img_height = 64;
-	vars = data->exec;
+	// img_width = 64;
+	// img_height = 64;
+	// vars = data->exec;
 
-	void* img;
+	// void* img;
 	// path = get_path(cell->value);
 	// if (!path)
 	// 	return (0);
-	printf("before render_cell: %p\n", img);
-	data->texture[0].img = mlx_xpm_file_to_image(data->exec.mlx, path, &img_width, &img_height);
+	// printf("before render_cell: %p\n", img);
+	// data->texture[0].img = mlx_xpm_file_to_image(data->exec.mlx, path, &img_width, &img_height);
 	// data->texture[0].img = mlx_xpm_file_to_image(vars.mlx, path, &img_width, &img_height);
-	printf("after render_cell: %p\n", img);
-	mlx_put_image_to_window(vars.mlx, vars.win, data->texture[0].img, img_width * x, img_height * y);
+	// printf("after render_cell: %p\n", img);
+	// mlx_put_image_to_window(data->exec.mlx, data->exec.win, data->texture[0].img, img_width * x, img_height * y);
+	// mlx_destroy_image(data->exec.mlx, img);
+
 	// mlx_put_image_to_window(vars.mlx, vars.win, data->texture[0].img, 640, 640);
 	return (0);
 }
@@ -112,6 +114,18 @@ int	render_map(t_cub *data)//char** map, t_vars vars)
 	int		i;
 	int		j;
 
+
+	char	*path = "./wall.xpm";
+	int		img_width;
+	int		img_height;
+	t_vars	vars;
+
+	img_width = 64;
+	img_height = 64;
+	vars = data->vars;
+
+	void* img;
+
 	i = 0;
 	j = 0;
 	while (data->map[i])
@@ -120,8 +134,12 @@ int	render_map(t_cub *data)//char** map, t_vars vars)
 		j = 0;
 		while (data->map[i][j])
 		{
-			// printf("cell[%d][%d]\n", i, j);
-			render_cell(data, i, j);
+			// data->texture[0].img = mlx_xpm_file_to_image(data->exec.mlx, path, &img_width, &img_height);
+			img = mlx_xpm_file_to_image(data->vars.mlx, path, &img_width, &img_height);
+			mlx_put_image_to_window(data->vars.mlx, data->vars.win, img, img_width * i, img_height * j);
+			printf("cell[%d][%d] %p\n", i, j, img);
+			mlx_destroy_image(data->vars.mlx, img);
+			// render_cell(data, i, j, img);
 			j++;
 		}
 		i++;
@@ -137,15 +155,16 @@ int cub_exec(t_cub* data)
 	printf("\e[32mcub_exec running.\n\e[0m");
  
 	// mlx_key_hook(vars.win, key_press, data);
-	mlx_hook(data->exec.win, 2, 1L<<0, key_press, data);
-	mlx_hook(data->exec.win, 3, 1L<<1, key_release, data);
-	mlx_hook(data->exec.win, 17, 0, mlx_close, &(data->exec));
+	mlx_hook(data->vars.win, 2, 1L<<0, key_press, data);
+	mlx_hook(data->vars.win, 3, 1L<<1, key_release, data);
+	mlx_hook(data->vars.win, 17, 0, mlx_close, &(data->vars));
 
-	mlx_loop_hook(data->exec.mlx, update_state, data);
+	mlx_loop_hook(data->vars.mlx, update_state, data);
 
-	mlx_loop(data->exec.mlx);
+	mlx_loop(data->vars.mlx);
 
-	mlx_destroy_display(data->exec.mlx);
-	free(data->exec.mlx);
+	mlx_destroy_display(data->vars.mlx);
+	free(data->vars.mlx);
     return (0);
 }
+

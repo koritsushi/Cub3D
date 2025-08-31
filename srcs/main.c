@@ -35,10 +35,10 @@ void	struct_init(t_cub *data)
 	data->we = NULL;
 	data->f_col = 0;
 	data->c_col = 0;
-	data->exec.mlx = mlx_init();
-	if (!data->exec.mlx)
+	data->vars.mlx = mlx_init();
+	if (!data->vars.mlx)
 		printf("struct_init: error creating exec.mlx\n");
-	data->exec.win = mlx_new_window(data->exec.mlx, S_WIDTH, S_HEIGHT, "Screen name");	
+	data->vars.win = mlx_new_window(data->vars.mlx, S_WIDTH, S_HEIGHT, "Screen name");	
 }
 
 int	main(int argc, char **argv)
