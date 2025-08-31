@@ -17,22 +17,22 @@
 
 int	render_col(t_cub* data)
 {
-	void* img;
-
-	img = mlx_new_image(data->vars.mlx, 1, S_HEIGHT);
+	data->img.img = mlx_new_image(data->vars.mlx, 1, S_HEIGHT);
+    data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp, &data->img.size_line, &data->img.endian);
 	//fill in 3 column parts
+    mlx_destroy_image(data->vars.mlx, data->img.img);
     return (0);
 
 }
 
-int render_screen()
+int render_screen(t_cub* data)
 {
     int i;
 
     i = 0;
     while (i < S_WIDTH)
     {
-        // render_col(i);
+        render_col(data);
         i++;
     }
     return (0);

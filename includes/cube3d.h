@@ -50,9 +50,9 @@
 typedef struct s_image
 {
 	void 	*img;
-	char	*address;
+	char	*addr;
 	int		bpp;
-	int		line_length;
+	int		size_line;
 	int		endian;
 }			t_image;
 
@@ -92,7 +92,8 @@ typedef struct	s_cub
 	
 	int		*f_col;
 	int		*c_col;
-	t_img	texture[4];
+	t_image	img;
+	t_image	texture[4];
 }			t_cub;
 
 void	ft_error(void);
@@ -153,4 +154,5 @@ t_pt	dst_of2(t_pt src, t_pt vector, char** map);
 int render_map(t_cub* data);
 int	render_cell(t_cub* data, int x, int y, void* img);
 int	render_col(t_cub* data);
+int render_screen(t_cub* data);
 #endif

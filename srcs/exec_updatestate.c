@@ -243,5 +243,6 @@ int	update_state(t_cub* data)
 	if (data->move_right && !data->move_left)
 		player_move(data, 'r');
 	// render_map(data);
+	render_screen(data);
 	return (0);
 }
