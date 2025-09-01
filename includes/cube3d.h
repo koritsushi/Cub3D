@@ -92,7 +92,7 @@ typedef struct	s_cub
 	
 	int		*f_col;
 	int		*c_col;
-	t_image	img;
+	t_image	snapshot;
 	t_image	texture[4];
 }			t_cub;
 
@@ -155,4 +155,7 @@ int render_map(t_cub* data);
 int	render_cell(t_cub* data, int x, int y, void* img);
 int	render_col(t_cub* data);
 int render_screen(t_cub* data);
+int create_colourcode(int t, int r, int g, int b);
+void colour_col(t_cub* data, int col);
+void render_snapshot(t_cub* data);
 #endif

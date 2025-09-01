@@ -17,10 +17,10 @@
 
 int	render_col(t_cub* data)
 {
-	data->img.img = mlx_new_image(data->vars.mlx, 1, S_HEIGHT);
-    data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp, &data->img.size_line, &data->img.endian);
+	data->snapshot.img = mlx_new_image(data->vars.mlx, 1, S_HEIGHT);
+    data->snapshot.addr = mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
 	//fill in 3 column parts
-    mlx_destroy_image(data->vars.mlx, data->img.img);
+    mlx_destroy_image(data->vars.mlx, data->snapshot.img);
     return (0);
 
 }
@@ -36,4 +36,47 @@ int render_screen(t_cub* data)
         i++;
     }
     return (0);
+}
+
+int create_colourcode(int t, int r, int g, int b)
+{
+    return (t << 24 | r << 16 | g << 8 | b);
+}
+
+void colour_col(t_cub* data, int col)
+{
+    int i;
+    float   ratio;
+    int cf_height;
+    int txt_height;
+
+    ratio = 0.2;
+    cf_height = ratio * S_HEIGHT;
+    txt_height = (1 - (2 * ratio)) * S_HEIGHT;
+    // printf("cf %d, txt %d\n", cf_height, txt_height);
+    int color = create_colourcode(100, 255, 0, 0);
+
+    i = -1;
+    while (++i < cf_height)
+        data->snapshot.addr[i * (data->snapshot.size_line) + col] = 36273;
+    i --;
+    while (++i < cf_height + txt_height)
+        data->snapshot.addr[i * (data->snapshot.size_line) + col] = 56;
+    i --;
+    while (++i < S_HEIGHT)
+        data->snapshot.addr[i * (data->snapshot.size_line) + col] = 125;
+}
+
+void render_snapshot(t_cub* data)
+{
+    int i;
+
+	data->snapshot.img = mlx_new_image(data->vars.mlx, S_WIDTH, S_HEIGHT);
+    data->snapshot.addr = mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
+
+    i = -1;
+    while (++i < S_WIDTH * 4) // why need 4 here?
+        colour_col(data, i);
+	mlx_put_image_to_window(data->vars.mlx, data->vars.win, data->snapshot.img, 0, 0);
+    mlx_destroy_image(data->vars.mlx, data->snapshot.img);
 }
