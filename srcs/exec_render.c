@@ -54,17 +54,19 @@ void colour_col(t_cub* data, int col)
     cf_height = ratio * S_HEIGHT;
     txt_height = (1 - (2 * ratio)) * S_HEIGHT;
     // printf("cf %d, txt %d\n", cf_height, txt_height);
-    int color = create_colourcode(100, 255, 0, 0);
+    int color1 = create_colourcode(0, 0, 0, 50);
+    int color2 = create_colourcode(0, 0, 255, 0);
+    int color3 = create_colourcode(0, 0, 0, 255);
 
     i = -1;
     while (++i < cf_height)
-        data->snapshot.addr[i * (data->snapshot.size_line) + col] = 36273;
+        data->snapshot.addr[i * (data->snapshot.size_line) + col] = color1;
     i --;
     while (++i < cf_height + txt_height)
-        data->snapshot.addr[i * (data->snapshot.size_line) + col] = 56;
+        data->snapshot.addr[i * (data->snapshot.size_line) + col] = color2;
     i --;
     while (++i < S_HEIGHT)
-        data->snapshot.addr[i * (data->snapshot.size_line) + col] = 125;
+        data->snapshot.addr[i * (data->snapshot.size_line) + col] = color3;
 }
 
 void render_snapshot(t_cub* data)
