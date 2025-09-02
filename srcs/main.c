@@ -19,9 +19,9 @@ void	struct_init(t_cub *data)
 {
 	data->p1.x = 3.5;
 	data->p1.y = 3.5;
-	data->dir_angle = 45; //init depending on starting p1 orientation
+	data->dir_angle = 315; //init depending on starting p1 orientation
 	data->dir_pt.x = 0.1;
-	data->dir_pt.y = -0.1;
+	data->dir_pt.y = 0.1;
 	data->move_fwd = 0;
 	data->move_back = 0;
 	data->move_left = 0;
@@ -58,6 +58,7 @@ int	main(int argc, char **argv)
 	printf("data is %p\n", &data);
 
 	cub_exec(&data);
+	// render_snapshot(&data);
 	free(file);
 	system("xset r on");
 	return 0;

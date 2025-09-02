@@ -31,11 +31,13 @@
 # include "../libft/libft.h"
 
 # define TURN_SPEED 1
-# define MOVE_SPEED 0.53
+# define MOVE_SPEED 0.3
 # define PRECISION 	0.001
 # define FOV 		120
 # define S_WIDTH	640
 # define S_HEIGHT	480
+# define HORIZON	11
+# define CLOSEUP	1
 
 # define NORTHWEST  5
 # define NORTH 		1

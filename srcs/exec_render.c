@@ -43,14 +43,36 @@ int create_colourcode(int t, int r, int g, int b)
     return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void colour_col(t_cub* data, int col)
+float set_ratio(t_cub* data, int x)
 {
-    int i;
+    float   angle_inc;
+    float   angle;
+    t_pt    endpt;
+    float   dist;
+
+    angle_inc = (float)FOV / (float)S_WIDTH;
+    angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
+    endpt = end_point(data, vector_of(angle));
+    dist = d_fisheye(data->p1, endpt, FOV / 2 - (x * angle_inc));
+    // printf("dist %f\n", dist);
+    if (dist <= CLOSEUP)
+        return (0);
+    else if (dist < HORIZON)
+        return ((float)(dist - CLOSEUP) / (float)(HORIZON - CLOSEUP) * 0.5);
+    else
+        return (0.5);
+}
+
+void colour_col(t_cub* data, int x)
+{
+    int y;
     float   ratio;
     int cf_height;
     int txt_height;
 
-    ratio = 0.2;
+    // ratio = 0.2;
+    ratio = set_ratio(data, x);
+    printf("colour_col: ratio %f\n", ratio);
     cf_height = ratio * S_HEIGHT;
     txt_height = (1 - (2 * ratio)) * S_HEIGHT;
     // printf("cf %d, txt %d\n", cf_height, txt_height);
@@ -58,15 +80,15 @@ void colour_col(t_cub* data, int col)
     int color2 = create_colourcode(0, 0, 255, 0);
     int color3 = create_colourcode(0, 0, 0, 255);
 
-    i = -1;
-    while (++i < cf_height)
-        data->snapshot.addr[i * (data->snapshot.size_line / 4) + col] = color1;
-    i --;
-    while (++i < cf_height + txt_height)
-        data->snapshot.addr[i * (data->snapshot.size_line / 4) + col] = color2;
-    i --;
-    while (++i < S_HEIGHT)
-        data->snapshot.addr[i * (data->snapshot.size_line / 4) + col] = color3;
+    y = -1;
+    while (++y < cf_height)
+        data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color1;
+    y --;
+    while (++y < cf_height + txt_height)
+        data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color2;
+    y --;
+    while (++y < S_HEIGHT)
+        data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color3;
 }
 
 void render_snapshot(t_cub* data)
@@ -77,7 +99,7 @@ void render_snapshot(t_cub* data)
     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
 
     i = -1;
-    while (++i < S_WIDTH) // why need 4 here?
+    while (++i < S_WIDTH)
         colour_col(data, i);
 	mlx_put_image_to_window(data->vars.mlx, data->vars.win, data->snapshot.img, 0, 0);
     mlx_destroy_image(data->vars.mlx, data->snapshot.img);
