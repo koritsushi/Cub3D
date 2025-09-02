@@ -50,7 +50,7 @@
 typedef struct s_image
 {
 	void 	*img;
-	char	*addr;
+	int		*addr;
 	int		bpp;
 	int		size_line;
 	int		endian;
