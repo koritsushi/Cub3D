@@ -52,12 +52,17 @@ float set_ratio(t_cub* data, int x)
 
     angle_inc = (float)FOV / (float)S_WIDTH;
     angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
-    endpt = end_point(data, vector_of(angle));
+    // endpt = end_point(data, vector_of(angle));
     dist = d_fisheye(data->p1, endpt, FOV / 2 - (x * angle_inc));
+    dist = d_betw(data->p1, endpt);
     // printf("dist %f\n", dist);
     if (dist <= CLOSEUP)
+    {
+        // dist = d_betw(data->p1, endpt);
+        // return ((float)(dist - CLOSEUP) / (float)(HORIZON - CLOSEUP) * 0.5);
         return (0);
-    else if (dist < HORIZON)
+    }
+    if (dist < HORIZON)
         return ((float)(dist - CLOSEUP) / (float)(HORIZON - CLOSEUP) * 0.5);
     else
         return (0.5);
@@ -72,7 +77,7 @@ void colour_col(t_cub* data, int x)
 
     // ratio = 0.2;
     ratio = set_ratio(data, x);
-    printf("colour_col: ratio %f\n", ratio);
+    // printf("colour_col: ratio %f\n", ratio);
     cf_height = ratio * S_HEIGHT;
     txt_height = (1 - (2 * ratio)) * S_HEIGHT;
     // printf("cf %d, txt %d\n", cf_height, txt_height);

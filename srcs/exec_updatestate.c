@@ -80,9 +80,9 @@ t_pt	dst_of2(t_pt src, t_pt vector, char** map)
 	dst.y = src.y + (vector.y * MOVE_SPEED);
 	temp.x = 0;
 	temp.y = 0;
-	printf("dst_of: check (%f,%f)\n", check.x, check.y);
-	printf("dst_of: vector (%f,%f)\n", vector.x, vector.y);
-	printf("dst_of: d_betw(%f), d_betw(%f)\n", d_betw(src, check), d_betw(src, dst));
+	// printf("dst_of: check (%f,%f)\n", check.x, check.y);
+	// printf("dst_of: vector (%f,%f)\n", vector.x, vector.y);
+	// printf("dst_of: d_betw(%f), d_betw(%f)\n", d_betw(src, check), d_betw(src, dst));
 	if (is_bordering(src))
 	{ // 2
 		if (!is_stop(map, src, vector))
