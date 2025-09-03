@@ -40,7 +40,7 @@ int	colors(t_cub *data, char *color)
 
 	rgbs = ft_split_str(color + 1, " ,");
 	i = ft_arr_len(rgbs);
-	if (i < 3 || i > 3)
+	if (i != 3)
 		return (-1);
 	i = 0;
 	while (i < 3)
