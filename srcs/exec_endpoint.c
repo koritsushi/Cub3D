@@ -131,7 +131,7 @@ t_pt	end_point(t_cub* data, t_pt vector)
 	while (!is_stop(data->map, pt, vector))
 	{
 		pt = next_checkpoint(pt, vector);
-		// printf("end_point: pt(%f,%f)\n", pt.x, pt.y);
+		printf("end_point: pt(%f,%f)\n", pt.x, pt.y);
 	}
 	return (pt);
 }

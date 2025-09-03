@@ -31,13 +31,20 @@
 # include "../libft/libft.h"
 
 # define TURN_SPEED 1
+<<<<<<< HEAD
 # define MOVE_SPEED 0.1
+=======
+# define MOVE_SPEED 0.53
+>>>>>>> parent of 2052d58 (feat(render): basic render now works, but rounding effect observed when not next to a wall. needs debugging)
 # define PRECISION 	0.001
 # define FOV 		120
 # define S_WIDTH	640
 # define S_HEIGHT	480
+<<<<<<< HEAD
 # define HORIZON	10.0
 # define CLOSEUP	0.3
+=======
+>>>>>>> parent of 2052d58 (feat(render): basic render now works, but rounding effect observed when not next to a wall. needs debugging)
 
 # define NORTHWEST  5
 # define NORTH 		1

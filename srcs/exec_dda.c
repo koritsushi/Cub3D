@@ -46,7 +46,7 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	next_x = next_xy(temp.x, vector.x);
 	next_y = next_xy(temp.y, vector.y);
 
-	// printf("next: x %d, y %d\n", next_x, next_y);
+	printf("next: x %d, y %d\n", next_x, next_y);
 	if (next_x == -1 && next_y == -1)
 		return (p);
 	else if (next_x == -1)

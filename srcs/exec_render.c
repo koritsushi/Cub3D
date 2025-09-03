@@ -43,8 +43,9 @@ int create_colourcode(int t, int r, int g, int b)
     return (t << 24 | r << 16 | g << 8 | b);
 }
 
-float set_ratio(t_cub* data, int x)
+void colour_col(t_cub* data, int col)
 {
+<<<<<<< HEAD
     float   angle_inc;
     float   angle;
     t_pt    endpt;
@@ -71,13 +72,20 @@ float set_ratio(t_cub* data, int x)
 void colour_col(t_cub* data, int x)
 {
     int y;
+=======
+    int i;
+>>>>>>> parent of 2052d58 (feat(render): basic render now works, but rounding effect observed when not next to a wall. needs debugging)
     float   ratio;
     int cf_height;
     int txt_height;
 
+<<<<<<< HEAD
     // ratio = 0.2;
     ratio = set_ratio(data, x);
     // printf("colour_col: ratio %f\n", ratio);
+=======
+    ratio = 0.2;
+>>>>>>> parent of 2052d58 (feat(render): basic render now works, but rounding effect observed when not next to a wall. needs debugging)
     cf_height = ratio * S_HEIGHT;
     txt_height = (1 - (2 * ratio)) * S_HEIGHT;
     // printf("cf %d, txt %d\n", cf_height, txt_height);
@@ -85,15 +93,15 @@ void colour_col(t_cub* data, int x)
     int color2 = create_colourcode(0, 0, 255, 0);
     int color3 = create_colourcode(0, 0, 0, 255);
 
-    y = -1;
-    while (++y < cf_height)
-        data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color1;
-    y --;
-    while (++y < cf_height + txt_height)
-        data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color2;
-    y --;
-    while (++y < S_HEIGHT)
-        data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color3;
+    i = -1;
+    while (++i < cf_height)
+        data->snapshot.addr[i * (data->snapshot.size_line / 4) + col] = color1;
+    i --;
+    while (++i < cf_height + txt_height)
+        data->snapshot.addr[i * (data->snapshot.size_line / 4) + col] = color2;
+    i --;
+    while (++i < S_HEIGHT)
+        data->snapshot.addr[i * (data->snapshot.size_line / 4) + col] = color3;
 }
 
 void render_snapshot(t_cub* data)
@@ -104,7 +112,7 @@ void render_snapshot(t_cub* data)
     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
 
     i = -1;
-    while (++i < S_WIDTH)
+    while (++i < S_WIDTH) // why need 4 here?
         colour_col(data, i);
 	mlx_put_image_to_window(data->vars.mlx, data->vars.win, data->snapshot.img, 0, 0);
     mlx_destroy_image(data->vars.mlx, data->snapshot.img);
