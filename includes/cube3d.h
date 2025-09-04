@@ -33,11 +33,11 @@
 # define TURN_SPEED 1
 # define MOVE_SPEED 0.2
 # define PRECISION 	0.001
-# define FOV 		120
+# define FOV 		60
 # define S_WIDTH	640
 # define S_HEIGHT	480
 # define HORIZON	10.0
-# define CLOSEUP	0.3
+# define CLOSEUP	0
 
 # define NORTHWEST  5
 # define NORTH 		1

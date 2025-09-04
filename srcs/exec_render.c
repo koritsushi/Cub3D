@@ -50,15 +50,15 @@ float set_ratio(t_cub* data, int x)
     t_pt    endpt;
     float   dist;
 
-    angle_inc = (float)FOV / (float)S_WIDTH;
-    angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
-    // angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
-    // angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
+    // angle_inc = (float)FOV / (float)S_WIDTH;
+    // angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
+    angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
+    angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
     endpt = end_point(data, vector_of(angle));
     dist = d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
     // dist = d_fisheye(data->p1, endpt, FOV / 2 - (x * angle_inc));
     // dist = d_betw(data->p1, endpt);
-    // printf("x %d angle inc %f angle %f dist %f\n", nb_units(x), angle_inc, angle, dist);
+    printf("x %d %d angle inc %f angle %f diff %f dist %f\n", x, nb_units(x), angle_inc, angle, angle_diff(angle, data->dir_angle), dist);
     if (dist <= CLOSEUP)
     {
         // dist = d_betw(data->p1, endpt);
@@ -71,6 +71,21 @@ float set_ratio(t_cub* data, int x)
         return (0.5);
 }
 
+float adj_dist(t_cub* data, int x)
+{
+    float   angle_inc;
+    float   angle;
+    t_pt    endpt;
+    float   dist;
+
+    // angle_inc = (float)FOV / (float)S_WIDTH;
+    // angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
+    angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
+    angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
+    endpt = end_point(data, vector_of(angle));
+    return d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
+}
+
 void colour_col(t_cub* data, int x)
 {
     int y;
@@ -79,9 +94,15 @@ void colour_col(t_cub* data, int x)
     int txt_height;
 
     ratio = set_ratio(data, x);
-    // printf("colour_col: ratio %f\n", ratio);
+    printf("colour_col: ratio %f\n", ratio);
     cf_height = ratio * S_HEIGHT;
     txt_height = (1 - (2 * ratio)) * S_HEIGHT;
+
+    txt_height = (int)(S_HEIGHT / adj_dist(data, x));
+    if (txt_height > S_HEIGHT)
+        txt_height = S_HEIGHT;
+    cf_height = (int)((S_HEIGHT - txt_height) / 2);
+
     // printf("cf %d, txt %d\n", cf_height, txt_height);
     int color1 = create_colourcode(0, 100, 0, 0);
     int color2 = create_colourcode(0, 0, 100, 0);
