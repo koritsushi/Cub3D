@@ -142,3 +142,38 @@ float   mod_angle(float angle, float mod)
     }
     return (angle);
 }
+
+float angle_diff(float angle1, float angle2)
+{
+    float   p;
+
+    p = fabs(angle1 - angle2);
+    if (p > 180)
+        return (360 - p);
+    return (p);
+}
+
+int nb_units(int x)
+{
+    int   p;
+    int   i;
+
+    int mid = S_WIDTH / 2;
+    p = mid;
+    i = -1;
+
+    if (x < mid)
+    {
+        while (++i < x)
+            p += (mid - i - 1);
+    }
+    else
+    {
+        i = mid - 1;
+        p = mid * (mid + 1) / 2;
+        while (++i < x)
+            p += (i - mid);
+    }
+
+    return (p);
+}

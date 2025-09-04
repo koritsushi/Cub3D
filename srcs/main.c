@@ -58,6 +58,7 @@ int	main(int argc, char **argv)
 	printf("data is %p\n", &data);
 
 	cub_exec(&data);
+	// render_snapshot(&data);
 	free(file);
 	system("xset r on");
 	return 0;

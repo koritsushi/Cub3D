@@ -230,7 +230,7 @@ void	player_move(t_cub* data, char dir)
 // this is the main function for auto-refreshing state and rendering view.
 int	update_state(t_cub* data)
 {
-	usleep(100000);
+	// usleep(100000);
 	// printf("update_state: running\n");
 	if (!(data->turn_left && data->turn_right) && (data->turn_left || data->turn_right))
 		player_turn(data);

@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/14 15:16:43 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/04 10:34:17 by booi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,13 @@
 # include "../libft/libft.h"
 
 # define TURN_SPEED 1
-<<<<<<< HEAD
-# define MOVE_SPEED 0.1
-=======
-# define MOVE_SPEED 0.53
->>>>>>> parent of 2052d58 (feat(render): basic render now works, but rounding effect observed when not next to a wall. needs debugging)
+# define MOVE_SPEED 0.2
 # define PRECISION 	0.001
 # define FOV 		120
 # define S_WIDTH	640
 # define S_HEIGHT	480
-<<<<<<< HEAD
 # define HORIZON	10.0
 # define CLOSEUP	0.3
-=======
->>>>>>> parent of 2052d58 (feat(render): basic render now works, but rounding effect observed when not next to a wall. needs debugging)
 
 # define NORTHWEST  5
 # define NORTH 		1
@@ -167,4 +160,6 @@ int render_screen(t_cub* data);
 int create_colourcode(int t, int r, int g, int b);
 void colour_col(t_cub* data, int col);
 void render_snapshot(t_cub* data);
+float angle_diff(float angle1, float angle2);
+int nb_units(int x);
 #endif
