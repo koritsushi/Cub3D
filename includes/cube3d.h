@@ -162,4 +162,5 @@ void colour_col(t_cub* data, int col);
 void render_snapshot(t_cub* data);
 float angle_diff(float angle1, float angle2);
 int nb_units(int x);
+void* init_texture(t_cub* data, char *filepath, int i);
 #endif

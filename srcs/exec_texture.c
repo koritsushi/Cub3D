@@ -44,3 +44,32 @@
 // 	dst_height = tex_height;
 // 	return (0);
 // }
+
+// function ()
+// {
+//     int i;
+
+//     i = 0;
+//     while (i < dst_h)
+//     {
+//        target_y = round(i / dst_h * src_h);
+//        const_x = get_x(pt, vector);
+//        colour = addr[target_y * (size_line / 4) + const_x];
+
+//        img.addr[(target_y + ceil_h) * (size_line / 4) + const_x] = colour;
+//        i++;
+//     }
+// }
+
+void* init_texture(t_cub* data, char *filepath, int i)
+{
+    void*   p;
+    int     width;
+    int     height;
+
+    width = 64;
+    height = 64;
+
+    data->texture[i].img = mlx_xpm_file_to_image(data->vars.mlx, filepath, &width, &height);
+    data->texture[i].addr = (int*)mlx_get_data_addr(data->texture[i].img, &data->texture[i].bpp, &data->texture[i].size_line, &data->texture[i].endian);
+}
