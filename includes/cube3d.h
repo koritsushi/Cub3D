@@ -42,11 +42,11 @@
 # define NORTHWEST  5
 # define NORTH 		1
 # define NORTHEAST 	6
-# define WEST 		2
+# define WEST 		4
 # define HERE 		9
-# define EAST 		3
+# define EAST 		2
 # define SOUTHWEST 	7
-# define SOUTH 		4
+# define SOUTH 		3
 # define SOUTHEAST 	8
 
 typedef struct s_image
@@ -64,12 +64,12 @@ typedef struct	s_point
 	float	y;
 }			t_pt;
 
-typedef struct	s_vars
-{
-	void*	mlx;
-	void*	win;
+// typedef struct	s_vars
+// {
+// 	void*	mlx;
+// 	void*	win;
 
-}				t_vars;
+// }				t_vars;
 
 typedef struct	s_cub
 {
@@ -85,7 +85,9 @@ typedef struct	s_cub
 	int		turn_left;
 	int		turn_right;
 
-	t_vars	vars;
+	// t_vars	vars;
+	void*	mlx;
+	void*	win;
 	char	**map;
 	char	*no;
 	char	*so;
@@ -104,7 +106,7 @@ int		check_cub(int *fd, const char *file);
 char	*read_file(int fd);
 
 //exec
-int		mlx_close(int keycode, t_vars *vars);
+int		mlx_close(int keycode, t_cub* data);
 void	update_movement(t_cub* data, int keycode, int state);
 int		key_press(int keycode, t_cub* data);
 int		key_release(int keycode, t_cub* data);
@@ -163,4 +165,9 @@ void render_snapshot(t_cub* data);
 float angle_diff(float angle1, float angle2);
 int nb_units(int x);
 void* init_texture(t_cub* data, char *filepath, int i);
+int use_side(t_pt pt, t_pt vector);
+void fill_texture(t_cub* data, int src_width, int src_height, int dst_height, float src_x);
+float srcx_of(t_pt pt, t_pt vector);
+
+int texture_of(t_pt pt, t_pt vector);
 #endif

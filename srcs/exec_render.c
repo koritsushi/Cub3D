@@ -17,10 +17,10 @@
 
 int	render_col(t_cub* data)
 {
-	data->snapshot.img = mlx_new_image(data->vars.mlx, 1, S_HEIGHT);
+	data->snapshot.img = mlx_new_image(data->mlx, 1, S_HEIGHT);
     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
 	//fill in 3 column parts
-    mlx_destroy_image(data->vars.mlx, data->snapshot.img);
+    mlx_destroy_image(data->mlx, data->snapshot.img);
     return (0);
 
 }
@@ -123,12 +123,12 @@ void render_snapshot(t_cub* data)
 {
     int i;
 
-	data->snapshot.img = mlx_new_image(data->vars.mlx, S_WIDTH, S_HEIGHT);
+	data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
 
     i = -1;
     while (++i < S_WIDTH)
         colour_col(data, i);
-	mlx_put_image_to_window(data->vars.mlx, data->vars.win, data->snapshot.img, 0, 0);
-    mlx_destroy_image(data->vars.mlx, data->snapshot.img);
+	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
+    mlx_destroy_image(data->mlx, data->snapshot.img);
 }

@@ -15,15 +15,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-int		mlx_close(int keycode, t_vars *vars);
+int		mlx_close(int keycode, t_cub* data);
 void	update_movement(t_cub* data, int keycode, int state);
 int		key_press(int keycode, t_cub* data);
 int		key_release(int keycode, t_cub* data);
 int 	cub_exec(t_cub* data);
 
-int	mlx_close(int keycode, t_vars *vars)
+int	mlx_close(int keycode, t_cub* data)
 {
-	printf("mlx_close: keycode %d, vars %p\n", keycode, vars);
+	printf("mlx_close: keycode %d, data %p\n", keycode, data);
 	exit(0);
 }
 
@@ -109,43 +109,43 @@ int	render_cell(t_cub* data, int x, int y, void* img)
 	return (0);
 }
 
-int	render_map(t_cub *data)//char** map, t_vars vars)
-{
-	int		i;
-	int		j;
+// int	render_map(t_cub *data)//char** map, t_vars vars)
+// {
+// 	int		i;
+// 	int		j;
 
 
-	char	*path = "./wall.xpm";
-	int		img_width;
-	int		img_height;
-	t_vars	vars;
+// 	char	*path = "./wall.xpm";
+// 	int		img_width;
+// 	int		img_height;
+// 	t_vars	vars;
 
-	img_width = 64;
-	img_height = 64;
-	vars = data->vars;
+// 	img_width = 64;
+// 	img_height = 64;
+// 	vars = data->vars;
 
-	void* img;
+// 	void* img;
 
-	i = 0;
-	j = 0;
-	while (data->map[i])
-	{
-		// printf("render_map:done\n");
-		j = 0;
-		while (data->map[i][j])
-		{
-			// data->texture[0].img = mlx_xpm_file_to_image(data->exec.mlx, path, &img_width, &img_height);
-			img = mlx_xpm_file_to_image(data->vars.mlx, path, &img_width, &img_height);
-			mlx_put_image_to_window(data->vars.mlx, data->vars.win, img, img_width * i, img_height * j);
-			printf("cell[%d][%d] %p\n", i, j, img);
-			mlx_destroy_image(data->vars.mlx, img);
-			// render_cell(data, i, j, img);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	j = 0;
+// 	while (data->map[i])
+// 	{
+// 		// printf("render_map:done\n");
+// 		j = 0;
+// 		while (data->map[i][j])
+// 		{
+// 			// data->texture[0].img = mlx_xpm_file_to_image(data->exec.mlx, path, &img_width, &img_height);
+// 			img = mlx_xpm_file_to_image(data->mlx, path, &img_width, &img_height);
+// 			mlx_put_image_to_window(data->mlx, data->win, img, img_width * i, img_height * j);
+// 			printf("cell[%d][%d] %p\n", i, j, img);
+// 			mlx_destroy_image(data->mlx, img);
+// 			// render_cell(data, i, j, img);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int cub_exec(t_cub* data)
 {
@@ -155,16 +155,16 @@ int cub_exec(t_cub* data)
 	printf("\e[32mcub_exec running.\n\e[0m");
  
 	// mlx_key_hook(vars.win, key_press, data);
-	mlx_hook(data->vars.win, 2, 1L<<0, key_press, data);
-	mlx_hook(data->vars.win, 3, 1L<<1, key_release, data);
-	mlx_hook(data->vars.win, 17, 0, mlx_close, &(data->vars));
+	mlx_hook(data->win, 2, 1L<<0, key_press, data);
+	mlx_hook(data->win, 3, 1L<<1, key_release, data);
+	mlx_hook(data->win, 17, 0, mlx_close, data);
 
-	mlx_loop_hook(data->vars.mlx, update_state, data);
+	mlx_loop_hook(data->mlx, update_state, data);
 
-	mlx_loop(data->vars.mlx);
+	mlx_loop(data->mlx);
 
-	mlx_destroy_display(data->vars.mlx);
-	free(data->vars.mlx);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
     return (0);
 }
 

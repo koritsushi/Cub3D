@@ -35,10 +35,10 @@ void	struct_init(t_cub *data)
 	data->we = NULL;
 	data->f_col = 0;
 	data->c_col = 0;
-	data->vars.mlx = mlx_init();
-	if (!data->vars.mlx)
+	data->mlx = mlx_init();
+	if (!data->mlx)
 		printf("struct_init: error creating exec.mlx\n");
-	data->vars.win = mlx_new_window(data->vars.mlx, S_WIDTH, S_HEIGHT, "Screen name");	
+	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Screen name");	
 }
 
 int	main(int argc, char **argv)
@@ -61,6 +61,7 @@ int	main(int argc, char **argv)
 	init_texture(&data, "02.xpm", 1);
 	init_texture(&data, "03.xpm", 2);
 	init_texture(&data, "04.xpm", 3);
+	fill_texture(&data, 469, 625, 480, 0.5);
 	// cub_exec(&data);
 	// render_snapshot(&data);
 	free(file);

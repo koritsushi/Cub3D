@@ -45,21 +45,40 @@
 // 	return (0);
 // }
 
-// function ()
-// {
-//     int i;
+float srcx_of(t_pt pt, t_pt vector)
+{
+    if (texture_of(pt, vector) == NORTH)
+        return (ceil(vector.x) - vector.x);
+    else if (texture_of(pt, vector) == EAST)
+        return (ceil(vector.y) - vector.y);
+    else if (texture_of(pt, vector) == SOUTH)
+        return (vector.x - floor(vector.x));
+    else if (texture_of(pt, vector) == WEST)
+        return (vector.y - floor(vector.y));
+    return (-1);
+}
 
-//     i = 0;
-//     while (i < dst_h)
-//     {
-//        target_y = round(i / dst_h * src_h);
-//        const_x = get_x(pt, vector);
-//        colour = addr[target_y * (size_line / 4) + const_x];
+void fill_texture(t_cub* data, int src_width, int src_height, int dst_height, float src_x)
+{
+    int i;
+    int source_y;
+    int source_x;
+    int colour;
 
-//        img.addr[(target_y + ceil_h) * (size_line / 4) + const_x] = colour;
-//        i++;
-//     }
-// }
+    i = 0;
+    source_y = 0;
+    source_x = 0;
+    while (i < dst_height)
+    {
+       source_y = ((float)i / (float)dst_height * (float)src_height);
+       source_x = ((float)src_x * (float)src_width);
+    //    printf("fill_texture: i %d src_x %f %d\n", i, source_x, (int)source_x);
+    //    colour = data->texture[0].addr[source_y * (size_line / 4) + source_x];
+
+    //    img.addr[(target_y + ceil_h) * (size_line / 4) + const_x] = colour;
+       i++;
+    }
+}
 
 void* init_texture(t_cub* data, char *filepath, int i)
 {
@@ -67,9 +86,33 @@ void* init_texture(t_cub* data, char *filepath, int i)
     int     width;
     int     height;
 
-    width = 64;
-    height = 64;
+    width = 469;
+    height = 625;
 
-    data->texture[i].img = mlx_xpm_file_to_image(data->vars.mlx, filepath, &width, &height);
+    data->texture[i].img = mlx_xpm_file_to_image(data->mlx, filepath, &width, &height);
     data->texture[i].addr = (int*)mlx_get_data_addr(data->texture[i].img, &data->texture[i].bpp, &data->texture[i].size_line, &data->texture[i].endian);
+}
+
+int texture_of(t_pt pt, t_pt vector)
+{
+    if (is_bordering(pt) == 1 && vector.x > 0)
+        return (WEST);
+    else if (is_bordering(pt) == 1 && vector.x < 0)
+        return (EAST);
+    else if (is_bordering(pt) == 1 && vector.y > 0)
+        return (NORTH);
+    else if (is_bordering(pt) == 1 && vector.y < 0)
+        return (SOUTH);
+    else if (is_bordering(pt) == 3)
+    {
+        if (direction_of(vector) == NORTH || direction_of(vector) == NORTHEAST)
+            return (SOUTH);
+        else if (direction_of(vector) == EAST || direction_of(vector) == SOUTHEAST)
+            return (WEST);
+        else if (direction_of(vector) == SOUTH || direction_of(vector) == SOUTHWEST)
+            return (NORTH);
+        else if (direction_of(vector) == WEST || direction_of(vector) == NORTHWEST)
+            return (EAST);
+    }
+    return (0);
 }
