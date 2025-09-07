@@ -99,6 +99,11 @@ typedef struct	s_cub
 	t_image	snapshot;
 	t_image	texture[4];
 
+	float	ray_angle;
+	t_pt	endpt;
+	t_pt	ray_vector;
+    int     ray_texture;
+	float	dist;
 	int		srcx;
 	int		srcy0;
 	int		srcy1;
@@ -174,8 +179,9 @@ float angle_diff(float angle1, float angle2);
 int nb_units(int x);
 void* init_texture(t_cub* data, char *filepath, int i);
 int use_side(t_pt pt, t_pt vector);
-void fill_texture(t_cub* data, int src_width, int src_height, int dst_height, float src_x);
+void fill_texture(t_cub* data, int y);
 float srcx_of(t_pt pt, t_pt vector);
+void    update_render_info(t_cub* data, int i);
 
 int texture_of(t_pt pt, t_pt vector);
 #endif

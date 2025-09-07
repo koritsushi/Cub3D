@@ -58,26 +58,19 @@ float srcx_of(t_pt pt, t_pt vector)
     return (-1);
 }
 
-void fill_texture(t_cub* data, int src_width, int src_height, int dst_height, float src_x)
+void fill_texture(t_cub* data, int y)
 {
-    int i;
-    int source_y;
-    int source_x;
+    int src_h;
+    int dst_h;
     int colour;
+    int txt;
 
-    i = 0;
-    source_y = 0;
-    source_x = 0;
-    while (i < dst_height)
-    {
-       source_y = ((float)i / (float)dst_height * (float)src_height);
-       source_x = ((float)src_x * (float)src_width);
-    //    printf("fill_texture: i %d src_x %f %d\n", i, source_x, (int)source_x);
-    //    colour = data->texture[0].addr[source_y * (size_line / 4) + source_x];
+    src_h = data->srcy1 - data->srcy0 + 1;
+    dst_h = data->dsty1 - data->dsty0 + 1;
+    txt = texture_of(data->endpt, data->ray_vector) - 1;
 
-    //    img.addr[(target_y + ceil_h) * (size_line / 4) + const_x] = colour;
-       i++;
-    }
+    colour = data->texture[txt].addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
+    data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
 }
 
 void* init_texture(t_cub* data, char *filepath, int i)

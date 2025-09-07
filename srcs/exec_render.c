@@ -135,7 +135,25 @@ void render_snapshot(t_cub* data)
 
     i = -1;
     while (++i < S_WIDTH)
+    {
+        update_render_info(data, i);
         colour_col(data, i);
+    }
 	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->win, data->texture[3].img, 0, 0);
     mlx_destroy_image(data->mlx, data->snapshot.img);
+}
+
+void    update_render_info(t_cub* data, int i)
+{
+    float   angle_inc;
+
+    // angle_inc = (float)FOV / (float)S_WIDTH;
+    // data->ray_angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
+    angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
+    data->ray_angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(i) * angle_inc), 360);
+    data->endpt = end_point(data, vector_of(data->ray_angle));
+    data->ray_vector = vector_of(data->ray_angle);
+    data->ray_texture = texture_of(data->endpt, data->ray_vector);
+    data->dist = d_fisheye(data->p1, data->endpt, angle_diff(data->ray_angle, data->dir_angle));
 }

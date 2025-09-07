@@ -61,8 +61,7 @@ int	main(int argc, char **argv)
 	init_texture(&data, "02.xpm", 1);
 	init_texture(&data, "03.xpm", 2);
 	init_texture(&data, "04.xpm", 3);
-	fill_texture(&data, 469, 625, 480, 0.5);
-	// cub_exec(&data);
+	cub_exec(&data);
 	// render_snapshot(&data);
 	free(file);
 	system("xset r on");
