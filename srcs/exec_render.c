@@ -103,6 +103,12 @@ void colour_col(t_cub* data, int x)
         txt_height = S_HEIGHT;
     cf_height = (int)((S_HEIGHT - txt_height) / 2);
 
+    data->srcx = 100;
+    data->srcy0 = 0;
+    data->srcy1 = 624;
+    data->dstx = x;
+    data->dsty0 = cf_height;
+    data->dsty1 = cf_height + txt_height - 1;
     // printf("cf %d, txt %d\n", cf_height, txt_height);
     int color1 = create_colourcode(0, 100, 0, 0);
     int color2 = create_colourcode(0, 0, 100, 0);
@@ -113,6 +119,7 @@ void colour_col(t_cub* data, int x)
         data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color1;
     y --;
     while (++y < cf_height + txt_height)
+        // fill_texture(data, y);
         data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color2;
     y --;
     while (++y < S_HEIGHT)

@@ -98,6 +98,14 @@ typedef struct	s_cub
 	int		*c_col;
 	t_image	snapshot;
 	t_image	texture[4];
+
+	int		srcx;
+	int		srcy0;
+	int		srcy1;
+	int		dstx;
+	int		dsty0;
+	int		dsty1;
+
 }			t_cub;
 
 void	ft_error(void);
