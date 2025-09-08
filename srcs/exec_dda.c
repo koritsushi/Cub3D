@@ -20,15 +20,12 @@ t_pt	next_checkpoint(t_pt src, t_pt vector);
 
 float	next_xy(float p, float vector)
 {
-	if (!is_zero(vector))
-	{
-		if  (vector > 0)
-			return (floor(p) + 1); 
-		else if (vector < 0 && is_wholenum(p))
-			return (floor(p) - 1); 
-		else if (vector < 0)
-			return (floor(p)); 
-	}
+	if  (vector > 0)
+		return (floor(p) + 1); 
+	// else if (vector < 0 && is_wholenum(p))
+	// 	return (floor(p) - 1); 
+	else if (vector < 0)
+		return (ceil(p) - 1); 
 	return (-1);
 }
 

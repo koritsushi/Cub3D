@@ -66,11 +66,11 @@ t_pt	movement2(t_pt src, t_pt vector, char** map)
 
 t_pt	dst_of2(t_pt src, t_pt vector, char** map)
 {
-	t_pt	check;
+	// t_pt	check;
 	t_pt	dst;
 	t_pt	temp;
 
-	check = next_checkpoint(src, vector);
+	// check = next_checkpoint(src, vector);
 	dst.x = src.x + (vector.x * MOVE_SPEED);
 	dst.y = src.y + (vector.y * MOVE_SPEED);
 	temp.x = 0;

@@ -177,3 +177,20 @@ int nb_units(int x)
 
     return (p);
 }
+
+int is_inwall(t_cub* data, t_pt pt)
+{
+    int x;
+    int y;
+
+    x = floor(pt.x);
+    y = floor(pt.y);
+    if (!is_bordering(pt))
+        return (is_solid(data->map[y][x]));
+    else if (is_bordering(pt) == 1)
+        return (is_solid(data->map[y][x]) || is_solid(data->map[y][x - 1]));
+    else if (is_bordering(pt) == 2)
+        return (is_solid(data->map[y][x]) || is_solid(data->map[y - 1][x]));
+    else if (is_bordering(pt) == 3)
+        return (is_solid(data->map[y][x]) || is_solid(data->map[y][x - 1]) || is_solid(data->map[y - 1][x]) || is_solid(data->map[y - 1][x - 1]));
+}

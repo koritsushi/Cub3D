@@ -184,4 +184,5 @@ float srcx_of(t_pt pt, t_pt vector);
 void    update_render_info(t_cub* data, int i);
 
 int texture_of(t_pt pt, t_pt vector);
+int is_inwall(t_cub* data, t_pt pt);
 #endif
