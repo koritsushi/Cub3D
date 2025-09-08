@@ -38,7 +38,6 @@ void fill_texture(t_cub* data, int y)
     src_h = data->srcy1 - data->srcy0 + 1;
     dst_h = data->dsty1 - data->dsty0 + 1;
     txt = texture_of(data->endpt, data->ray_vector) - 1;
-    // printf("DEBUG!! endpt (%f, %f) vector (%f, %f), %d\n", data->endpt.x, data->endpt.y, data->ray_vector.x, data->ray_vector.y, txt);
     
     colour = data->texture[txt].addr[y * (data->snapshot.size_line / 4) + data->dstx];
     data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
@@ -50,8 +49,8 @@ void* init_texture(t_cub* data, char *filepath, int i)
     int     width;
     int     height;
 
-    width = 469;
-    height = 625;
+    width = 1024;
+    height = 1024;
 
     data->texture[i].img = mlx_xpm_file_to_image(data->mlx, filepath, &width, &height);
     data->texture[i].addr = (int*)mlx_get_data_addr(data->texture[i].img, &data->texture[i].bpp, &data->texture[i].size_line, &data->texture[i].endian);

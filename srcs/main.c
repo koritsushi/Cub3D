@@ -58,9 +58,9 @@ int	main(int argc, char **argv)
 	printf("data is %p\n", &data);
 
 	init_texture(&data, "blue.xpm", 0);
-	init_texture(&data, "sand.xpm", 1);
+	init_texture(&data, "brick.xpm", 1);
 	init_texture(&data, "stone.xpm", 2);
-	init_texture(&data, "wall.xpm", 3);
+	init_texture(&data, "metal.xpm", 3);
 	cub_exec(&data);
 	// render_snapshot(&data);
 	free(file);

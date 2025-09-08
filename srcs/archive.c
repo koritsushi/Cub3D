@@ -358,3 +358,28 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 		printf("keep running, no need to check cell yet\n");
 	return (0);
 }
+
+void	player_move(t_cub* data, char dir)
+{
+	if (dir == 'f' && is_clear(data))
+	{
+		data->p1.x += (data->dir_pt.x * MOVE_SPEED);
+		data->p1.y += (data->dir_pt.y * MOVE_SPEED);
+	}
+	else if (dir == 'b' && is_clear(data))
+	{
+		data->p1.x -= (data->dir_pt.x * MOVE_SPEED);
+		data->p1.y -= (data->dir_pt.y * MOVE_SPEED);
+	}
+	else if (dir == 'l' && is_clear(data))
+	{
+		data->p1.x += (data->dir_pt.y * MOVE_SPEED);
+		data->p1.y -= (data->dir_pt.x * MOVE_SPEED);
+	}
+	else if (dir == 'r' && is_clear(data))
+	{
+		data->p1.x -= (data->dir_pt.y * MOVE_SPEED);
+		data->p1.y += (data->dir_pt.x * MOVE_SPEED);
+	}
+	printf("player_move: p1 (%f, %f)\n", data->p1.x, data->p1.y);
+}
