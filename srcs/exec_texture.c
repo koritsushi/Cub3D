@@ -15,36 +15,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-// img pointer texture;
-// texture = mlx_to_image();
-// x = texture column;
-
-// int	i;
-// i = ceil_height + 1;
-
-// y = start_y;
-// while (i < tex_height)  
-// {
-// 	y = ceil_height + i;
-// 	colour = get_colour(texture);
-// 	data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = colour;
-// 	i++;
-// }
-
-
-// int	get_colour(void* img, int x, int y)
-// {
-// 	img->addr[y * (img->size_line / 4) + x] = colour;
-// 	int	src_height;
-// 	int	dst_height;
-// 	float	src_ratio;
-// 	float	dst_ratio;
-
-// 	src_height = img_height;
-// 	dst_height = tex_height;
-// 	return (0);
-// }
-
 float srcx_of(t_pt pt, t_pt vector)
 {
     if (texture_of(pt, vector) == NORTH)

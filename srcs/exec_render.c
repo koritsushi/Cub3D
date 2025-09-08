@@ -58,7 +58,7 @@ float set_ratio(t_cub* data, int x)
     dist = d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
     // dist = d_fisheye(data->p1, endpt, FOV / 2 - (x * angle_inc));
     // dist = d_betw(data->p1, endpt);
-    printf("x %d %d angle inc %f angle %f diff %f dist %f\n", x, nb_units(x), angle_inc, angle, angle_diff(angle, data->dir_angle), dist);
+    // printf("x %d %d angle inc %f angle %f diff %f dist %f\n", x, nb_units(x), angle_inc, angle, angle_diff(angle, data->dir_angle), dist);
     if (dist <= CLOSEUP)
     {
         // dist = d_betw(data->p1, endpt);
@@ -94,7 +94,7 @@ void colour_col(t_cub* data, int x)
     int txt_height;
 
     ratio = set_ratio(data, x);
-    printf("colour_col: ratio %f\n", ratio);
+    // printf("colour_col: ratio %f\n", ratio);
     cf_height = ratio * S_HEIGHT;
     txt_height = (1 - (2 * ratio)) * S_HEIGHT;
 
@@ -103,12 +103,12 @@ void colour_col(t_cub* data, int x)
         txt_height = S_HEIGHT;
     cf_height = (int)((S_HEIGHT - txt_height) / 2);
 
-    data->srcx = 100;
-    data->srcy0 = 0;
-    data->srcy1 = 624;
-    data->dstx = x;
-    data->dsty0 = cf_height;
-    data->dsty1 = cf_height + txt_height - 1;
+    // data->srcx = 100;
+    // data->srcy0 = 0;
+    // data->srcy1 = 624;
+    // data->dstx = x;
+    // data->dsty0 = cf_height;
+    // data->dsty1 = cf_height + txt_height - 1;
     // printf("cf %d, txt %d\n", cf_height, txt_height);
     int color1 = create_colourcode(0, 100, 0, 0);
     int color2 = create_colourcode(0, 0, 100, 0);
@@ -136,7 +136,7 @@ void render_snapshot(t_cub* data)
     i = -1;
     while (++i < S_WIDTH)
     {
-        update_render_info(data, i);
+        // update_render_info(data, i);
         colour_col(data, i);
     }
 	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);

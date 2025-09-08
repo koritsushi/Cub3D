@@ -110,13 +110,13 @@ t_pt	dst_of2(t_pt src, t_pt vector, char** map)
 		else if (is_bordering(src) == 3) //corner
 		{
 			if (vector.x > 0)
-				src.x -= (1.05 * PRECISION);
+				src.x -= (2 * PRECISION);
 			else if (vector.x < 0)
-				src.x += (1.05 * PRECISION); 
+				src.x += (2 * PRECISION); 
 			if (vector.y > 0)
-				src.y -= (1.05 * PRECISION);
+				src.y -= (2 * PRECISION);
 			else if (vector.y < 0)
-				src.y += (1.05 * PRECISION); 
+				src.y += (2 * PRECISION); 
 			vector.y = 0;
 			return (src);
 		}
@@ -191,6 +191,7 @@ void	player_turn(t_cub* data)
 
 void	player_move(t_cub* data, char dir)
 {
+	printf("player_move: current p1 (%f, %f)\n", data->p1.x, data->p1.y);
 	if (dir == 'f' && is_clear(data))
 		data->p1 = dst_of2(data->p1, vector_of(data->dir_angle), data->map);
 	else if (dir == 'b' && is_clear(data))
