@@ -38,8 +38,9 @@ void fill_texture(t_cub* data, int y)
     src_h = data->srcy1 - data->srcy0 + 1;
     dst_h = data->dsty1 - data->dsty0 + 1;
     txt = texture_of(data->endpt, data->ray_vector) - 1;
-
-    colour = data->texture[txt].addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
+    // printf("DEBUG!! endpt (%f, %f) vector (%f, %f), %d\n", data->endpt.x, data->endpt.y, data->ray_vector.x, data->ray_vector.y, txt);
+    
+    colour = data->texture[txt].addr[y * (data->snapshot.size_line / 4) + data->dstx];
     data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
 }
 
