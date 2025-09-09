@@ -19,108 +19,135 @@ void    player_turn(t_cub* data);
 void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
 
+t_pt	dst_of3(t_cub* data, t_pt vector)
+{
+	t_pt	dst;
+	t_pt	move;
+	t_pt	endpt;
+
+	dst.x = data->p1.x + (vector.x * MOVE_SPEED);
+	dst.y = data->p1.y + (vector.y * MOVE_SPEED);
+	move.x = vector.x;
+	move.y = 0;
+	endpt = end_point(data, move);
+
+	if (move.x > 0 && endpt.x <= dst.x)
+		dst.x = endpt.x - (1.05 * PRECISION);
+	else if (move.x < 0 && endpt.x >= dst.x)
+		dst.x = endpt.x + (1.05 * PRECISION);
+
+	move.x = 0;
+	move.y = vector.y;
+	endpt = end_point(data, move);
+	if (move.y > 0 && endpt.y <= dst.y)
+		dst.y = endpt.y - (1.05 * PRECISION);
+	else if (move.y < 0 && endpt.y >= dst.y)
+		dst.y = endpt.y + (1.05 * PRECISION);
+	
+	return (dst);
+}
 
 // src in inside cell, or on border but verified passable
-t_pt	movement1(t_pt src, t_pt vector, char** map)
-{
-	t_pt	check;
-	t_pt	dst;
+// t_pt	movement1(t_pt src, t_pt vector, char** map)
+// {
+// 	t_pt	check;
+// 	t_pt	dst;
 
-	check = next_checkpoint(src, vector);
-	dst.x = src.x + (vector.x * MOVE_SPEED);
-	dst.y = src.y + (vector.y * MOVE_SPEED);
+// 	check = next_checkpoint(src, vector);
+// 	dst.x = src.x + (vector.x * MOVE_SPEED);
+// 	dst.y = src.y + (vector.y * MOVE_SPEED);
 
-	if (d_betw(src, check) >= d_betw(src, dst))
-		return (dst);
-	else
-	{
-		vector.x = dst.x - check.x;  
-		vector.y = dst.y - check.y;  
-		return (dst_of2(check, vector, map));
-	}
-}
+// 	if (d_betw(src, check) >= d_betw(src, dst))
+// 		return (dst);
+// 	else
+// 	{
+// 		vector.x = dst.x - check.x;  
+// 		vector.y = dst.y - check.y;  
+// 		return (dst_of2(check, vector, map));
+// 	}
+// }
 
 // src is on a cell border
-t_pt	movement2(t_pt src, t_pt vector, char** map)
-{
-	if (!is_stop(map, src, vector))
-		return movement1(src, vector, map);
-	else if (is_bordering(src) == 1) //vside
-	{
-		vector.x = 0;
-		printf("vector: %f,%f\n", src.x, src.y);
-		return movement1(src, vector, map);
-		//need to add the x vector back in the next cycle
-	}
-	else if (is_bordering(src) == 2) //hside
-	{
-		vector.y = 0;
-		return movement1(src, vector, map);
-		//need to add the y vector back in the next cycle
-	}
-	else if (is_bordering(src) == 3) //corner
-		return (src);
-	else
-		return (src);
-}
+// t_pt	movement2(t_pt src, t_pt vector, char** map)
+// {
+// 	if (!is_stop(map, src, vector))
+// 		return movement1(src, vector, map);
+// 	else if (is_bordering(src) == 1) //vside
+// 	{
+// 		vector.x = 0;
+// 		printf("vector: %f,%f\n", src.x, src.y);
+// 		return movement1(src, vector, map);
+// 		//need to add the x vector back in the next cycle
+// 	}
+// 	else if (is_bordering(src) == 2) //hside
+// 	{
+// 		vector.y = 0;
+// 		return movement1(src, vector, map);
+// 		//need to add the y vector back in the next cycle
+// 	}
+// 	else if (is_bordering(src) == 3) //corner
+// 		return (src);
+// 	else
+// 		return (src);
+// }
 
-t_pt	dst_of2(t_pt src, t_pt vector, char** map)
-{
+// t_pt	dst_of2(t_pt src, t_pt vector, char** map)
+// {
 	// t_pt	check;
-	t_pt	dst;
-	t_pt	temp;
-
+	// t_pt	dst;
+	// t_pt	temp;
+// 
 	// check = next_checkpoint(src, vector);
-	dst.x = src.x + (vector.x * MOVE_SPEED);
-	dst.y = src.y + (vector.y * MOVE_SPEED);
-	temp.x = 0;
-	temp.y = 0;
+	// dst.x = src.x + (vector.x * MOVE_SPEED);
+	// dst.y = src.y + (vector.y * MOVE_SPEED);
+	// temp.x = 0;
+	// temp.y = 0;
 	// printf("dst_of: check (%f,%f)\n", check.x, check.y);
 	// printf("dst_of: vector (%f,%f)\n", vector.x, vector.y);
 	// printf("dst_of: d_betw(%f), d_betw(%f)\n", d_betw(src, check), d_betw(src, dst));
-	if (is_bordering(src))
-	{ // 2
-		if (!is_stop(map, src, vector))
-			return movement1(src, vector, map);
-		else if (is_bordering(src) == 1) //vside
-		{
-			if (vector.x > 0)
-				src.x -= (1.05 * PRECISION);
-			else if (vector.x < 0)
-				src.x += (1.05 * PRECISION); 
-			vector.x = 0;
-			return movement1(src, vector, map);
-			//need to add the x vector back in the next cycle
-		}
-		else if (is_bordering(src) == 2) //hside
-		{
-			if (vector.y > 0)
-				src.y -= (1.05 * PRECISION);
-			else if (vector.y < 0)
-				src.y += (1.05 * PRECISION); 
-			vector.y = 0;
-			return movement1(src, vector, map);
-			//need to add the y vector back in the next cycle
-		}
-		else if (is_bordering(src) == 3) //corner
-		{
-			if (vector.x > 0)
-				src.x -= (4 * PRECISION);
-			else if (vector.x < 0)
-				src.x += (4 * PRECISION); 
-			if (vector.y > 0)
-				src.y -= (4 * PRECISION);
-			else if (vector.y < 0)
-				src.y += (4 * PRECISION); 
-			vector.y = 0;
-			return (src);
-		}
-		else
-			return (src);
-	}
-	else
-		return movement1(src, vector, map);
-}
+	// if (is_bordering(src))
+	// { // 2
+// 		if (!is_stop(map, src, vector))
+// 			return movement1(src, vector, map);
+// 		else if (is_bordering(src) == 1) //vside
+// 		{
+// 			if (vector.x > 0)
+// 				src.x -= (1.05 * PRECISION);
+// 			else if (vector.x < 0)
+// 				src.x += (1.05 * PRECISION); 
+// 			vector.x = 0;
+// 			return movement1(src, vector, map);
+// 			//need to add the x vector back in the next cycle
+// 		}
+// 		else if (is_bordering(src) == 2) //hside
+// 		{
+// 			if (vector.y > 0)
+// 				src.y -= (1.05 * PRECISION);
+// 			else if (vector.y < 0)
+// 				src.y += (1.05 * PRECISION); 
+// 			vector.y = 0;
+// 			return movement1(src, vector, map);
+// 			//need to add the y vector back in the next cycle
+// 		}
+// 		else if (is_bordering(src) == 3) //corner
+// 		{
+// 			if (vector.x > 0)
+// 				src.x -= (4 * PRECISION);
+// 			else if (vector.x < 0)
+// 				src.x += (4 * PRECISION); 
+// 			if (vector.y > 0)
+// 				src.y -= (4 * PRECISION);
+// 			else if (vector.y < 0)
+// 				src.y += (4 * PRECISION); 
+// 			vector.y = 0;
+// 			return (src);
+// 		}
+// 		else
+// 			return (src);
+// 	}
+// 	else
+// 		return movement1(src, vector, map);
+// }
 
 // t_pt	dst_of(t_pt src, t_pt vector, char** map)
 // {
@@ -239,13 +266,13 @@ void	player_move(t_cub* data, char dir)
 {
 	printf("player_move: current p1 (%f, %f)\n", data->p1.x, data->p1.y);
 	if (dir == 'f')
-		data->p1 = dst_of2(data->p1, vector_of(data->dir_angle), data->map);
+		data->p1 = dst_of3(data, vector_of(data->dir_angle));
 	else if (dir == 'b')
-		data->p1 = dst_of2(data->p1, vector_of(mod_angle(data->dir_angle + 180, 360)), data->map);
+		data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 180, 360)));
 	else if (dir == 'l')
-		data->p1 = dst_of2(data->p1, vector_of(mod_angle(data->dir_angle + 90, 360)), data->map);
+		data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 90, 360)));
 	else if (dir == 'r')
-		data->p1 = dst_of2(data->p1, vector_of(mod_angle(data->dir_angle - 90, 360)), data->map);
+		data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle - 90, 360)));
 	printf("player_move: p1 (%f, %f)\n", data->p1.x, data->p1.y);
 }
 

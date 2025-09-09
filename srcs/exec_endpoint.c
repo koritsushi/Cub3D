@@ -94,6 +94,7 @@ int	check_dcpt(char** map, int x, int y, t_pt vector)
 		return (-1);
 }
 
+
 // pt should be on border
 int	is_stop(char** map, t_pt pt, t_pt vector)
 {
@@ -123,12 +124,12 @@ t_pt	end_point(t_cub* data, t_pt vector)
 	t_pt	pt;
 
 	pt = data->p1;
-	if (is_bordering(pt) && is_stop(data->map, pt, vector))
-		return (pt);
-	else
-		pt = next_checkpoint(pt, vector);
+	// if (is_bordering(pt) && is_stop(data->map, pt, vector))
+	// 	return (pt);
+	// else
+	// pt = next_checkpoint(pt, vector);
 
-	while (!is_stop(data->map, pt, vector))
+	while (!is_inwall(data, pt))
 	{
 		pt = next_checkpoint(pt, vector);
 		// printf("end_point: pt(%f,%f)\n", pt.x, pt.y);
