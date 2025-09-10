@@ -128,11 +128,15 @@ t_pt	end_point(t_cub* data, t_pt vector)
 	// 	return (pt);
 	// else
 	// pt = next_checkpoint(pt, vector);
-
+	if (vector.x == 0 && vector.y == 0)
+		return (pt);
 	while (!is_inwall(data, pt))
 	{
 		pt = next_checkpoint(pt, vector);
 		// printf("end_point: pt(%f,%f)\n", pt.x, pt.y);
+		// printf("DEBUG (%f, %f)\n", pt.x, pt.y);
 	}
+	printf("end_point: pt (%f, %f)\n", pt.x, pt.y);
+	// printf("DEBUG (%f, %f), issolid %d\n", pt.x, pt.y, is_inwall(data, pt));
 	return (pt);
 }

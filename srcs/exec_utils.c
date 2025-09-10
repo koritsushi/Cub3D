@@ -32,6 +32,8 @@ t_pt    vector_of(float angle)
 
 	p.x = cos(angle / 180 * M_PI) * MOVE_SPEED;
 	p.y = sin(angle / 180 * M_PI) * MOVE_SPEED * (-1);
+    // if (angle == 0)
+    //     p.y = 0;
     return (p);
 }
 
@@ -133,11 +135,11 @@ float   d_betw(t_pt pt1, t_pt pt2)
 
 float   mod_angle(float angle, float mod)
 {
-    while (angle < 0 || angle > mod)
+    while (angle < 0 || angle >= mod)
     {
         if (angle < 0)
             angle += mod;
-        else if (angle > mod)
+        else if (angle >= mod)
             angle -= mod;
     }
     return (angle);
@@ -193,4 +195,6 @@ int is_inwall(t_cub* data, t_pt pt)
         return (is_solid(data->map[y][x]) || is_solid(data->map[y - 1][x]));
     else if (is_bordering(pt) == 3)
         return (is_solid(data->map[y][x]) || is_solid(data->map[y][x - 1]) || is_solid(data->map[y - 1][x]) || is_solid(data->map[y - 1][x - 1]));
+    else
+        return (-1);
 }
