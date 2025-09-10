@@ -39,7 +39,8 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 
 	p.x = -1;
 	p.y = -1;
-	temp = snap_xy(src);
+	temp = src;
+	// temp = snap_xy(src);
 	next_x = next_xy(temp.x, vector.x);
 	next_y = next_xy(temp.y, vector.y);
 

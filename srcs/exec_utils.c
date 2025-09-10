@@ -96,16 +96,16 @@ int     direction_of(t_pt vector)
     return (-1);
 }
 
-t_pt    snap_xy(t_pt pt)
-{
-    // printf("before snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
-    if (is_wholenum(pt.x))
-        pt.x = roundf(pt.x);
-    if (is_wholenum(pt.y))
-        pt.y = roundf(pt.y);
-    // printf("after snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
-    return (pt);
-}
+// t_pt    snap_xy(t_pt pt)
+// {
+//     // printf("before snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
+//     if (is_wholenum(pt.x))
+//         pt.x = roundf(pt.x);
+//     if (is_wholenum(pt.y))
+//         pt.y = roundf(pt.y);
+//     // printf("after snap_xy: pt is (%f, %f)\n", pt.x, pt.y);
+//     return (pt);
+// }
 
 float   d_fisheye(t_pt pt1, t_pt pt2, float angle)
 {
