@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 15:23:02 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/21 15:23:02 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/12 15:42:44 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,66 @@ doesn't if there are multiple close map
 if there is no player char
 no duplicate
 */
-int	bfs()
-{
 
-}
-
-int	flood_fill(char **map, int x, int y)
+void	dfs(t_cub *data, char map[data->height][data->width], int x, int y)
 {
 	int		length;
 	int		height;
-	char	**copy;
+	int		s;
+	int		os;
 
-	copy = map;
-	height = y;
-	length = x;
-
-	return (1);
+	os = 0;
+	s = 1;
+	if (x < 0 || x >= data->width || y < 0 || y >= data->height ||\
+map[x][y] != os)
+		return ;
+	map[x][y] = s;
+	dfs(data, map, x + 1, y);
+	dfs(data, map, x - 1, y);
+	dfs(data, map, x, y + 1);
+	dfs(data, map, x, y - 1); 
 }
 
-int	parse_map(t_cub *data, char *file)
+void	ft_flood_fill(t_cub *data, char map[data->height][data->width], int x, int y)
 {
-	
+	dfs(data, map, x, y);
+}
+
+int	parse_map(t_cub *data)
+{
+	int		i;
+	int		j;
+	int		x;
+	int		y;
+	char	copy[data->height][data->width];
+	char	*p;
+	int		status;
+
+	i = -1;
+	while (data->map[i++] != NULL)
+		ft_memcpy(copy[i], data->map[i], ft_strlen(data->map[i]));
+	i = 0;
+	x = 0;
+	y = 0;
+	p = "NEWS";
+	while (copy[i] != NULL)
+	{
+		while (copy[i][j] != '\0')
+		{
+			if (ft_strncmp(p, &copy[i][j], 1) == 1)
+			{
+				status += 1;				
+				y = i;
+				x = j;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (copy[i] == NULL && status == 1)
+	{
+		ft_flood_fill(data, copy, x, y);
+		return (1);
+	}
+	return (0);
 }

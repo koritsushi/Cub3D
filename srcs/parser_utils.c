@@ -12,6 +12,35 @@
 
 #include "../includes/cube3d.h"
 
+int	append_height(char **content, int len)
+{
+	int	i;
+
+	i = 0;
+	while (content[len] != NULL)
+	{	
+		len++;
+		i++;
+	}
+	return (i);
+}
+
+int	append_width(char **content, int len)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	tmp = 0;
+	while (content[len] != NULL)
+	{
+		tmp = ft_strlen(content[len++]);
+		if (i < tmp)
+			i = tmp;
+	}
+	return (i);
+}
+
 int	check_ext(int *fd, const char *file, char *ext)
 {
 	int	i;

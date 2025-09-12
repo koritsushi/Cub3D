@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/27 15:00:57 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/12 17:01:15 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	main(int argc, char **argv)
 	if (parse_file(&data, file) == 0)
 		return (1);
 	free(file);
+	if (parse_map(&data) == 0)
+		return (ft_free_arr((void **) data.map), 1);
 	i = 0;
 	ft_free_arr((void **) data.map);
 	while (i < 4)

@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/27 15:11:33 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/12 16:43:19 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	append_map(t_cub *data, char **content, int len)
 {
 	int	i;
 
+	data->height = append_height(content, len);
+	data->width = append_width(content, len);
 	i = 0;
 	data->map = malloc(sizeof(char *) * (ft_arr_len(content + len)));
 	if (data->map == NULL)
