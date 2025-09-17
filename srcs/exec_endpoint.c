@@ -19,7 +19,7 @@ int	check_spt(char** map, t_pt pt, t_pt vector, int side);
 int	check_ocpt(char** map, int x, int y, t_pt vector);
 int	check_dcpt(char** map, int x, int y, t_pt vector);
 int	is_stop(char** map, t_pt pt, t_pt vector);
-t_pt	end_point(t_cub* data, t_pt vector);
+t_pt	end_point(t_cub* data, t_pt pt, t_pt vector);
 
 int	check_spt(char** map, t_pt pt, t_pt vector, int side)
 {
@@ -119,11 +119,11 @@ int	check_dcpt(char** map, int x, int y, t_pt vector)
 // 	return (-1);
 // }
 
-t_pt	end_point(t_cub* data, t_pt vector)
+t_pt	end_point(t_cub* data, t_pt pt, t_pt vector)
 {
-	t_pt	pt;
+	// t_pt	pt;
 
-	pt = data->p1;
+	// pt = data->p1;
 	// if (is_bordering(pt) && is_stop(data->map, pt, vector))
 	// 	return (pt);
 	// else

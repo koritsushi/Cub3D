@@ -198,3 +198,18 @@ int is_inwall(t_cub* data, t_pt pt)
     else
         return (-1);
 }
+
+double   ft_power(double i, int n)
+{
+    double  p;
+
+    p = i;
+    if (n == 0)
+        return (1);
+    else
+    {
+        while (--n > 0)
+            p = i * i;
+    }
+    return (p);
+}

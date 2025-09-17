@@ -49,6 +49,31 @@ int	dist(t_cub* data)
 	return (0);
 }
 
+
+double	get_ratio2(t_cub* data, int i)
+{
+	double	step;
+	double	temp;
+	double	dist;
+	double	ratio;
+	double	factor;
+	t_pt	cam_start;
+
+	step = get_step(data);
+	temp = atan((S_WIDTH / 2 - i) * step) / M_PI * 180;
+	data->ray_angle = mod_angle(data->dir_angle + temp, 360);
+	data->ray_vector = vector_of(data->ray_angle);
+	dist = D_CAMERA / cos(data->ray_angle / 180 * M_PI);
+	factor = dist / sqrt(ft_power(data->ray_vector.x, 2) + ft_power(data->ray_vector.y, 2));
+	cam_start.x = data->p1.x + factor * data->ray_vector.x;
+	cam_start.y = data->p1.y + factor * data->ray_vector.y;
+	if (dist >= d_betw(data->p1, end_point(data, data->p1, data->ray_vector)))
+		return (0);		
+	dist = d_betw(cam_start, end_point(data, cam_start, data->dir_pt));
+	return (dist / HORIZON * 0.5);
+
+}
+
 //find camera start point
 // if d_camerapoint > d_endpoint, LOS is blocked - render all wall
 // else count camerapoint, dir_pt vector to endpoint to get distance (no need fisheye) -> this gives distance

@@ -36,6 +36,7 @@
 # define FOV 		120
 # define S_WIDTH	640
 # define S_HEIGHT	480
+# define D_CAMERA	0.5
 # define HORIZON	10.0
 # define CLOSEUP	0
 
@@ -135,7 +136,7 @@ int		check_spt(char** map, t_pt pt, t_pt vector, int side);
 int		check_ocpt(char** map, int x, int y, t_pt vector);
 int		check_dcpt(char** map, int x, int y, t_pt vector);
 int		is_stop(char** map, t_pt pt, t_pt vector);
-t_pt	end_point(t_cub* data, t_pt vector);
+t_pt	end_point(t_cub* data, t_pt pt, t_pt vector);
 
 //dda
 float	next_xy(float p, float vector);
@@ -189,4 +190,6 @@ int is_inwall(t_cub* data, t_pt pt);
 
 double	get_step(t_cub* data);
 int	dist(t_cub* data);
+double	get_ratio2(t_cub* data, int i);
+double   ft_power(double i, int n);
 #endif

@@ -54,7 +54,7 @@ float set_ratio(t_cub* data, int x)
     // angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
     angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
     angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
-    endpt = end_point(data, vector_of(angle));
+    endpt = end_point(data, data->p1, vector_of(angle));
     dist = d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
     // dist = d_fisheye(data->p1, endpt, FOV / 2 - (x * angle_inc));
     // dist = d_betw(data->p1, endpt);
@@ -82,7 +82,7 @@ float adj_dist(t_cub* data, int x)
     angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
     // angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
     // angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
-    endpt = end_point(data, vector_of(angle));
+    endpt = end_point(data, data->p1, vector_of(angle));
     return d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
 }
 
@@ -136,7 +136,7 @@ void render_snapshot(t_cub* data)
     i = -1;
     while (++i < S_WIDTH)
     {
-        // update_render_info(data, i);
+        update_render_info(data, i);
         colour_col(data, i); 
     }
 	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
@@ -146,18 +146,18 @@ void render_snapshot(t_cub* data)
 
 void    update_render_info(t_cub* data, int i)
 {
-    // float   angle_inc;
+    float   angle_inc;
     double  step;
     double  angle;
 
     // angle_inc = (float)FOV / (float)S_WIDTH;
     // data->ray_angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
-    // angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
+    angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
     // data->ray_angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(i) * angle_inc), 360);
     step = get_step(data);
 	angle = atan((S_WIDTH / 2 - i) * step) / M_PI * 180;
 	data->ray_angle = mod_angle(data->dir_angle + angle, 360);
-    data->endpt = end_point(data, vector_of(data->ray_angle));
+    data->endpt = end_point(data, data->p1, vector_of(data->ray_angle));
     data->ray_vector = vector_of(data->ray_angle);
     data->ray_texture = texture_of(data->endpt, data->ray_vector);
     data->dist = d_fisheye(data->p1, data->endpt, angle_diff(data->ray_angle, data->dir_angle));
