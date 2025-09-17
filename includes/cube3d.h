@@ -33,7 +33,7 @@
 # define TURN_SPEED 1
 # define MOVE_SPEED 0.2
 # define PRECISION 	0.001
-# define FOV 		60
+# define FOV 		120
 # define S_WIDTH	640
 # define S_HEIGHT	480
 # define HORIZON	10.0
@@ -177,7 +177,7 @@ void colour_col(t_cub* data, int col);
 void render_snapshot(t_cub* data);
 float angle_diff(float angle1, float angle2);
 int nb_units(int x);
-void* init_texture(t_cub* data, char *filepath, int i);
+void init_texture(t_cub* data, char *filepath, int i);
 int use_side(t_pt pt, t_pt vector);
 void fill_texture(t_cub* data, int y);
 float srcx_of(t_pt pt, t_pt vector);
@@ -185,4 +185,7 @@ void    update_render_info(t_cub* data, int i);
 
 int texture_of(t_pt pt, t_pt vector);
 int is_inwall(t_cub* data, t_pt pt);
+
+
+double	get_step(t_cub* data);
 #endif

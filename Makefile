@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/09/04 13:13:55 by booi             ###   ########.fr        #
+#    Updated: 2025/09/17 11:13:35 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS 		=	srcs/error.c	\
 				srcs/exec_endpoint.c	\
 				srcs/exec_render.c	\
 				srcs/exec_texture.c	\
+				srcs/exec_camera.c	\
 				srcs/main.c
 
 HEADER		=	includes/cub3d.h

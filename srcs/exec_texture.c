@@ -43,7 +43,7 @@ void fill_texture(t_cub* data, int y)
     data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
 }
 
-void* init_texture(t_cub* data, char *filepath, int i)
+void init_texture(t_cub* data, char *filepath, int i)
 {
     void*   p;
     int     width;
