@@ -22,16 +22,32 @@ double	get_step(t_cub* data)
 	double	max;
 	int		cols;
 
-	max = tan(FOV / 2.0 / 180 * M_PI);
-	cols = S_WIDTH / 2;
-	p = max / cols;
+	max = tan(FOV / 2.0 / 180 * M_PI) * 2;
+	// cols = S_WIDTH / 2;
+	p = max / (S_WIDTH);
 	// p = atan(p * 320) / M_PI * 180;
 
 	printf("get_step: is %f, %f\n", p, tan(60 / 180.0 * M_PI));
 	return (p);
 }
 
+int	dist(t_cub* data)
+{
+	int	i;
+	double	angle;
+	double	step;
 
+	i = 0;
+	step = get_step(data);
+	while (i <= S_WIDTH)
+	{
+		angle = atan((S_WIDTH / 2 - i) * step) / M_PI * 180;
+		angle = mod_angle(data->dir_angle + angle, 360);
+		// printf("angle is %f\n", angle);
+		i++;
+	}
+	return (0);
+}
 
 //find camera start point
 // if d_camerapoint > d_endpoint, LOS is blocked - render all wall

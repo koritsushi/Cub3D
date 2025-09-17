@@ -188,4 +188,5 @@ int is_inwall(t_cub* data, t_pt pt);
 
 
 double	get_step(t_cub* data);
+int	dist(t_cub* data);
 #endif

@@ -61,10 +61,11 @@ int	main(int argc, char **argv)
 	init_texture(&data, "brick.xpm", 1);
 	init_texture(&data, "stone.xpm", 2);
 	init_texture(&data, "metal.xpm", 3);
-	// cub_exec(&data);
+	cub_exec(&data);
 	// render_snapshot(&data);
-	double test;
-	test = get_step(&data);
+	// double test;
+	// test = get_step(&data);
+	// dist(&data);
 	free(file);
 	system("xset r on");
 	return 0;
