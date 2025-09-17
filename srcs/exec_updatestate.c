@@ -48,154 +48,6 @@ t_pt	dst_of3(t_cub* data, t_pt vector)
 	return (dst);
 }
 
-// src in inside cell, or on border but verified passable
-// t_pt	movement1(t_pt src, t_pt vector, char** map)
-// {
-// 	t_pt	check;
-// 	t_pt	dst;
-
-// 	check = next_checkpoint(src, vector);
-// 	dst.x = src.x + (vector.x * MOVE_SPEED);
-// 	dst.y = src.y + (vector.y * MOVE_SPEED);
-
-// 	if (d_betw(src, check) >= d_betw(src, dst))
-// 		return (dst);
-// 	else
-// 	{
-// 		vector.x = dst.x - check.x;  
-// 		vector.y = dst.y - check.y;  
-// 		return (dst_of2(check, vector, map));
-// 	}
-// }
-
-// src is on a cell border
-// t_pt	movement2(t_pt src, t_pt vector, char** map)
-// {
-// 	if (!is_stop(map, src, vector))
-// 		return movement1(src, vector, map);
-// 	else if (is_bordering(src) == 1) //vside
-// 	{
-// 		vector.x = 0;
-// 		printf("vector: %f,%f\n", src.x, src.y);
-// 		return movement1(src, vector, map);
-// 		//need to add the x vector back in the next cycle
-// 	}
-// 	else if (is_bordering(src) == 2) //hside
-// 	{
-// 		vector.y = 0;
-// 		return movement1(src, vector, map);
-// 		//need to add the y vector back in the next cycle
-// 	}
-// 	else if (is_bordering(src) == 3) //corner
-// 		return (src);
-// 	else
-// 		return (src);
-// }
-
-// t_pt	dst_of2(t_pt src, t_pt vector, char** map)
-// {
-	// t_pt	check;
-	// t_pt	dst;
-	// t_pt	temp;
-// 
-	// check = next_checkpoint(src, vector);
-	// dst.x = src.x + (vector.x * MOVE_SPEED);
-	// dst.y = src.y + (vector.y * MOVE_SPEED);
-	// temp.x = 0;
-	// temp.y = 0;
-	// printf("dst_of: check (%f,%f)\n", check.x, check.y);
-	// printf("dst_of: vector (%f,%f)\n", vector.x, vector.y);
-	// printf("dst_of: d_betw(%f), d_betw(%f)\n", d_betw(src, check), d_betw(src, dst));
-	// if (is_bordering(src))
-	// { // 2
-// 		if (!is_stop(map, src, vector))
-// 			return movement1(src, vector, map);
-// 		else if (is_bordering(src) == 1) //vside
-// 		{
-// 			if (vector.x > 0)
-// 				src.x -= (1.05 * PRECISION);
-// 			else if (vector.x < 0)
-// 				src.x += (1.05 * PRECISION); 
-// 			vector.x = 0;
-// 			return movement1(src, vector, map);
-// 			//need to add the x vector back in the next cycle
-// 		}
-// 		else if (is_bordering(src) == 2) //hside
-// 		{
-// 			if (vector.y > 0)
-// 				src.y -= (1.05 * PRECISION);
-// 			else if (vector.y < 0)
-// 				src.y += (1.05 * PRECISION); 
-// 			vector.y = 0;
-// 			return movement1(src, vector, map);
-// 			//need to add the y vector back in the next cycle
-// 		}
-// 		else if (is_bordering(src) == 3) //corner
-// 		{
-// 			if (vector.x > 0)
-// 				src.x -= (4 * PRECISION);
-// 			else if (vector.x < 0)
-// 				src.x += (4 * PRECISION); 
-// 			if (vector.y > 0)
-// 				src.y -= (4 * PRECISION);
-// 			else if (vector.y < 0)
-// 				src.y += (4 * PRECISION); 
-// 			vector.y = 0;
-// 			return (src);
-// 		}
-// 		else
-// 			return (src);
-// 	}
-// 	else
-// 		return movement1(src, vector, map);
-// }
-
-// t_pt	dst_of(t_pt src, t_pt vector, char** map)
-// {
-// 	t_pt	dst;
-// 	t_pt	check;
-// 	t_pt	temp;
-
-// 	dst.x = src.x + (vector.x * MOVE_SPEED);
-// 	dst.y = src.y + (vector.y * MOVE_SPEED);
-// 	check = next_checkpoint(src, vector);
-// 	temp.x = 0;
-// 	temp.y = 0;
-// 	printf("dst_of: check (%f,%f)\n", check.x, check.y);
-// 	printf("dst_of: d_betw(%f), d_betw(%f)\n", d_betw(src, check), d_betw(src, dst));
-// 	if (is_bordering(src) && is_stop(map, src, vector))
-// 	{
-// 		temp.x = dst.x - src.x;
-// 		temp.y = 0; 
-// 		if (is_stop(map, src, temp))
-// 			dst.x = src.x;
-// 		temp.y = dst.y - src.y;
-// 		temp.x = 0; 
-// 		if (is_stop(map, src, temp))
-// 			dst.y = src.y;
-// 		return (dst);
-// 	}
-// 	else if (d_betw(src, check) < d_betw(src, dst))
-// 	{
-// 		printf("dst_of: in loop\n");
-// 		if (is_stop(map, check, vector))
-// 		{
-// 			temp.x = dst.x - check.x;
-// 			temp.y = 0; 
-// 			if (is_stop(map, check, temp))
-// 				dst.x = check.x;
-// 			temp.y = dst.y - check.y;
-// 			temp.x = 0; 
-// 			if (is_stop(map, check, temp))
-// 				dst.y = check.y;
-// 			return (dst);
-// 		}
-// 		else
-// 			return (dst);
-// 	}
-// 	return (dst);
-// }
-
 void	player_turn(t_cub* data)
 {
 	// printf("player_turn: running\n");
@@ -255,7 +107,7 @@ void	player_move(t_cub* data, char dir)
 // this is the main function for auto-refreshing state and rendering view.
 int	update_state(t_cub* data)
 {
-	usleep(50000);
+	// usleep(50000);
 	// printf("update_state: running\n");
 	if (!(data->turn_left && data->turn_right) && (data->turn_left || data->turn_right))
 		player_turn(data);
@@ -275,7 +127,7 @@ int	update_state(t_cub* data)
 		player_move(data, 'x');
 	else if (!data->move_fwd && data->move_back && !data->move_left && data->move_right)
 		player_move(data, 'c');
-	// render_snapshot(data);
+	render_snapshot(data);
 	return (0);
 }
 

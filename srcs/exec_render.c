@@ -78,10 +78,10 @@ float adj_dist(t_cub* data, int x)
     t_pt    endpt;
     float   dist;
 
-    // angle_inc = (float)FOV / (float)S_WIDTH;
-    // angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
-    angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
-    angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
+    angle_inc = (float)FOV / (float)S_WIDTH;
+    angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
+    // angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
+    // angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
     endpt = end_point(data, vector_of(angle));
     return d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
 }
@@ -98,9 +98,9 @@ void colour_col(t_cub* data, int x)
     cf_height = ratio * S_HEIGHT;
     txt_height = (1 - (2 * ratio)) * S_HEIGHT;
 
-    txt_height = (int)(S_HEIGHT / adj_dist(data, x));
-    if (txt_height > S_HEIGHT)
-        txt_height = S_HEIGHT;
+    // txt_height = (int)(S_HEIGHT / adj_dist(data, x));
+    // if (txt_height > S_HEIGHT)
+        // txt_height = S_HEIGHT;
     cf_height = (int)((S_HEIGHT - txt_height) / 2);
 
     data->srcx = 100;
@@ -137,7 +137,7 @@ void render_snapshot(t_cub* data)
     while (++i < S_WIDTH)
     {
         // update_render_info(data, i);
-        colour_col(data, i); // segfault in this function
+        colour_col(data, i); 
     }
 	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
 	// mlx_put_image_to_window(data->mlx, data->win, data->texture[0].img, 0, 0);
@@ -156,5 +156,5 @@ void    update_render_info(t_cub* data, int i)
     data->ray_vector = vector_of(data->ray_angle);
     data->ray_texture = texture_of(data->endpt, data->ray_vector);
     data->dist = d_fisheye(data->p1, data->endpt, angle_diff(data->ray_angle, data->dir_angle));
-    printf("DEBUG!! endpt (%f, %f) vector (%f, %f)\n", data->endpt.x, data->endpt.y, data->ray_vector.x, data->ray_vector.y);
+    // printf("DEBUG!! endpt (%f, %f) vector (%f, %f)\n", data->endpt.x, data->endpt.y, data->ray_vector.x, data->ray_vector.y);
 }
