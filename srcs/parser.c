@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/17 19:08:42 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/18 16:25:44 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ int	append_map(t_cub *data, char **content, int len)
 
 	data->height = append_height(content, len);
 	data->width = append_width(content, len);
-	printf("data->height: %d\n", data->height);
-	printf("data->width: %d\n", data->width);
 	i = 0;
 	data->map = malloc(sizeof(char *) * (ft_arr_len(content + len) + 1));
 	data->cmap = malloc(sizeof(char *) * (ft_arr_len(content + len) + 1));

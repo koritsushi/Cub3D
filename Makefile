@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/08/26 16:41:56 by mliyuan          ###   ########.fr        #
+#    Updated: 2025/09/18 13:44:45 by mliyuan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ HEADER		=	includes/cub3d.h
 OBJS		=	$(SRCS:%.c=%.o)
 
 %.o: %.c	$(HEADER)
-			$(COMPILE) $(CCFLAGS) $(GGDB) -I. -c $< -o $(<:.c=.o)
+			$(COMPILE) $(CCFLAGS) -ggdb3 -I. -c $< -o $(<:.c=.o)
 
 LIBFTDIR	=	./libft/
 LIBFT		=	$(LIBFTDIR)libft.a
@@ -43,7 +43,7 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 		$(COMPILE) $(CCFLAGS) $(DEBUG) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) -o $(NAME)
 
 $(DEBUG): $(LIBFT) $(MLX) $(OBJS)	
-		$(COMPILE) $(CCFLAGS) $(DEBUG) $(OBJS) $(LIBFT) $(MLX) $(FSAN) $(MLXCOMPILE) -o $(NAME)
+		$(COMPILE) $(CCFLAGS) $(DEBUG) $(FSAN) $(OBJS) $(LIBFT) $(MLX) $(MLXCOMPILE) -o $(NAME)
 		
 $(LIBFT):
 		@make -C $(LIBFTDIR) all
