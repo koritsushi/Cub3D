@@ -30,10 +30,6 @@ float srcx_of(t_pt pt, t_pt vector)
 
 void fill_texture(t_cub* data, int y)
 {
-
-	// data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
-    // data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
-
     int src_h;
     int dst_h;
     int colour;
@@ -99,10 +95,8 @@ void    test_render(t_cub* data)
     
     int x = 200; // getting this requires a function. find_x(data)
     int y = 470;
-    // int starty = 100;
-    // int endy = 200;
     double row;
-    int p;
+    // int p;
     
     //x remains constant. for each iteration, change y.
     // colour = create_colourcode(0, 100, 200, 200);
@@ -110,10 +104,9 @@ void    test_render(t_cub* data)
     {
         // printf("debug\n");
         row = 1.00 * (i-x) / (y-x) * 1024;
-        // row = ((i-x) / (y-x)  *  (1024));
-        p = row;
-        printf("color %f %d %d", row, p, i);
-        colour = data->texture[0].addr[p * (data->snapshot.size_line / 4) + x];
+        // p = row;
+        // printf("color %f %d %d", row, p, i);
+        colour = data->texture[0].addr[(int)row * (data->snapshot.size_line / 4) + x];
         printf("color is %d\n", colour);
         data->snapshot.addr[i * (data->snapshot.size_line / 4) + x] = colour;
     }
