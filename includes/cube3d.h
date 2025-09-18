@@ -194,4 +194,6 @@ double	get_step(t_cub* data);
 int	dist(t_cub* data);
 double	get_ratio(t_cub* data, int i);
 double   ft_power(double i, int n);
+
+void    test_render(t_cub* data);
 #endif

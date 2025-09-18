@@ -86,3 +86,66 @@ int texture_of(t_pt pt, t_pt vector)
     }
     return (0);
 }
+
+
+void    test_render(t_cub* data)
+{
+    int colour;
+
+	data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
+    data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
+    
+    // code here-----------------------
+    
+    int x = 200; // getting this requires a function. find_x(data)
+    int y = 470;
+    // int starty = 100;
+    // int endy = 200;
+    double row;
+    int p;
+    
+    //x remains constant. for each iteration, change y.
+    // colour = create_colourcode(0, 100, 200, 200);
+    for (int i=100; i<y; i++)
+    {
+        // printf("debug\n");
+        row = 1.00 * (i-x) / (y-x) * 1024;
+        // row = ((i-x) / (y-x)  *  (1024));
+        p = row;
+        printf("color %f %d %d", row, p, i);
+        colour = data->texture[0].addr[p * (data->snapshot.size_line / 4) + x];
+        printf("color is %d\n", colour);
+        data->snapshot.addr[i * (data->snapshot.size_line / 4) + x] = colour;
+    }
+    
+
+
+
+
+
+
+// code here-----------------------
+
+	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->win, data->texture[0].img, 0, 0);
+    mlx_destroy_image(data->mlx, data->snapshot.img);
+
+
+	mlx_hook(data->win, 2, 1L<<0, key_press, data);
+	mlx_hook(data->win, 3, 1L<<1, key_release, data);
+	mlx_hook(data->win, 17, 0, mlx_close, data);
+	mlx_loop(data->mlx);
+
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+
+}
+//     int src_h;
+//     int dst_h;
+//     int txt;
+
+//     src_h = data->srcy1 - data->srcy0 + 1;
+//     dst_h = data->dsty1 - data->dsty0 + 1;
+//     txt = texture_of(data->endpt, data->ray_vector) - 1;
+    
+// // printf("debug %d\n", data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx]);
