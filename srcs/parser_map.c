@@ -20,7 +20,7 @@ if there is no player char
 no duplicate
 */
 
-void	dfs(t_cub *data, char map[data->height][data->width], int x, int y)
+void	dfs(t_cub *data, char **map, int x, int y)
 {
 	int		length;
 	int		height;
@@ -39,7 +39,7 @@ map[x][y] != os)
 	dfs(data, map, x, y - 1); 
 }
 
-void	ft_flood_fill(t_cub *data, char map[data->height][data->width], int x, int y)
+void	ft_flood_fill(t_cub *data, char **map, int x, int y)
 {
 	dfs(data, map, x, y);
 }
@@ -50,22 +50,18 @@ int	parse_map(t_cub *data)
 	int		j;
 	int		x;
 	int		y;
-	char	copy[data->height][data->width];
 	char	*p;
 	int		status;
 
-	i = -1;
-	while (data->map[i++] != NULL)
-		ft_memcpy(copy[i], data->map[i], ft_strlen(data->map[i]));
 	i = 0;
 	x = 0;
 	y = 0;
 	p = "NEWS";
-	while (copy[i] != NULL)
+	while (data->cmap[i] != NULL)
 	{
-		while (copy[i][j] != '\0')
+		while (data->cmap[i][j] != '\0')
 		{
-			if (ft_strncmp(p, &copy[i][j], 1) == 1)
+			if (ft_strncmp(p, &data->cmap[i][j], 1) == 1)
 			{
 				status += 1;				
 				y = i;
@@ -75,9 +71,9 @@ int	parse_map(t_cub *data)
 		}
 		i++;
 	}
-	if (copy[i] == NULL && status == 1)
+	if (data->cmap[i] == NULL && status == 1)
 	{
-		ft_flood_fill(data, copy, x, y);
+		ft_flood_fill(data, data->cmap, x, y);
 		return (1);
 	}
 	return (0);
