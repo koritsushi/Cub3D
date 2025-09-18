@@ -35,6 +35,9 @@ void	struct_init(t_cub *data)
 	data->we = NULL;
 	data->f_col = 0;
 	data->c_col = 0;
+
+	data->step = get_step(data);
+
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		printf("struct_init: error creating exec.mlx\n");
@@ -62,10 +65,9 @@ int	main(int argc, char **argv)
 	init_texture(&data, "stone.xpm", 2);
 	init_texture(&data, "metal.xpm", 3);
 	cub_exec(&data);
+	// colour_col(&data, 0);
+	// fill_texture(&data, 0);
 	// render_snapshot(&data);
-	// double test;
-	// test = get_step(&data);
-	// dist(&data);
 	free(file);
 	system("xset r on");
 	return 0;

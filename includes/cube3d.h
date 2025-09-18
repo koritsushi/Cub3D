@@ -36,7 +36,7 @@
 # define FOV 		120
 # define S_WIDTH	640
 # define S_HEIGHT	480
-# define D_CAMERA	0.5
+# define D_CAMERA	1.0
 # define HORIZON	10.0
 # define CLOSEUP	0
 
@@ -100,10 +100,12 @@ typedef struct	s_cub
 	t_image	snapshot;
 	t_image	texture[4];
 
+	double	step;
 	float	ray_angle;
 	t_pt	endpt;
 	t_pt	ray_vector;
     int     ray_texture;
+	t_pt	cam_start;
 	float	dist;
 	int		srcx;
 	int		srcy0;
@@ -190,6 +192,6 @@ int is_inwall(t_cub* data, t_pt pt);
 
 double	get_step(t_cub* data);
 int	dist(t_cub* data);
-double	get_ratio2(t_cub* data, int i);
+double	get_ratio(t_cub* data, int i);
 double   ft_power(double i, int n);
 #endif

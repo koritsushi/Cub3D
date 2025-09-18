@@ -20,12 +20,9 @@ double	get_step(t_cub* data)
 {
 	double	p;
 	double	max;
-	int		cols;
 
 	max = tan(FOV / 2.0 / 180 * M_PI) * 2;
-	// cols = S_WIDTH / 2;
 	p = max / (S_WIDTH);
-	// p = atan(p * 320) / M_PI * 180;
 
 	printf("get_step: is %f, %f\n", p, tan(60 / 180.0 * M_PI));
 	return (p);
@@ -49,44 +46,32 @@ int	dist(t_cub* data)
 	return (0);
 }
 
-double	closeup_ratio(t_cub* data)
+double	get_ratio(t_cub* data, int i)
 {
-	return (0);
-}
-
-double	get_ratio2(t_cub* data, int i)
-{
-	double	step;
-	double	temp;
+	double	angle;
 	double	dist;
-	double	ratio;
 	double	factor;
 	t_pt	cam_start;
-
 	double	d_cam;
 	double	d_wall;
 
-	step = get_step(data);
-	temp = atan((S_WIDTH / 2 - i) * step);
-	d_cam = fabs(D_CAMERA / cos(temp));
-	data->ray_angle = data->dir_angle + (temp / M_PI * 180);
-	data->ray_vector = vector_of(data->ray_angle);
+	angle = atan((S_WIDTH / 2 - i) * data->step);
+	d_cam = fabs(D_CAMERA / cos(angle));
 	d_wall = d_betw(data->p1, end_point(data, data->p1, data->ray_vector));
-
-	temp = atan((S_WIDTH / 2 - i) * step) / M_PI * 180;
-	data->ray_angle = mod_angle(data->dir_angle + temp, 360);
-	data->ray_vector = vector_of(data->ray_angle);
-	dist = D_CAMERA / cos(data->ray_angle / 180 * M_PI);
-	factor = dist / sqrt(ft_power(data->ray_vector.x, 2) + ft_power(data->ray_vector.y, 2));
-	cam_start.x = data->p1.x + factor * data->ray_vector.x;
-	cam_start.y = data->p1.y + factor * data->ray_vector.y;
 	if (d_cam >= d_wall)
-		return (closeup_ratio(data));		
+		return (-d_wall / d_cam);		
 	else
 	{
+		factor = d_cam / sqrt(ft_power(data->ray_vector.x, 2) + ft_power(data->ray_vector.y, 2));
+		cam_start.x = data->p1.x + factor * data->ray_vector.x;
+		cam_start.y = data->p1.y + factor * data->ray_vector.y;
 		dist = d_betw(cam_start, end_point(data, cam_start, data->dir_pt));
+		// dist = d_fisheye(cam_start, end_point(data, cam_start, data->dir_pt), fabs(angle));
+		if (dist >= HORIZON)
+			return (0.5);
+		else
+			return (dist / HORIZON * 0.5);
 	}
-	return (dist / HORIZON * 0.5);
 }
 
 //find camera start point

@@ -531,3 +531,28 @@ t_pt	dst_of(t_pt src, t_pt vector, char** map)
 	}
 	return (dst);
 }
+
+
+//pt should be on border
+int	is_stop(char** map, t_pt pt, t_pt vector)
+{
+	int		x;
+	int		y;
+	t_pt	temp;
+
+	temp = snap_xy(pt);
+	x = floorf(temp.x);
+	y = floorf(temp.y);
+	temp.x = x;
+	temp.y = y;
+	if (is_bordering(pt) == 1 || is_bordering(pt) == 2)
+		return (check_spt(map, temp, vector, is_bordering(pt)));
+	else if (is_bordering(pt) == 3)
+	{
+		if (direction_of(vector) <= 4)
+			return(check_ocpt(map, x, y, vector));
+		else if (direction_of(vector) <= 8)
+			return(check_dcpt(map, x, y, vector));
+	}
+	return (-1);
+}

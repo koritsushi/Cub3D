@@ -39,17 +39,18 @@ t_pt    vector_of(float angle)
 
 int	is_wholenum(float n)
 {
-	if (fabs(n - round(n)) < PRECISION)
+	// if (fabs(n - round(n)) < PRECISION)
+	if (n == round(n))
 		return (1);
 	return (0);
 }
 
-int     is_zero(float n)
-{
-    if(fabs(n) < PRECISION)
-        return (1);
-    return (0);
-}
+// int     is_zero(float n)
+// {
+//     if(fabs(n) < PRECISION)
+//         return (1);
+//     return (0);
+// }
 
 int		is_solid(char cell)
 {
@@ -74,17 +75,23 @@ int     is_bordering(t_pt pt)
 
 int     direction_of(t_pt vector)
 {
-	if (is_zero(vector.x) && is_zero(vector.y))
+	if (vector.x == 0 && vector.y == 0)
+    // if (is_zero(vector.x) && is_zero(vector.y))
         return (HERE);
-	else if (!is_zero(vector.x) && is_zero(vector.y) && vector.x > 0)
+	else if (vector.x > 0 && vector.y == 0)
+	// else if (!is_zero(vector.x) && is_zero(vector.y) && vector.x > 0)
         return (EAST);
-	else if (!is_zero(vector.x) && is_zero(vector.y) && vector.x < 0)
+	else if (vector.x < 0 && vector.y == 0)
+	// else if (!is_zero(vector.x) && is_zero(vector.y) && vector.x < 0)
         return (WEST);
-	else if (is_zero(vector.x) && !is_zero(vector.y) && vector.y > 0)
+	else if (vector.x == 0 && vector.y > 0)
+	// else if (is_zero(vector.x) && !is_zero(vector.y) && vector.y > 0)
         return (SOUTH);
-	else if (is_zero(vector.x) && !is_zero(vector.y) && vector.y < 0)
+	else if (vector.x == 0 && vector.y < 0)
+	// else if (is_zero(vector.x) && !is_zero(vector.y) && vector.y < 0)
         return (NORTH);
-	else if (!is_zero(vector.x) && !is_zero(vector.y))
+	else if (vector.x != 0 && vector.y != 0)
+	// else if (!is_zero(vector.x) && !is_zero(vector.y))
     {
         if (vector.x > 0 && vector.y > 0)
             return (SOUTHEAST);
