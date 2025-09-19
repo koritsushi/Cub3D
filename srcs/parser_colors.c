@@ -33,10 +33,10 @@ int	valid_num(char *str)
 
 int	colors(t_cub *data, char *color)
 {
-	int		i;
-	char	**rgbs;
-	int		colors[3];
-	int		valid;
+	int				i;
+	char			**rgbs;
+	unsigned char	colors[3];
+	int				valid;
 
 	rgbs = ft_split_str(color + 1, " ,");
 	i = ft_arr_len(rgbs);
