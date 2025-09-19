@@ -105,14 +105,18 @@ typedef struct	s_cub
 	t_pt	endpt;
 	t_pt	ray_vector;
     int     ray_texture;
-	t_pt	cam_start;
+	t_pt	ray_start;
+
 	float	dist;
+	int		txt_n;
 	int		srcx;
 	int		srcy0;
 	int		srcy1;
+	int		src_h;
 	int		dstx;
 	int		dsty0;
 	int		dsty1;
+	int		dst_h;
 
 }			t_cub;
 
@@ -196,4 +200,6 @@ double	get_ratio(t_cub* data, int i);
 double   ft_power(double i, int n);
 
 void    test_render(t_cub* data);
+void    update_colinfo(t_cub* data, double ratio);
+void	update_rayinfo(t_cub* data);
 #endif

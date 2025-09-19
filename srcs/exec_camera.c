@@ -46,12 +46,24 @@ int	dist(t_cub* data)
 	return (0);
 }
 
+
+void	update_rayinfo(t_cub* data)
+{
+	// float	ray_angle;
+	// t_pt	endpt;
+	// t_pt	ray_vector;
+    // int     ray_texture;
+	// t_pt	ray_start;
+	data->step = get_step(data);
+
+
+}
+
 double	get_ratio(t_cub* data, int i)
 {
 	double	angle;
 	double	dist;
 	double	factor;
-	t_pt	cam_start;
 	double	d_cam;
 	double	d_wall;
 
@@ -63,10 +75,10 @@ double	get_ratio(t_cub* data, int i)
 	else
 	{
 		factor = d_cam / sqrt(ft_power(data->ray_vector.x, 2) + ft_power(data->ray_vector.y, 2));
-		cam_start.x = data->p1.x + factor * data->ray_vector.x;
-		cam_start.y = data->p1.y + factor * data->ray_vector.y;
-		dist = d_betw(cam_start, end_point(data, cam_start, data->dir_pt));
-		// dist = d_fisheye(cam_start, end_point(data, cam_start, data->dir_pt), fabs(angle));
+		data->ray_start.x = data->p1.x + factor * data->ray_vector.x;
+		data->ray_start.y = data->p1.y + factor * data->ray_vector.y;
+		dist = d_betw(data->ray_start, end_point(data, data->ray_start, data->dir_pt));
+		// dist = d_fisheye(ray_start, end_point(data, ray_start, data->dir_pt), fabs(angle));
 		if (dist >= HORIZON)
 			return (0.5);
 		else

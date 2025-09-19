@@ -83,6 +83,21 @@ int texture_of(t_pt pt, t_pt vector)
     return (0);
 }
 
+void    update_colinfo(t_cub* data, double ratio)
+{
+    int x;
+
+    // data->txt_n = get texture array number depending on NSEW
+    // x = get the x co-ordinate (between 0-1) for where ray hits wall
+    // data->dstx = x * S_WIDTH;
+    // data->srcx = x * T_WIDTH;
+    // data->srcy0 = (int)(ratio * T_HEIGHT);
+    // data->srcy1 = T_HEIGHT - (int)(ratio * T_HEIGHT);
+    // data->src_h = data->srcy1 - data->srcy0 + 1;
+    // data->dsty0 = (int)(ratio * S_HEIGHT);
+    // data->dsty1 = S_HEIGHT - (int)(ratio * S_HEIGHT);
+    // data->dst_h = data->dsty1 - data->dsty0 + 1;
+}
 
 void    test_render(t_cub* data)
 {
