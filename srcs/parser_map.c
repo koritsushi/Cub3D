@@ -43,18 +43,27 @@ int	ft_flood_fill(t_cub *data, char **map, int x, int y)
 	return (dfs(data, map, x, y));
 }
 
+int	check_pm(t_cub *data, int status, int x, int y)
+{
+	if (status == 1)
+	{
+		data->cmap[y][x] = '0';
+		if (ft_flood_fill(data, data->cmap, x, y) > 0)
+			return (ft_free_arr((void **)data->cmap), 0);
+		return (1);
+	}
+	return (0);
+}
+
 int	parse_map(t_cub *data)
 {
 	int		i;
 	int		j;
-	int		x;
-	int		y;
+	int		c[2];
 	char	*p;
 	int		status;
 
 	i = -1;
-	x = 0;
-	y = 0;
 	status = 0;
 	p = "NEWS";
 	while (data->cmap[++i] != NULL)
@@ -65,17 +74,10 @@ int	parse_map(t_cub *data)
 			if (ft_strncmp(p, data->cmap[i] + j, 1) == 0)
 			{
 				status += 1;
-				y = i;
-				x = j;
+				c[1] = i;
+				c[0] = j;
 			}
 		}
 	}
-	if (status == 1)
-	{
-		data->cmap[y][x] = '0';
-		if (ft_flood_fill(data, data->cmap, x, y) > 0)
-			return (ft_free_arr((void **)data->cmap), 0);
-		return (1);
-	}
-	return (0);
+	return (check_pm(data, status, c[0], c[1]));
 }
