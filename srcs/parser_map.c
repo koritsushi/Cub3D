@@ -20,22 +20,47 @@ if there is no player char
 no duplicate
 */
 
+char	*ft_cstrdup(t_cub *data, const char *s)
+{
+	size_t	i;
+	char	*cpy;
+
+	i = 0;
+	cpy = malloc(sizeof(char) + data->width + 1);
+	if (cpy == NULL)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\t')
+			return (NULL);
+		if (ft_isspace(s[i]) == 1)
+			cpy[i] = '0';
+		else
+			cpy[i] = s[i];
+		i++;
+	}
+	while (i < data->width)
+		cpy[i++] = '0';
+	cpy[i] = '\0';
+	return (cpy);
+}
+
 int	dfs(t_cub *data, char **map, int x, int y)
 {
-	int returnVal;
+	int	status;
 
-	returnVal = 0;
-	if (map[y][x] == ' ')
+	status = 0;
+	if (x < 0 || x >= data->width || y < 0 || y >= data->height || \
+map[y][x] == ' ')
 		return (1);
-	else if (x < 0 || x >= data->width || y < 0 || y >= data->height ||\
-map[y][x] != '0')
+	else if (map[y][x] != '0')
 		return (0);
 	map[y][x] = '1';
-	returnVal += dfs(data, map, x, y + 1);
-	returnVal += dfs(data, map, x, y - 1); 
-	returnVal += dfs(data, map, x + 1, y);
-	returnVal += dfs(data, map, x - 1, y);
-	return (returnVal);
+	status += dfs(data, map, x, y + 1);
+	status += dfs(data, map, x, y - 1);
+	status += dfs(data, map, x + 1, y);
+	status += dfs(data, map, x - 1, y);
+	return (status);
 }
 
 int	ft_flood_fill(t_cub *data, char **map, int x, int y)
@@ -52,33 +77,29 @@ int	parse_map(t_cub *data)
 	char	*p;
 	int		status;
 
-	i = 0;
+	i = -1;
 	x = 0;
 	y = 0;
 	status = 0;
 	p = "NEWS";
-	while (data->cmap[i] != NULL)
+	while (data->cmap[++i] != NULL)
 	{
-		j = 0;
-		while (data->cmap[i][j] != '\0')
-		{	
-			if (ft_strncmp(p, data->cmap[i]+j, 1) == 0)
+		j = -1;
+		while (data->cmap[i][++j] != '\0')
+		{
+			if (ft_strncmp(p, data->cmap[i] + j, 1) == 0)
 			{
-				status += 1;				
+				status += 1;
 				y = i;
 				x = j;
 			}
-			j++;
 		}
-		i++;
 	}
 	if (status == 1)
 	{
 		data->cmap[y][x] = '0';
-		if (ft_flood_fill(data, data->cmap, x, y) == 1)
-			return (0);
-		for (int j = 0; data->cmap[j] != NULL; j++)
-			printf("%s\n", data->cmap[j]);
+		if (ft_flood_fill(data, data->cmap, x, y) > 0)
+			return (ft_free_arr((void **)data->cmap), 0);
 		return (1);
 	}
 	return (0);

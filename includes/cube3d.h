@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/17 18:15:06 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/19 15:48:44 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int		parse_texture(t_cub *data, char *pathname, int type);
 int		colors(t_cub *data, char *color);
 int		parse_color(t_cub *data, char *rgb, int type);
 //parser_map.c
+char	*ft_cstrdup(t_cub *data, const char *s);
 int		parse_map(t_cub *data);
 //parser_utils2.c
 char	**ft_split_str(char *str, char *set);

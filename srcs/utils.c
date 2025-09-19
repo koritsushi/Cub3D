@@ -35,7 +35,7 @@ char	**ft_arr_cpy(char **src)
 {
 	int			i;
 	int			j;
-	char	**dst;
+	char		**dst;
 
 	i = 0;
 	j = 0;

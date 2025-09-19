@@ -18,7 +18,7 @@ int	append_height(char **content, int len)
 
 	i = 0;
 	while (content[len] != NULL)
-	{	
+	{
 		len++;
 		i++;
 	}
