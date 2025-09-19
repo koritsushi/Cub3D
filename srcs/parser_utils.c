@@ -12,6 +12,31 @@
 
 #include "../includes/cube3d.h"
 
+char	*ft_cstrdup(t_cub *data, const char *s)
+{
+	size_t	i;
+	char	*cpy;
+
+	i = 0;
+	cpy = malloc(sizeof(char) + data->width + 1);
+	if (cpy == NULL)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\t')
+			return (NULL);
+		if (ft_isspace(s[i]) == 1)
+			cpy[i] = '0';
+		else
+			cpy[i] = s[i];
+		i++;
+	}
+	while (i < data->width)
+		cpy[i++] = '0';
+	cpy[i] = '\0';
+	return (cpy);
+}
+
 int	append_height(char **content, int len)
 {
 	int	i;
