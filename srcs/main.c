@@ -15,13 +15,27 @@
 #include <math.h>
 #include <stdlib.h>
 
-void	struct_init(t_cub *data)
+void	init_p1(t_cub* data, char c)
 {
 	data->p1.x = 3.5;
 	data->p1.y = 3.5;
-	data->dir_angle = 0; //init depending on starting p1 orientation
-	data->dir_pt.x = 0.1;
-	data->dir_pt.y = 0;
+	if (c == 'N')
+		data->dir_angle = 90;
+	else if (c == 'S')
+		data->dir_angle = 270;
+	else if (c == 'E')
+		data->dir_angle = 0;
+	else if (c == 'W')
+		data->dir_angle = 180;
+	// data->dir_angle = 45;
+	data->dir_pt = vector_of(data->dir_angle);
+	// printf("init_p1: dir_angle %f dir_pt (%f, %f)\n", data->dir_angle, data->dir_pt.x, data->dir_pt.y);
+}
+
+void	struct_init(t_cub *data)
+{
+	init_p1(data, 'W');
+	update_cameraplane(data);
 	data->move_fwd = 0;
 	data->move_back = 0;
 	data->move_left = 0;
@@ -36,7 +50,6 @@ void	struct_init(t_cub *data)
 	data->f_col = 0;
 	data->c_col = 0;
 
-	update_cameraplane(data);
 	data->step = get_step(data);
 
 	data->mlx = mlx_init();

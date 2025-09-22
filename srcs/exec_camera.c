@@ -62,10 +62,14 @@ void	update_rayinfo(t_cub* data)
 void	update_cameraplane(t_cub* data)
 {
 	double	factor;
-	data->camera_plane = ft_rotate(data->dir_pt, 270);
-	factor = ft_hypot(data->camera_plane.x, data->camera_plane.y) * tan(FOV / 2 / 180 * M_PI);
+
+	data->camera_plane = ft_rotate(data->dir_pt, -90);
+	factor = ft_hypot(data->camera_plane.x, data->camera_plane.y) * tan(FOV / 2.0 / 180 * M_PI);
+	factor = tan(FOV / 2.0 / 180 * M_PI);
+	// printf("update_cameraplan: (%f, %f), factor %f\n", data->camera_plane.x, data->camera_plane.y, factor);
 	data->camera_plane.x *= factor;
 	data->camera_plane.y *= factor;
+	// printf("update_cameraplan: factor %f (%f, %f)", factor, data->camera_plane.x, data->camera_plane.y);
 }
 
 double	get_ratio(t_cub* data, int i)
@@ -87,6 +91,7 @@ double	get_ratio(t_cub* data, int i)
 		data->ray_start.x = data->p1.x + factor * data->ray_vector.x;
 		data->ray_start.y = data->p1.y + factor * data->ray_vector.y;
 		dist = d_betw(data->ray_start, end_point(data, data->ray_start, data->dir_pt));
+		// dist = data->d_ray;
 		// dist = d_fisheye(ray_start, end_point(data, ray_start, data->dir_pt), fabs(angle));
 		if (dist >= HORIZON)
 			return (0.5);

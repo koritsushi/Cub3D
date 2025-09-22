@@ -126,7 +126,7 @@ void colour_col(t_cub* data, int x)
     y --;
     while (++y < cf_height + txt_height)
     {
-        // fill_texture(data, y); // need to address this fill_texture function
+        // fill_texture(data, y); // need to address this fill_texture function 
         data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color2;
     }
     y --;
@@ -159,7 +159,9 @@ void render_snapshot(t_cub* data)
 void    update_render_info(t_cub* data, int i)
 {
     double  angle;
+    double  step;
 
+    step = i / FOV * 2.0 - 1;
     // angle = (float)FOV / (float)S_WIDTH;
     // angle = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
 	angle = atan((S_WIDTH / 2 - i) * data->step) / M_PI * 180;
@@ -167,7 +169,10 @@ void    update_render_info(t_cub* data, int i)
     // data->ray_angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(i) * angle_inc), 360);
 	data->ray_angle = mod_angle(data->dir_angle + angle, 360);
     data->ray_vector = vector_of(data->ray_angle);
+    // data->ray_vector.x = data->dir_pt.x + step * data->camera_plane.x; 
+    // data->ray_vector.y = data->dir_pt.y + step * data->camera_plane.x; 
     data->endpt = end_point(data, data->p1, data->ray_vector);
+    data->d_ray = d_betw(data->p1, data->endpt);
     data->ray_texture = texture_of(data->endpt, data->ray_vector);
     // data->dist = d_fisheye(data->p1, data->endpt, angle_diff(data->ray_angle, data->dir_angle));
     // printf("DEBUG!! endpt (%f, %f) vector (%f, %f)\n", data->endpt.x, data->endpt.y, data->ray_vector.x, data->ray_vector.y);

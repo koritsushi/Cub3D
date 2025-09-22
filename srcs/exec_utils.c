@@ -30,8 +30,8 @@ t_pt    vector_of(float angle)
 {
     t_pt    p;
 
-	p.x = cos(angle / 180 * M_PI) * MOVE_SPEED;
-	p.y = sin(angle / 180 * M_PI) * MOVE_SPEED * (-1);
+	p.x = cos(angle / 180 * M_PI); //* MOVE_SPEED;
+	p.y = sin(angle / 180 * M_PI) * (-1);// * MOVE_SPEED;
     // if (angle == 0)
     //     p.y = 0;
     return (p);
@@ -226,11 +226,14 @@ t_pt    ft_rotate(t_pt pt, double degrees)
     t_pt    p;
     double  rad;
 
+    pt.y = -pt.y;
     rad = mod_angle(degrees, 360) / 180 * M_PI;
 
     p.x = pt.x * cos(rad) - pt.y * sin(rad);
     p.y = pt.x * sin(rad) + pt.y * cos(rad);
+    p.y = -p.y;
 
+    printf("ft_rotate: %f, %f, (%f, %f)\n", mod_angle(degrees, 360), rad, p.x, p.y);
     return (p);
 }
 

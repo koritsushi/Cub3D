@@ -31,7 +31,7 @@
 # include "../libft/libft.h"
 
 # define TURN_SPEED 1
-# define MOVE_SPEED 0.2
+# define MOVE_SPEED 0.05
 # define PRECISION 	0.001
 # define FOV 		120
 # define S_WIDTH	640
@@ -108,7 +108,7 @@ typedef struct	s_cub
 	t_pt	ray_start;
 	t_pt	camera_plane;
 
-	float	dist;
+	double	d_ray;
 	int		txt_n;
 	int		srcx;
 	int		srcy0;
