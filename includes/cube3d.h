@@ -106,6 +106,7 @@ typedef struct	s_cub
 	t_pt	ray_vector;
     int     ray_texture;
 	t_pt	ray_start;
+	t_pt	camera_plane;
 
 	float	dist;
 	int		txt_n;
@@ -202,4 +203,7 @@ double   ft_power(double i, int n);
 void    test_render(t_cub* data);
 void    update_colinfo(t_cub* data, double ratio);
 void	update_rayinfo(t_cub* data);
+t_pt    ft_rotate(t_pt pt, double degrees);
+double  ft_hypot(double x, double y);
+void	update_cameraplane(t_cub* data);
 #endif

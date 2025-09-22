@@ -220,3 +220,21 @@ double   ft_power(double i, int n)
     }
     return (p);
 }
+
+t_pt    ft_rotate(t_pt pt, double degrees)
+{
+    t_pt    p;
+    double  rad;
+
+    rad = mod_angle(degrees, 360) / 180 * M_PI;
+
+    p.x = pt.x * cos(rad) - pt.y * sin(rad);
+    p.y = pt.x * sin(rad) + pt.y * cos(rad);
+
+    return (p);
+}
+
+double  ft_hypot(double x, double y)
+{
+    return sqrt((x * x) + (y * y));
+}

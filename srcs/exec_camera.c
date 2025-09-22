@@ -59,6 +59,15 @@ void	update_rayinfo(t_cub* data)
 
 }
 
+void	update_cameraplane(t_cub* data)
+{
+	double	factor;
+	data->camera_plane = ft_rotate(data->dir_pt, 270);
+	factor = ft_hypot(data->camera_plane.x, data->camera_plane.y) * tan(FOV / 2 / 180 * M_PI);
+	data->camera_plane.x *= factor;
+	data->camera_plane.y *= factor;
+}
+
 double	get_ratio(t_cub* data, int i)
 {
 	double	angle;

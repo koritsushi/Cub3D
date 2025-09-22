@@ -61,6 +61,7 @@ void	player_turn(t_cub* data)
 	// 		data->dir_angle = 360 + data->dir_angle;
 	// }
 	data->dir_pt = vector_of(data->dir_angle);
+	update_cameraplane(data);
 	// if (data->dir_angle == 0)
 	// 	data->dir_pt.y = 0;
 	printf("player_turn: angle %f ", data->dir_angle);

@@ -122,12 +122,11 @@ void colour_col(t_cub* data, int x)
     while (++y < cf_height)
     {
         data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color1;
-
     }
     y --;
     while (++y < cf_height + txt_height)
     {
-        // fill_texture(data, y);
+        // fill_texture(data, y); // need to address this fill_texture function
         data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color2;
     }
     y --;
