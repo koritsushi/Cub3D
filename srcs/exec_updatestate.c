@@ -30,20 +30,20 @@ t_pt	dst_of3(t_cub* data, t_pt vector)
 	move.x = vector.x;
 	move.y = 0;
 	endpt = end_point(data, data->p1, move);
-	if (move.x > 0 && endpt.x <= dst.x)
-	dst.x = endpt.x - (1.05 * PRECISION);
-	else if (move.x < 0 && endpt.x >= dst.x)
-	dst.x = endpt.x + (1.05 * PRECISION);
+	if (move.x > 0 && endpt.x <= dst.x + BUFFER)
+	dst.x = endpt.x - BUFFER;
+	else if (move.x < 0 && endpt.x >= dst.x - BUFFER)
+	dst.x = endpt.x + BUFFER;
 	
 	move.x = 0;
 	move.y = vector.y;
 	printf("dst_of3 DEBUG, dst (%f, %f) vector(%f, %f), move (%f, %f)\n", dst.x, dst.y, vector.x, vector.y, move.x, move.y);
 	// printf("dst_of3 DEBUG, x %f\n", dst.x);
 	endpt = end_point(data, data->p1, move);
-	if (move.y > 0 && endpt.y <= dst.y)
-		dst.y = endpt.y - (1.05 * PRECISION);
-	else if (move.y < 0 && endpt.y >= dst.y)
-		dst.y = endpt.y + (1.05 * PRECISION);
+	if (move.y > 0 && endpt.y <= dst.y + BUFFER)
+		dst.y = endpt.y - BUFFER;
+	else if (move.y < 0 && endpt.y >= dst.y - BUFFER)
+		dst.y = endpt.y + BUFFER;
 	
 	return (dst);
 }
