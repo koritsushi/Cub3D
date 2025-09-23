@@ -36,7 +36,7 @@
 # define BUFFER		0.2
 # define FOV 		60
 # define S_WIDTH	1600
-# define S_HEIGHT	1300
+# define S_HEIGHT	1000
 # define D_CAMERA	1.0
 # define HORIZON	10.0
 # define CLOSEUP	0
@@ -58,6 +58,8 @@ typedef struct s_image
 	int		bpp;
 	int		size_line;
 	int		endian;
+	int		width;
+	int		height;
 }			t_image;
 
 typedef struct	s_point

@@ -55,6 +55,8 @@ void init_texture(t_cub* data, char *filepath, int i)
     width = 1024;
     height = 1024;
 
+    data->texture[i].width = width;
+    data->texture[i].height = height;
     data->texture[i].img = mlx_xpm_file_to_image(data->mlx, filepath, &width, &height);
     data->texture[i].addr = (int*)mlx_get_data_addr(data->texture[i].img, &data->texture[i].bpp, &data->texture[i].size_line, &data->texture[i].endian);
 }
