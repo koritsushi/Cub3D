@@ -77,7 +77,7 @@ int	main(int argc, char **argv)
 	init_texture(&data, "blue.xpm", 0);
 	init_texture(&data, "brick.xpm", 1);
 	init_texture(&data, "stone.xpm", 2);
-	init_texture(&data, "metal.xpm", 3);
+	init_texture(&data, "blue.xpm", 3);
 	// test_render(&data);
 	cub_exec(&data);
 	// colour_col(&data, 0);

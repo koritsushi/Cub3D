@@ -109,12 +109,11 @@ void colour_col(t_cub* data, int x)
     if (cf_height < 0)
         cf_height = 0;
 
-    // data->srcx = 100;
-    data->srcy0 = cf_height;
-    data->srcy1 = S_HEIGHT - 1 - cf_height;
+    data->srcy0 = 0;
+    data->srcy1 = data->ray_texture->height - 1;
     data->dstx = x;
     data->dsty0 = cf_height;
-    data->dsty1 = cf_height + txt_height - 1;
+    data->dsty1 = S_HEIGHT - 1 - cf_height;
     // printf("cf %d, txt %d\n", cf_height, txt_height);
     int color1 = create_colourcode(0, 100, 0, 0);
     int color2 = create_colourcode(0, 0, 100, 0);
@@ -135,8 +134,8 @@ void colour_col(t_cub* data, int x)
     y --;
     while (++y < cf_height + txt_height)
     {
-        // fill_texture(data, y); // need to address this fill_texture function 
-        data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color2;
+        fill_texture(data, y); // need to address this fill_texture function 
+        // data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color2;
     }
     y --;
     while (++y < S_HEIGHT)
@@ -161,7 +160,7 @@ void render_snapshot(t_cub* data)
         colour_col(data, i); 
     }
 	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
-	// mlx_put_image_to_window(data->mlx, data->win, data->texture[0].img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->win, data->texture[3].img, 0, 0);
     mlx_destroy_image(data->mlx, data->snapshot.img);
 }
 
@@ -188,14 +187,14 @@ void    update_render_info(t_cub* data, int i)
     data->d_ray = d_fisheye(data->p1, data->ray_endpt, data->ray_angle); 
     data->ray_texture = &data->texture[texture_of(data->ray_endpt, data->ray_vector) - 1];
 
-    // if (texture_of(data->ray_endpt, data->ray_vector) == NORTH)
-    //     data->srcx = (int)((ceil(data->ray_endpt.x) - data->ray_endpt.x) * data->ray_texture->width);
-    // else if (texture_of(data->ray_endpt, data->ray_vector) == EAST)
-    //     data->srcx = (int)((ceil(data->ray_endpt.y) - data->ray_endpt.y) * data->ray_texture->width);
-    // else if (texture_of(data->ray_endpt, data->ray_vector) == SOUTH)
-    //     data->srcx = (int)((data->ray_endpt.x - floor(data->ray_endpt.x)) * data->ray_texture->width);
-    // else if (texture_of(data->ray_endpt, data->ray_vector) == WEST)
-    //     data->srcx = (int)((data->ray_endpt.y - floor(data->ray_endpt.y)) * data->ray_texture->width);
+    if (texture_of(data->ray_endpt, data->ray_vector) == NORTH)
+        data->srcx = (int)((ceil(data->ray_endpt.x) - data->ray_endpt.x) * data->ray_texture->width);
+    else if (texture_of(data->ray_endpt, data->ray_vector) == EAST)
+        data->srcx = (int)((ceil(data->ray_endpt.y) - data->ray_endpt.y) * data->ray_texture->width);
+    else if (texture_of(data->ray_endpt, data->ray_vector) == SOUTH)
+        data->srcx = (int)((data->ray_endpt.x - floor(data->ray_endpt.x)) * data->ray_texture->width);
+    else if (texture_of(data->ray_endpt, data->ray_vector) == WEST)
+        data->srcx = (int)((data->ray_endpt.y - floor(data->ray_endpt.y)) * data->ray_texture->width);
     // data->srcx = 100; // needs a function
     // printf("update render info: %d %p %p %d\n", i, data->ray_texture, &data->texture[1], data->srcx);
     //data->texture[ray_texture] is the wall to use.
