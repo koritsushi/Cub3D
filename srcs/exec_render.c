@@ -119,12 +119,12 @@ void colour_col(t_cub* data, int x)
     int color2 = create_colourcode(0, 0, 100, 0);
     int color3 = create_colourcode(0, 0, 0, 200);
 
-    if (x == S_WIDTH / 2)
-    {
-        printf("colour col: x %d txt %d, cf %d, d_ray %f ", x, txt_height, cf_height, data->d_ray);
-        printf("colour col: rayangle %f, hypot %f\n", data->ray_angle, ft_hypot(data->ray_vector.x, data->ray_vector.y));
-        // return;
-    }
+    // if (x == S_WIDTH / 2)
+    // {
+    //     printf("colour col: x %d txt %d, cf %d, d_ray %f ", x, txt_height, cf_height, data->d_ray);
+    //     printf("colour col: rayangle %f, hypot %f\n", data->ray_angle, ft_hypot(data->ray_vector.x, data->ray_vector.y));
+    //     // return;
+    // }
 
     y = -1;
     while (++y < cf_height)
@@ -195,6 +195,7 @@ void    update_render_info(t_cub* data, int i)
         data->srcx = (int)((data->ray_endpt.x - floor(data->ray_endpt.x)) * data->ray_texture->width);
     else if (texture_of(data->ray_endpt, data->ray_vector) == WEST)
         data->srcx = (int)((data->ray_endpt.y - floor(data->ray_endpt.y)) * data->ray_texture->width);
+    // printf("i %d, srcx %d\n", i, data->srcx);
     // data->srcx = 100; // needs a function
     // printf("update render info: %d %p %p %d\n", i, data->ray_texture, &data->texture[1], data->srcx);
     //data->texture[ray_texture] is the wall to use.

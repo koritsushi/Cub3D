@@ -39,7 +39,7 @@ void fill_texture(t_cub* data, int y)
     dst_h = data->dsty1 - data->dsty0 + 1;
     
     celly = (int)(1.0 * (y - data->dsty0) / dst_h * src_h) + data->srcy0;
-    // printf("fill texture: celly %d\n", celly);
+    // printf("fill texture: x %d y %d celly %d \n", data->srcx, y, celly);
 
     colour = data->ray_texture->addr[celly * (data->snapshot.size_line / 4) + data->srcx];
     data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
