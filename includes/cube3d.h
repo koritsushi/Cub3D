@@ -32,10 +32,11 @@
 
 # define TURN_SPEED 1
 # define MOVE_SPEED 0.05
-# define PRECISION 	0.001
-# define FOV 		120
-# define S_WIDTH	640
-# define S_HEIGHT	480
+# define PRECISION 	0.01
+# define BUFFER		0.2
+# define FOV 		60
+# define S_WIDTH	1600
+# define S_HEIGHT	1300
 # define D_CAMERA	1.0
 # define HORIZON	10.0
 # define CLOSEUP	0
@@ -102,9 +103,9 @@ typedef struct	s_cub
 
 	double	step;
 	float	ray_angle;
-	t_pt	endpt;
+	t_pt	ray_endpt;
 	t_pt	ray_vector;
-    int     ray_texture;
+    t_image*     ray_texture;
 	t_pt	ray_start;
 	t_pt	camera_plane;
 

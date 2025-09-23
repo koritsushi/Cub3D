@@ -6,7 +6,7 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/09/17 11:13:35 by booi             ###   ########.fr        #
+#    Updated: 2025/09/23 09:39:18 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ SRCS 		=	srcs/error.c	\
 				srcs/exec_dda.c		\
 				srcs/exec_utils.c	\
 				srcs/init_dummymap.c	\
-				srcs/exec_endpoint.c	\
 				srcs/exec_render.c	\
 				srcs/exec_texture.c	\
 				srcs/exec_camera.c	\

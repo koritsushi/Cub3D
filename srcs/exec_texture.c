@@ -37,7 +37,7 @@ void fill_texture(t_cub* data, int y)
 
     src_h = data->srcy1 - data->srcy0 + 1;
     dst_h = data->dsty1 - data->dsty0 + 1;
-    txt = texture_of(data->endpt, data->ray_vector) - 1;
+    txt = texture_of(data->ray_endpt, data->ray_vector) - 1;
     
     // colour = create_colourcode(0, 100, 100, 100);
     colour = data->texture[txt].addr[y * (data->snapshot.size_line / 4) + data->dstx];

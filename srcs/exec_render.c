@@ -15,15 +15,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-int	render_col(t_cub* data)
-{
-	data->snapshot.img = mlx_new_image(data->mlx, 1, S_HEIGHT);
-    data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
-	//fill in 3 column parts
-    mlx_destroy_image(data->mlx, data->snapshot.img);
-    return (0);
+// int	render_col(t_cub* data)
+// {
+// 	data->snapshot.img = mlx_new_image(data->mlx, 1, S_HEIGHT);
+//     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
+// 	//fill in 3 column parts
+//     mlx_destroy_image(data->mlx, data->snapshot.img);
+//     return (0);
 
-}
+// }
 
 // int render_screen(t_cub* data)
 // {
@@ -58,6 +58,8 @@ float set_ratio(t_cub* data, int x)
     dist = d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
     // dist = d_fisheye(data->p1, endpt, FOV / 2 - (x * angle_inc));
     // dist = d_betw(data->p1, endpt);
+    dist = data->d_ray;
+    // printf("set ratio: %d %f\n", x, dist);
     // printf("x %d %d angle inc %f angle %f diff %f dist %f\n", x, nb_units(x), angle_inc, angle, angle_diff(angle, data->dir_angle), dist);
     if (dist <= CLOSEUP)
     {
@@ -91,21 +93,28 @@ void colour_col(t_cub* data, int x)
 	// data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
     // data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
     int y;
-    float   ratio;
+    // float   ratio;
     int cf_height;
     int txt_height;
+    int ratio;
 
-    ratio = get_ratio(data, x);
-    if (ratio < 0)
-        ratio = 0;
+    // ratio = set_ratio(data, x);
+    // if (ratio < 0)
+    //     ratio = 0;
     // printf("colour_col: ratio %f\n", ratio);
-    cf_height = ratio * S_HEIGHT;
-    txt_height = (1 - (2 * ratio)) * S_HEIGHT;
+    txt_height = (int)(S_HEIGHT / data->d_ray);
+    if (txt_height > S_HEIGHT)
+        txt_height = S_HEIGHT;
+    cf_height = (S_HEIGHT - txt_height) / 2;
+    if (cf_height < 0)
+        cf_height = 0;
+    // cf_height = ratio * S_HEIGHT;
+    // txt_height = (1 - (2 * ratio)) * S_HEIGHT;
 
     // txt_height = (int)(S_HEIGHT / adj_dist(data, x));
     // if (txt_height > S_HEIGHT)
         // txt_height = S_HEIGHT;
-    cf_height = (int)((S_HEIGHT - txt_height) / 2);
+    // cf_height = (int)((S_HEIGHT - txt_height) / 2);
 
     data->srcx = 100;
     data->srcy0 = 0;
@@ -161,19 +170,40 @@ void    update_render_info(t_cub* data, int i)
     double  angle;
     double  step;
 
-    step = i / FOV * 2.0 - 1;
+    // if (i > 0)
+    // {
+    //     step = 2.0 * (i - 1) / S_WIDTH - 1;
+    //     data->ray_vector.x = data->dir_pt.x + step * data->camera_plane.x; 
+    //     data->ray_vector.y = data->dir_pt.y + step * data->camera_plane.y; 
+    //     angle = acos(1 / ft_hypot(data->ray_vector.x, data->ray_vector.y)) / M_PI * 180;
+    // }
+    step = 2.0 * i / S_WIDTH - 1;
+    data->ray_vector.x = data->dir_pt.x + step * data->camera_plane.x; 
+    data->ray_vector.y = data->dir_pt.y + step * data->camera_plane.y; 
+    data->ray_angle = acos(1 / ft_hypot(data->ray_vector.x, data->ray_vector.y)) / M_PI * 180;
+    data->ray_endpt = end_point(data, data->p1, data->ray_vector);
+    data->d_ray = d_betw(data->p1, data->ray_endpt);
+    data->d_ray = d_fisheye(data->p1, data->ray_endpt, data->ray_angle); 
+    data->ray_texture = &data->texture[texture_of(data->ray_endpt, data->ray_vector) - 1];
+
+    // int y;
+    // int x;
+    // int color1 = create_colourcode(0, 255, 255, 255);
+    // y = data->ray_endpt.y * 100;
+    // x = data->ray_endpt.x * 100;
+    // data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = color1;
+
+    // printf("update render info: i %d step %f %f %f d_ray %f\n", i, step, data->ray_vector.x, data->ray_vector.y, data->d_ray);
+    // printf("update render info: x %d acos %f diff %f, (%d %d)\n", i, data->ray_angle, data->ray_angle - angle, x, y);
+    // printf("update render info: %d %p %p\n", i, data->ray_texture, &data->texture[1]);
     // angle = (float)FOV / (float)S_WIDTH;
     // angle = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
-	angle = atan((S_WIDTH / 2 - i) * data->step) / M_PI * 180;
+	// angle = atan((S_WIDTH / 2 - i) * data->step) / M_PI * 180;
     // data->ray_angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
     // data->ray_angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(i) * angle_inc), 360);
-	data->ray_angle = mod_angle(data->dir_angle + angle, 360);
-    data->ray_vector = vector_of(data->ray_angle);
-    // data->ray_vector.x = data->dir_pt.x + step * data->camera_plane.x; 
-    // data->ray_vector.y = data->dir_pt.y + step * data->camera_plane.x; 
-    data->endpt = end_point(data, data->p1, data->ray_vector);
-    data->d_ray = d_betw(data->p1, data->endpt);
-    data->ray_texture = texture_of(data->endpt, data->ray_vector);
+	// data->ray_angle = mod_angle(data->dir_angle + angle, 360);
+    // data->ray_vector = vector_of(data->ray_angle);
+    // data->d_ray = d_fisheye(data->p1, data->ray_endpt, atan(ft_hypot(data->camera_plane.x, data->camera_plane.y)) / M_PI * 180);
     // data->dist = d_fisheye(data->p1, data->endpt, angle_diff(data->ray_angle, data->dir_angle));
     // printf("DEBUG!! endpt (%f, %f) vector (%f, %f)\n", data->endpt.x, data->endpt.y, data->ray_vector.x, data->ray_vector.y);
 }

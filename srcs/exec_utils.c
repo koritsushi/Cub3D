@@ -116,7 +116,7 @@ int     direction_of(t_pt vector)
 //     return (pt);
 // }
 
-float   d_fisheye(t_pt pt1, t_pt pt2, float angle)
+float   d_fisheye(t_pt pt1, t_pt pt2, float deg)
 {
     float x;
     float y;
@@ -124,7 +124,7 @@ float   d_fisheye(t_pt pt1, t_pt pt2, float angle)
 
     x = (pt1.x - pt2.x) * (pt1.x - pt2.x);
     y = (pt1.y - pt2.y) * (pt1.y - pt2.y);
-    p_fisheye = sqrtf(x + y) * cos(angle / 180 * M_PI);
+    p_fisheye = sqrtf(x + y) * cos(deg / 180 * M_PI);
 
     return (p_fisheye);
 }
