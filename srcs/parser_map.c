@@ -59,6 +59,7 @@ int	parse_map(t_cub *data)
 {
 	int		i;
 	int		j;
+	int		k;
 	int		c[2];
 	char	*p;
 	int		status;
@@ -71,11 +72,15 @@ int	parse_map(t_cub *data)
 		j = -1;
 		while (data->cmap[i][++j] != '\0')
 		{
-			if (ft_strncmp(p, data->cmap[i] + j, 1) == 0)
+			k = 0;
+			while (p[++k] != '\0')
 			{
-				status += 1;
-				c[1] = i;
-				c[0] = j;
+				if (p[k] == data->cmap[i][j])
+				{
+					status += 1;
+					c[1] = i;
+					c[0] = j;
+				}
 			}
 		}
 	}
