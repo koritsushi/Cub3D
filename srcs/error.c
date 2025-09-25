@@ -24,7 +24,6 @@ void	ft_free(t_cub *data)
 	int	i;
 
 	i = 0;
-
 	ft_free_arr((void **) data->map);
 	ft_free_arr((void **) data->cmap);
 	while (i < 4)
