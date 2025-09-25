@@ -109,7 +109,7 @@ void    test_render(t_cub* data)
     
     // code here-----------------------
 
-	data->txt_n = NORTH - 1;
+	data->txt_n = SOUTH - 1;
 	data->srcx = 0;
 	data->srcy0 = 0;
 	data->srcy1 = 1024;
@@ -136,7 +136,7 @@ void    test_render(t_cub* data)
         {
             col = 1.0 * y / data->dst_h * data->src_h;
             // printf("row %d col %d\n", row, col);
-            colour = data->texture[data->txt_n].addr[(int)row * (data->snapshot.size_line / 4) + col];
+            colour = data->texture[data->txt_n].addr[col * (data->snapshot.size_line / 4) + row];
             data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = colour;
             y++;
         }
@@ -160,7 +160,7 @@ void    test_render(t_cub* data)
 // code here-----------------------
 
 	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
-	// mlx_put_image_to_window(data->mlx, data->win, data->texture[0].img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->win, data->texture[data->txt_n].img, 0, 0);
     mlx_destroy_image(data->mlx, data->snapshot.img);
 
 
@@ -173,12 +173,3 @@ void    test_render(t_cub* data)
 	free(data->mlx);
 
 }
-//     int src_h;
-//     int dst_h;
-//     int txt;
-
-//     src_h = data->srcy1 - data->srcy0 + 1;
-//     dst_h = data->dsty1 - data->dsty0 + 1;
-//     txt = texture_of(data->endpt, data->ray_vector) - 1;
-    
-// // printf("debug %d\n", data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx]);
