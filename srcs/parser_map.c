@@ -25,16 +25,17 @@ int	dfs(t_cub *data, char **map, int x, int y)
 	int	status;
 
 	status = 0;
-	if (x < 0 || x >= data->width || y < 0 || y >= data->height || \
-map[y][x] == ' ')
+	if (x < 0 || x >= data->height || y < 0 || y >= data->width)
 		return (1);
-	else if (map[y][x] != '0')
+	else if (map[x][y] == '1')
 		return (0);
-	map[y][x] = '1';
-	status += dfs(data, map, x, y + 1);
-	status += dfs(data, map, x, y - 1);
+	else if (map[x][y] != '0')
+		return (1);
+	map[x][y] = '1';
 	status += dfs(data, map, x + 1, y);
 	status += dfs(data, map, x - 1, y);
+	status += dfs(data, map, x, y + 1);
+	status += dfs(data, map, x, y - 1);
 	return (status);
 }
 
@@ -47,42 +48,49 @@ int	check_pm(t_cub *data, int status, int x, int y)
 {
 	if (status == 1)
 	{
-		data->cmap[y][x] = '0';
+		data->cmap[x][y] = '0';
 		if (ft_flood_fill(data, data->cmap, x, y) > 0)
-			return (ft_free_arr((void **)data->cmap), 0);
+			return (0);
 		return (1);
+	}
+	return (0);
+}
+
+int	check_ppos(char player_pos, int c[2], int x, int y)
+{
+	int		i;
+	char	*checker;
+
+	i = 0;
+	checker = "NEWS";
+	while (checker[i] != '\0')
+	{
+		if (player_pos == checker[i])
+		{
+			c[0] = x;
+			c[1] = y;
+			return (1);
+		}
+		i++;
 	}
 	return (0);
 }
 
 int	parse_map(t_cub *data)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		c[2];
-	char	*p;
-	int		status;
+	int				i;
+	int				j;
+	int				k;
+	int				c[2];
+	int				status;
 
 	i = -1;
 	status = 0;
-	p = "NEWS";
 	while (data->cmap[++i] != NULL)
 	{
 		j = -1;
 		while (data->cmap[i][++j] != '\0')
-		{
-			k = 0;
-			while (p[++k] != '\0')
-			{
-				if (p[k] == data->cmap[i][j])
-				{
-					status += 1;
-					c[1] = i;
-					c[0] = j;
-				}
-			}
-		}
+			status += check_ppos(data->cmap[i][j], c, i, j);
 	}
 	return (check_pm(data, status, c[0], c[1]));
 }
