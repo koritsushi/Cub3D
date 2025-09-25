@@ -12,152 +12,92 @@
 
 #include "../includes/cube3d.h"
 
-/* checks if char c == members in str */
-int	is_target(char *str, char c)
+int	ft_delimiter(char c, char *delimiter)
 {
-	if (!str)
-		return (0);
-	while (str[0])
+	int	i;
+
+	i = 0;
+	while (delimiter[i] != '\0')
 	{
-		if (str[0] == c)
+		if (c == delimiter[i])
 			return (1);
-		str++;
+		i++;
 	}
 	return (0);
 }
 
-
-/* skips if str[0] == *set, stops when str[0] != *set */
-char	*skip_spaces(char *str, char *set)
-{
-	char	*tmp;
-
-	tmp = str;
-	while (tmp && tmp[0] && is_target(set, tmp[0]))
-		tmp++;
-	return (tmp);
-}
-
 /*
- * mallocs a char * by size defined in len, fills all with \0
- * returns error message if malloc fails
- */
-int	malloc_chr_ptr(char **dest, int len)
-{
-	int	x;
-
-	x = 0;
-	*dest = (char *)malloc(sizeof(char) * len);
-	if (!(*dest))
-	{
-		perror("allocate_str: Memory allocation failed!\n");
-		return (0);
+count_ words for split_str
+	while (s[++i] is not null)
+		while (delimiter[i] is not null)
+			if (ft_delimiter(s[i]) == 1)
+				s[i] = ' '
+			else if (ft_delimiter(s[i + 1]) == 0 && s[i + 1] == '\0')
+			{
+				count++;	
+				break ;
+			}
+			count++;
 	}
-	while (x < len)
-		(*dest)[x++] = '\0';
-	return (1);
-}
-
-/*
- * counts the number of words in the provided str 
- * set = set of delimiiters
- * str = the entire string for scanning
- */
-int	count_str(char *str, char *set)
+*/
+int	ft_count_words(char *s, char *delimiter)
 {
-	int		wc;
-	int		flag;
-	char	symbol;
+	int	i;
+	int	j;
+	int	count;
 
-	wc = 0;
-	flag = 0;
-	symbol = '\0';
-	if (str[0] && !is_target(set, str[0]))
-		wc++;
-	while (str[0])
-	{
-		if (str[1] && !flag && is_target(set, str[0]) && \
-!is_target(set, str[1]))
-			wc++;
-		str++;
-	}
-	return (wc);
-}
-
-/*
- * a combo function to increment count & str and set flag value
- * increment str++ & count++
- * if flag != -1, returns value set in flag
- */
-static int	increment_val(int flag, int *count, char **str)
-{
-	(*count)++;
-	if (str && *str)
-		(*str)++;
-	if (flag != -1)
-		return (flag);
-	return (0);
-}
-
-/*
- * set = set of delimiters (" \t\n\v\f\r")
- * counts the number of characters and stop when delimiters detected
- * if flag == 1, ignore *set, else: stop upon *set
- */
-static int	count_chr(char *str, char *set)
-{
-	int		flag;
-	int		count;
-	char	symbol;
-
-	flag = 0;
+	i = -1;
 	count = 0;
-	symbol = '\0';
-	while (str && str[0] && (!is_target(set, str[0]) || (flag == 1)))
+	while (s[++i] != '\0')
 	{
-		if (flag == 0 && str[0] && is_target("'\'\"", str[0]) && \
-!is_target(set, '\"') && !is_target(set, '\''))
-			symbol = str[0];
-		if (flag == 0 && str[0] == symbol)
-			flag = increment_val(1, &count, &str);
-		else if (flag == 1 && str[0] == symbol)
-			flag = 0;
-		if (flag && str[0])
-			increment_val(-1, &count, &str);
-		else if (!flag && str[0] && !is_target(set, str[0]))
-			increment_val(-1, &count, &str);
+		while (ft_delimiter(s[i], delimiter) == 1)
+		{
+			if (ft_delimiter(s[i + 1], delimiter) == 0)
+			{
+				count++;
+				break ;
+			}
+			i++;
+		}
 	}
 	return (count);
 }
 
-/*
- * set = set of delimiters: " \t\n\v\f\r"
- * splits string into individual char* when *set is detected
- * if *set not found, will return back the str
- * uses malloc
- */
-char	**ft_split_str(char *str, char *set)
+void	ft_strword(char **dst, char const *src, char *delimiter)
 {
-	char	**res;
-	int		i;
+	char		**tab_sp;
+	char const	*tmp;
+
+	tmp = src;
+	tab_sp = dst;
+	while (*tmp != '\0')
+	{
+		while (ft_delimiter(*src, delimiter))
+			src++;
+		tmp = src;
+		while (*tmp && ft_delimiter(*tmp, delimiter) == 0)
+			tmp++;
+		if (ft_delimiter(*tmp, delimiter) || tmp > src)
+		{
+			*tab_sp = ft_substr(src, 0, tmp - src);
+			src = tmp;
+			tab_sp++;
+		}
+	}
+	*tab_sp = NULL;
+}
+
+char	**ft_split_str(char *s, char *delimiter)
+{
+	char	**cpy;
 	int		count;
 
-	if (!str || !set)
+	if (s == NULL || delimiter == NULL)
 		return (NULL);
-	i = 0;
-	str = skip_spaces(str, set);
-	res = (char **)malloc(sizeof(char *) * (count_str(str, set) + 1));
-	while (str[0] && count_str(str, set))
-	{
-		count = count_chr(str, set);
-		if (!malloc_chr_ptr(&res[i], count + 1))
-		{
-			ft_perror_fd("malloc_failed!\n", 2, 0);
-			return (0);
-		}
-		ft_strlcpy(res[i++], str, count + 1);
-		str = skip_spaces(str + count, set);
-	}
-	res[i] = NULL;
-	return (res);
+	count = ft_count_words(s, delimiter);
+	if (count == 0)
+		return (NULL);
+	cpy = malloc(sizeof(cpy) * (count + 1));
+	ft_strword(cpy, s, delimiter);
+	return (cpy);
 }
