@@ -15,63 +15,10 @@
 #include <math.h>
 #include <stdlib.h>
 
-// int	render_col(t_cub* data)
-// {
-// 	data->snapshot.img = mlx_new_image(data->mlx, 1, S_HEIGHT);
-//     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
-// 	//fill in 3 column parts
-//     mlx_destroy_image(data->mlx, data->snapshot.img);
-//     return (0);
-
-// }
-
-// int render_screen(t_cub* data)
-// {
-//     int i;
-
-//     i = 0;
-//     while (i < S_WIDTH)
-//     {
-//         render_col(data);
-//         i++;
-//     }
-//     return (0);
-// }
-
 int create_colourcode(int t, int r, int g, int b)
 {
     return (t << 24 | r << 16 | g << 8 | b);
 }
-
-// float set_ratio(t_cub* data, int x)
-// {
-//     float   angle_inc;
-//     float   angle;
-//     t_pt    endpt;
-//     float   dist;
-
-//     // angle_inc = (float)FOV / (float)S_WIDTH;
-//     // angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
-//     angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
-//     angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
-//     endpt = end_point(data, data->p1, vector_of(angle));
-//     dist = d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
-//     // dist = d_fisheye(data->p1, endpt, FOV / 2 - (x * angle_inc));
-//     // dist = d_betw(data->p1, endpt);
-//     dist = data->d_ray;
-//     // printf("set ratio: %d %f\n", x, dist);
-//     // printf("x %d %d angle inc %f angle %f diff %f dist %f\n", x, nb_units(x), angle_inc, angle, angle_diff(angle, data->dir_angle), dist);
-//     if (dist <= CLOSEUP)
-//     {
-//         // dist = d_betw(data->p1, endpt);
-//         // return ((float)(dist - CLOSEUP) / (float)(HORIZON - CLOSEUP) * 0.5);
-//         return (0);
-//     }
-//     if (dist < HORIZON)
-//         return ((float)(dist - CLOSEUP) / (float)(HORIZON - CLOSEUP) * 0.5);
-//     else
-//         return (0.5);
-// }
 
 float adj_dist(t_cub* data, int x)
 {

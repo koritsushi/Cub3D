@@ -104,36 +104,58 @@ void    update_colinfo(t_cub* data, double ratio)
 
 void    test_render(t_cub* data)
 {
-    int colour;
-
 	data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
     
     // code here-----------------------
+
+	data->txt_n = NORTH - 1;
+	data->srcx = 0;
+	data->srcy0 = 0;
+	data->srcy1 = 1024;
+	data->src_h = data->srcy1 - data->srcy0 + 1;
+	data->dstx = 0;
+	data->dsty0 = 0;
+	data->dsty1 = S_HEIGHT;
+	data->dst_h = data->dsty1 - data->dsty0 + 1;
     
-    int x = 200; // getting this requires a function. find_x(data)
-    int y = 470;
-    double row;
-    // int p;
+    int x;
+    int y;
+    int row;
+    int col;
+    int colour;
+    colour = create_colourcode(0, 0, 200, 200);
+
+    x = 0;
+    while (x < S_WIDTH)
+    {
+        row = 1.0 * x / S_WIDTH * data->texture[data->txt_n].width;
+        // printf("row is %d\n", row);
+        y = 0;
+        while (y < S_HEIGHT)
+        {
+            col = 1.0 * y / data->dst_h * data->src_h;
+            // printf("row %d col %d\n", row, col);
+            colour = data->texture[data->txt_n].addr[(int)row * (data->snapshot.size_line / 4) + col];
+            data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = colour;
+            y++;
+        }
+        x++;
+    }
     
     //x remains constant. for each iteration, change y.
     // colour = create_colourcode(0, 100, 200, 200);
-    for (int i=100; i<y; i++)
-    {
+    // for (int i=100; i<y; i++)
+    // {
         // printf("debug\n");
-        row = 1.00 * (i-x) / (y-x) * 1024;
+        // row = 1.00 * (i-x) / (y-x) * 1024;
         // p = row;
         // printf("color %f %d %d", row, p, i);
-        colour = data->texture[0].addr[(int)row * (data->snapshot.size_line / 4) + x];
-        printf("color is %d\n", colour);
-        data->snapshot.addr[i * (data->snapshot.size_line / 4) + x] = colour;
-    }
+        // colour = data->texture[0].addr[(int)row * (data->snapshot.size_line / 4) + x];
+        // printf("color is %d\n", colour);
+        // data->snapshot.addr[i * (data->snapshot.size_line / 4) + x] = colour;
+    // }
     
-
-
-
-
-
 
 // code here-----------------------
 
