@@ -24,6 +24,8 @@ int	valid_num(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
+		if (i == 0 && (str[i] == '-' || str[i] == '+'))
+			i++;
 		if (ft_isdigit(str[i]) == 0)
 			return (0);
 		i++;
@@ -46,7 +48,7 @@ int	colors(t_cub *data, char *color)
 	while (i < 3)
 	{
 		if (valid_num(rgbs[i]) == 0)
-			return (0);
+			return (-1);
 		colors[i] = ft_atoi(rgbs[i]);
 		if (colors[i] < 0 || colors[i] > 255)
 			return (ft_free_arr((void **)rgbs), -1);
