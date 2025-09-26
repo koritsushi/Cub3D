@@ -40,7 +40,7 @@ count_ words for split_str
 			count++;
 	}
 */
-int	ft_count_words(char *s, char *delimiter)
+int	ft_count_words(char const *s, char *delimiter)
 {
 	int	i;
 	int	j;
@@ -87,7 +87,7 @@ void	ft_strword(char **dst, char const *src, char *delimiter)
 	*tab_sp = NULL;
 }
 
-char	**ft_split_str(char *s, char *delimiter)
+char	**ft_split_str(char const *s, char *delimiter)
 {
 	char	**cpy;
 	int		count;
