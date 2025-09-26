@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 16:41:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/27 15:16:48 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/26 12:32:07 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ int	parse_texture(t_cub *data, char *pathname, int type)
 	char	**content;
 	int		width;
 	int		height;
+	int		fd;
 
+	if (check_ext(&fd, pathname, ".xpm") == 0)
+		return (0);
+	close(fd);
 	content = ft_split(pathname, ' ');
 	if (content == NULL || content[1] == NULL)
 		return (0);
