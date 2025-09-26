@@ -19,14 +19,14 @@ void	ft_error(void)
 	exit(1);
 }
 
-void	ft_free(t_cub *data)
+void	ft_free(t_cub *data, int flag)
 {
 	int	i;
 
 	i = 0;
 	ft_free_arr((void **) data->map);
 	ft_free_arr((void **) data->cmap);
-	while (i < 4)
+	while (i < 4 && flag == 1)
 		mlx_destroy_image(data->exec.mlx, data->texture[i++].img);
 	free(data->exec.mlx);
 }

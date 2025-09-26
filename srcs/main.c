@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/24 15:10:49 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:05:10 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	main(int argc, char **argv)
 	file = read_file(fd_cub);
 	data.exec.mlx = mlx_init();
 	if (parse_file(&data, file) == 0)
-		return (1);
+		return (ft_free(&data, 0), free(file), 1);
 	free(file);
 	if (parse_map(&data) == 0)
-		return (ft_free(&data), 1);
-	ft_free(&data);
+		return (ft_free(&data, 1), 1);
+	ft_free(&data, 1);
 	return (0);
 }
