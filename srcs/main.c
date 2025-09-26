@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/26 02:05:10 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:42:02 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,18 @@ int	main(int argc, char **argv)
 
 	fd_cub = 0;
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
-		ft_error();
+		return (ft_error(0), 1);
+	printf("./cube3D: Valid ./.cub extension file\n");
+	printf("./cube3D: Initialise program\n");
 	struct_init(&data);
 	file = read_file(fd_cub);
 	data.exec.mlx = mlx_init();
 	if (parse_file(&data, file) == 0)
-		return (ft_free(&data, 0), free(file), 1);
-	free(file);
+		return (ft_free(&data, 0), ft_error(1), 1);
+	printf("./cube3D: Valid Colors and Texture\n");
 	if (parse_map(&data) == 0)
-		return (ft_free(&data, 1), 1);
+		return (ft_free(&data, 1), ft_error(2), 1);
+	printf("./cube3D: Valid Map\n");
 	ft_free(&data, 1);
 	return (0);
 }
