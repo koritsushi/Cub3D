@@ -41,7 +41,7 @@ void fill_texture(t_cub* data, int y)
     celly = (int)(1.0 * (y - data->dsty0) / dst_h * src_h) + data->srcy0;
     // printf("fill texture: x %d y %d celly %d \n", data->srcx, y, celly);
 
-    colour = data->ray_texture->addr[celly * (data->snapshot.size_line / 4) + data->srcx];
+    colour = data->ray_texture->addr[celly * (data->ray_texture->size_line / 4) + data->srcx];
     data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
 // printf("debug %d\n", data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx]);
 	// mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
@@ -68,9 +68,9 @@ int texture_of(t_pt pt, t_pt vector)
         return (WEST);
     else if (is_bordering(pt) == 1 && vector.x < 0)
         return (EAST);
-    else if (is_bordering(pt) == 1 && vector.y > 0)
+    else if (is_bordering(pt) == 2 && vector.y > 0)
         return (NORTH);
-    else if (is_bordering(pt) == 1 && vector.y < 0)
+    else if (is_bordering(pt) == 2 && vector.y < 0)
         return (SOUTH);
     else if (is_bordering(pt) == 3)
     {
@@ -140,7 +140,7 @@ void    test_render(t_cub* data)
             if (col < 0)
                 col = 0;
             colour = data->texture[data->txt_n].addr[col * (data->texture[data->txt_n].size_line / 4) + row];
-            printf("xy(%d, %d) (%d, %d) col%d", x, y, row, col, colour);
+            // printf("xy(%d, %d) (%d, %d) col%d", x, y, row, col, colour);
             data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = colour;
             y++;
         }

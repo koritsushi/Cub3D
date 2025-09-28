@@ -34,7 +34,7 @@ void	init_p1(t_cub* data, char c)
 
 void	struct_init(t_cub *data)
 {
-	init_p1(data, 'W');
+	init_p1(data, 'N');
 	update_cameraplane(data);
 	data->move_fwd = 0;
 	data->move_back = 0;
@@ -78,8 +78,8 @@ int	main(int argc, char **argv)
 	init_texture(&data, "wolfenstein/mossy.xpm", 1);
 	init_texture(&data, "wolfenstein/eagle.xpm", 2);
 	init_texture(&data, "wolfenstein/blue_stone.xpm", 3);
-	test_render(&data);
-	// cub_exec(&data);
+	// test_render(&data);
+	cub_exec(&data);
 	// colour_col(&data, 0);
 	// fill_texture(&data, 0);
 	// render_snapshot(&data);
