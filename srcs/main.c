@@ -74,10 +74,10 @@ int	main(int argc, char **argv)
 	printf("file is %p\n", file);
 	printf("data is %p\n", &data);
 
-	init_texture(&data, "blue.xpm", 0);
-	init_texture(&data, "brick.xpm", 1);
-	init_texture(&data, "stone.xpm", 2);
-	init_texture(&data, "blue.xpm", 3);
+	init_texture(&data, "wolfenstein/wood.xpm", 0);
+	init_texture(&data, "wolfenstein/mossy.xpm", 1);
+	init_texture(&data, "wolfenstein/eagle.xpm", 2);
+	init_texture(&data, "wolfenstein/blue_stone.xpm", 3);
 	test_render(&data);
 	// cub_exec(&data);
 	// colour_col(&data, 0);

@@ -53,8 +53,8 @@ void init_texture(t_cub* data, char *filepath, int i)
     int     width;
     int     height;
 
-    width = 1024;
-    height = 1024;
+    width = 64;
+    height = 64;
 
     data->texture[i].width = width;
     data->texture[i].height = height;
@@ -109,14 +109,14 @@ void    test_render(t_cub* data)
     
     // code here-----------------------
 
-	data->txt_n = SOUTH - 1;
+	data->txt_n = NORTH - 1;
 	data->srcx = 0;
 	data->srcy0 = 0;
-	data->srcy1 = 1024;
+	data->srcy1 = 63;
 	data->src_h = data->srcy1 - data->srcy0 + 1;
 	data->dstx = 0;
 	data->dsty0 = 0;
-	data->dsty1 = S_HEIGHT;
+	data->dsty1 = S_HEIGHT - 1;
 	data->dst_h = data->dsty1 - data->dsty0 + 1;
     
     int x;
@@ -129,14 +129,18 @@ void    test_render(t_cub* data)
     x = 0;
     while (x < S_WIDTH)
     {
-        row = 1.0 * x / S_WIDTH * data->texture[data->txt_n].width;
+        row = ceil(1.0 * x / S_WIDTH * data->texture[data->txt_n].width) - 1;
+        if (row < 0)
+            row = 0;
         // printf("row is %d\n", row);
         y = 0;
         while (y < S_HEIGHT)
         {
-            col = 1.0 * y / data->dst_h * data->src_h;
-            // printf("row %d col %d\n", row, col);
-            colour = data->texture[data->txt_n].addr[col * (data->snapshot.size_line / 4) + row];
+            col = ceil(1.0 * y / data->dst_h * data->src_h) - 1;
+            if (col < 0)
+                col = 0;
+            colour = data->texture[data->txt_n].addr[col * (data->texture[data->txt_n].size_line / 4) + row];
+            printf("xy(%d, %d) (%d, %d) col%d", x, y, row, col, colour);
             data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = colour;
             y++;
         }
