@@ -42,7 +42,7 @@ void	update_movement(t_cub* data, int keycode, int state)
 		data->move_left = state;
 	else if (keycode == KEY_D)
 		data->move_right = state;
-	printf("WASD key is %d%d%d%d\n", data->move_fwd, data->move_back, data->move_left, data->move_right);
+	// printf("WASD key is %d%d%d%d\n", data->move_fwd, data->move_back, data->move_left, data->move_right);
 }
 
 int	key_press(int keycode, t_cub* data)
@@ -61,13 +61,13 @@ int	key_press(int keycode, t_cub* data)
 			keycode == KEY_D)
 		update_movement(data, keycode, 1);
 	// remove this part below after testing
-	else if (keycode == KEY_UP)
-	{
-		t_pt temp;
+	// else if (keycode == KEY_UP)
+	// {
+		// t_pt temp;
 		// temp = next_checkpoint(data->p1, data->dir_pt);
-		temp = end_point(data, data->p1, data->dir_pt);
-		printf("key_press: endpoint (%f,%f)\n", temp.x, temp.y);
-	}
+		// temp = end_point(data, data->p1, data->dir_pt);
+		// printf("key_press: endpoint (%f,%f)\n", temp.x, temp.y);
+	// }
 	return (0);
 }
 
@@ -88,7 +88,7 @@ int cub_exec(t_cub* data)
 	void* img;
 
 	system("xset r off");
-	printf("\e[32mcub_exec running.\n\e[0m");
+	// printf("\e[32mcub_exec running.\n\e[0m");
  
 	// mlx_key_hook(vars.win, key_press, data);
 	mlx_hook(data->win, 2, 1L<<0, key_press, data);

@@ -15,19 +15,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-float srcx_of(t_pt pt, t_pt vector)
-{
-    if (texture_of(pt, vector) == NORTH)
-        return (ceil(vector.x) - vector.x);
-    else if (texture_of(pt, vector) == EAST)
-        return (ceil(vector.y) - vector.y);
-    else if (texture_of(pt, vector) == SOUTH)
-        return (vector.x - floor(vector.x));
-    else if (texture_of(pt, vector) == WEST)
-        return (vector.y - floor(vector.y));
-    return (-1);
-}
-
 void fill_texture(t_cub* data, int y)
 {
     int src_h;
@@ -39,12 +26,9 @@ void fill_texture(t_cub* data, int y)
     dst_h = data->dsty1 - data->dsty0 + 1;
     
     celly = (int)(1.0 * (y - data->dsty0) / dst_h * src_h) + data->srcy0;
-    // printf("fill texture: x %d y %d celly %d \n", data->srcx, y, celly);
 
     colour = data->ray_texture->addr[celly * (data->ray_texture->size_line / 4) + data->srcx];
     data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx] = colour;
-// printf("debug %d\n", data->snapshot.addr[y * (data->snapshot.size_line / 4) + data->dstx]);
-	// mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
 }
 
 void init_texture(t_cub* data, char *filepath, int i)
@@ -85,96 +69,4 @@ int texture_of(t_pt pt, t_pt vector)
     // }
     else
         return (-1);
-}
-
-void    update_colinfo(t_cub* data, double ratio)
-{
-    int x;
-
-    // data->txt_n = get texture array number depending on NSEW
-    // x = get the x co-ordinate (between 0-1) for where ray hits wall
-    // data->dstx = x * S_WIDTH;
-    // data->srcx = x * T_WIDTH;
-    // data->srcy0 = (int)(ratio * T_HEIGHT);
-    // data->srcy1 = T_HEIGHT - (int)(ratio * T_HEIGHT);
-    // data->src_h = data->srcy1 - data->srcy0 + 1;
-    // data->dsty0 = (int)(ratio * S_HEIGHT);
-    // data->dsty1 = S_HEIGHT - (int)(ratio * S_HEIGHT);
-    // data->dst_h = data->dsty1 - data->dsty0 + 1;
-}
-
-void    test_render(t_cub* data)
-{
-	data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
-    data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
-    
-    // code here-----------------------
-
-	data->txt_n = NORTH - 1;
-	data->srcx = 0;
-	data->srcy0 = 0;
-	data->srcy1 = 63;
-	data->src_h = data->srcy1 - data->srcy0 + 1;
-	data->dstx = 0;
-	data->dsty0 = 0;
-	data->dsty1 = S_HEIGHT - 1;
-	data->dst_h = data->dsty1 - data->dsty0 + 1;
-    
-    int x;
-    int y;
-    int row;
-    int col;
-    int colour;
-    colour = create_colourcode(0, 0, 200, 200);
-
-    x = 0;
-    while (x < S_WIDTH)
-    {
-        row = ceil(1.0 * x / S_WIDTH * data->texture[data->txt_n].width) - 1;
-        if (row < 0)
-            row = 0;
-        // printf("row is %d\n", row);
-        y = 0;
-        while (y < S_HEIGHT)
-        {
-            col = ceil(1.0 * y / data->dst_h * data->src_h) - 1;
-            if (col < 0)
-                col = 0;
-            colour = data->texture[data->txt_n].addr[col * (data->texture[data->txt_n].size_line / 4) + row];
-            // printf("xy(%d, %d) (%d, %d) col%d", x, y, row, col, colour);
-            data->snapshot.addr[y * (data->snapshot.size_line / 4) + x] = colour;
-            y++;
-        }
-        x++;
-    }
-    
-    //x remains constant. for each iteration, change y.
-    // colour = create_colourcode(0, 100, 200, 200);
-    // for (int i=100; i<y; i++)
-    // {
-        // printf("debug\n");
-        // row = 1.00 * (i-x) / (y-x) * 1024;
-        // p = row;
-        // printf("color %f %d %d", row, p, i);
-        // colour = data->texture[0].addr[(int)row * (data->snapshot.size_line / 4) + x];
-        // printf("color is %d\n", colour);
-        // data->snapshot.addr[i * (data->snapshot.size_line / 4) + x] = colour;
-    // }
-    
-
-// code here-----------------------
-
-	mlx_put_image_to_window(data->mlx, data->win, data->snapshot.img, 0, 0);
-	// mlx_put_image_to_window(data->mlx, data->win, data->texture[data->txt_n].img, 0, 0);
-    mlx_destroy_image(data->mlx, data->snapshot.img);
-
-
-	mlx_hook(data->win, 2, 1L<<0, key_press, data);
-	mlx_hook(data->win, 3, 1L<<1, key_release, data);
-	mlx_hook(data->win, 17, 0, mlx_close, data);
-	mlx_loop(data->mlx);
-
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-
 }

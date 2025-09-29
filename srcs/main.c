@@ -47,8 +47,9 @@ void	struct_init(t_cub *data)
 	data->so = NULL;
 	data->ea = NULL;
 	data->we = NULL;
-	data->f_col = 0;
-	data->c_col = 0;
+
+    data->c_col = create_colourcode(0, 100, 0, 0);
+    data->f_col = create_colourcode(0, 0, 0, 200);
 
 	data->step = get_step(data);
 
@@ -70,9 +71,6 @@ int	main(int argc, char **argv)
 	struct_init(&data);
 	file = NULL;
 	file = read_file(fd_cub);
-
-	printf("file is %p\n", file);
-	printf("data is %p\n", &data);
 
 	init_texture(&data, "wolfenstein/wood.xpm", 0);
 	init_texture(&data, "wolfenstein/mossy.xpm", 1);

@@ -98,8 +98,8 @@ typedef struct	s_cub
 	char	*ea;
 	char	*we;
 	
-	int		*f_col;
-	int		*c_col;
+	int		f_col;
+	int		c_col;
 	t_image	snapshot;
 	t_image	texture[4];
 

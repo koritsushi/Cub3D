@@ -19,7 +19,7 @@ void    player_turn(t_cub* data);
 void	player_move(t_cub* data, char dir);
 int	    update_state(t_cub* data);
 
-t_pt	dst_of3(t_cub* data, t_pt vector)
+t_pt	dst_of(t_cub* data, t_pt vector)
 {
 	t_pt	dst;
 	t_pt	move;
@@ -37,8 +37,6 @@ t_pt	dst_of3(t_cub* data, t_pt vector)
 	
 	move.x = 0;
 	move.y = vector.y;
-	// printf("dst_of3 DEBUG, dst (%f, %f) vector(%f, %f), move (%f, %f)\n", dst.x, dst.y, vector.x, vector.y, move.x, move.y);
-	// printf("dst_of3 DEBUG, x %f\n", dst.x);
 	endpt = end_point(data, data->p1, move);
 	if (move.y > 0 && endpt.y <= dst.y + BUFFER)
 		dst.y = endpt.y - BUFFER;
@@ -50,66 +48,41 @@ t_pt	dst_of3(t_cub* data, t_pt vector)
 
 void	player_turn(t_cub* data)
 {
-	// printf("player_turn: running\n");
 	if (data->turn_left)
 		data->dir_angle = mod_angle((data->dir_angle + TURN_SPEED), 360);
 	else if (data->turn_right)
 		data->dir_angle = mod_angle((data->dir_angle - TURN_SPEED), 360);
-	// {
-	// 	data->dir_angle = (data->dir_angle - TURN_SPEED);
-	// 	if (data->dir_angle < 0)
-	// 		data->dir_angle = 360 + data->dir_angle;
-	// }
 	data->dir_pt = vector_of(data->dir_angle);
 	update_cameraplane(data);
-	// if (data->dir_angle == 0)
-	// 	data->dir_pt.y = 0;
-	// printf("player_turn: angle %f ", data->dir_angle);
-	// printf("dir_pt is (%f, %f)\n", data->dir_pt.x, data->dir_pt.y);
 }
 
 void	player_move(t_cub* data, char dir)
 {
 	float angle;
 	angle = data->dir_angle;
-	printf("player_move begin\n");
-	// printf("player_move: current p1 (%f, %f), endpoint (%f, %f)\n", data->p1.x, data->p1.y, end_point(data, data->dir_pt).x, end_point(data, data->dir_pt).y);
-	printf("player_move: current p1 (%f, %f))\n", data->p1.x, data->p1.y);
 	if (dir == 'w')
-		// data->p1 = dst_of3(data, vector_of(data->dir_angle));
 		;
 	else if (dir == 'q')
 		angle = mod_angle(data->dir_angle + 45, 360);
-		// data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 45, 360)));
 	else if (dir == 'a')
 		angle = mod_angle(data->dir_angle + 90, 360);
-		// data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 90, 360)));
 	else if (dir == 'z')
 		angle = mod_angle(data->dir_angle + 135, 360);
-		// data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 135, 360)));
 	else if (dir == 'x')
 		angle = mod_angle(data->dir_angle + 180, 360);
-		// data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 180, 360)));
 	else if (dir == 'c')
 		angle = mod_angle(data->dir_angle - 135, 360);
-		// data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle - 135, 360)));
 	else if (dir == 'd')
 		angle = mod_angle(data->dir_angle - 90, 360);
-		// data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle - 90, 360)));
 	else if (dir == 'e')
 		angle = mod_angle(data->dir_angle - 45, 360);
-		// data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle - 45, 360)));
-	printf("angle %f, vector (%f, %f)\n", angle, vector_of(angle).x, vector_of(angle).y);
-	data->p1 = dst_of3(data, vector_of(angle));
-	printf("player_move: p1 (%f, %f)\n", data->p1.x, data->p1.y);
+	data->p1 = dst_of(data, vector_of(angle));
 }
 
 
 // this is the main function for auto-refreshing state and rendering view.
 int	update_state(t_cub* data)
 {
-	// usleep(50000);
-	// printf("update_state: running\n");
 	if (!(data->turn_left && data->turn_right) && (data->turn_left || data->turn_right))
 		player_turn(data);
 	if (data->move_fwd && !data->move_back && data->move_left && !data->move_right)
