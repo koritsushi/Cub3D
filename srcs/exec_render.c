@@ -20,20 +20,20 @@ int create_colourcode(int t, int r, int g, int b)
     return (t << 24 | r << 16 | g << 8 | b);
 }
 
-float adj_dist(t_cub* data, int x)
-{
-    float   angle_inc;
-    float   angle;
-    t_pt    endpt;
-    float   dist;
+// float adj_dist(t_cub* data, int x)
+// {
+//     float   angle_inc;
+//     float   angle;
+//     t_pt    endpt;
+//     float   dist;
 
-    angle_inc = (float)FOV / (float)S_WIDTH;
-    angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
-    // angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
-    // angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
-    endpt = end_point(data, data->p1, vector_of(angle));
-    return d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
-}
+//     angle_inc = (float)FOV / (float)S_WIDTH;
+//     angle = mod_angle(data->dir_angle + (FOV / 2) - (x * angle_inc), 360);
+//     // angle_inc = 1.00000 / (S_WIDTH / 2) / (S_WIDTH / 2) * FOV;
+//     // angle = mod_angle(data->dir_angle + (FOV / 2) - (float)(nb_units(x) * angle_inc), 360);
+//     endpt = end_point(data, data->p1, vector_of(angle));
+//     return d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
+// }
 
 void colour_col(t_cub* data, int x)
 {
@@ -51,13 +51,20 @@ void colour_col(t_cub* data, int x)
     // printf("colour_col: ratio %f\n", ratio);
     txt_height = (int)(S_HEIGHT / data->d_ray);
     if (txt_height > S_HEIGHT)
+    {
+        data->srcy0 = (int)((1.0 - data->d_ray) / 2 * data->ray_texture->height);
+        data->srcy1 = data->ray_texture->height - data->srcy0;
         txt_height = S_HEIGHT;
+    }
+    else
+    {
+        data->srcy0 = 0;
+        data->srcy1 = data->ray_texture->height - 1;
+    }
     cf_height = (S_HEIGHT - txt_height) / 2;
     if (cf_height < 0)
         cf_height = 0;
 
-    data->srcy0 = 0;
-    data->srcy1 = data->ray_texture->height - 1;
     data->dstx = x;
     data->dsty0 = cf_height;
     data->dsty1 = S_HEIGHT - 1 - cf_height;
@@ -130,16 +137,17 @@ void    update_render_info(t_cub* data, int i)
     if (isnan(data->ray_angle))
     {
         data->ray_angle = 0;
-        printf("                                  ray vector (%f, %f)\n", data->ray_vector.x, data->ray_vector.y);
+        // printf("                                  ray vector (%f, %f)\n", data->ray_vector.x, data->ray_vector.y);
         data->ray_endpt = end_point(data, data->p1, data->ray_vector);
         data->d_ray = d_fisheye(data->p1, data->ray_endpt, data->ray_angle); 
-        printf("                                  dray %f\n", data->d_ray);
+        // printf("                                  dray %f\n", data->d_ray);
     }
     data->ray_endpt = end_point(data, data->p1, data->ray_vector);
     // printf("texture of %d %d\n", texture_of(data->ray_endpt, data->ray_vector), data->ray_vector.x > 0);
     // data->d_ray = d_betw(data->p1, data->ray_endpt);
     data->d_ray = d_fisheye(data->p1, data->ray_endpt, data->ray_angle); 
-    data->ray_texture = &data->texture[texture_of(data->ray_endpt, data->ray_vector) - 1];
+    if (texture_of(data->ray_endpt, data->ray_vector) != -1)
+        data->ray_texture = &data->texture[texture_of(data->ray_endpt, data->ray_vector) - 1];
 
     if (texture_of(data->ray_endpt, data->ray_vector) == NORTH)
         data->srcx = (int)((ceil(data->ray_endpt.x) - data->ray_endpt.x) * data->ray_texture->width);

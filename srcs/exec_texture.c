@@ -72,18 +72,19 @@ int texture_of(t_pt pt, t_pt vector)
         return (NORTH);
     else if (is_bordering(pt) == 2 && vector.y < 0)
         return (SOUTH);
-    else if (is_bordering(pt) == 3)
-    {
-        if (direction_of(vector) == NORTH || direction_of(vector) == NORTHEAST)
-            return (SOUTH);
-        else if (direction_of(vector) == EAST || direction_of(vector) == SOUTHEAST)
-            return (WEST);
-        else if (direction_of(vector) == SOUTH || direction_of(vector) == SOUTHWEST)
-            return (NORTH);
-        else if (direction_of(vector) == WEST || direction_of(vector) == NORTHWEST)
-            return (EAST);
-    }
-    return (0);
+    // else if (is_bordering(pt) == 3)
+    // {
+        // if (direction_of(vector) == NORTH || direction_of(vector) == NORTHEAST)
+        //     return (SOUTH);
+        // else if (direction_of(vector) == EAST || direction_of(vector) == SOUTHEAST)
+        //     return (WEST);
+        // else if (direction_of(vector) == SOUTH || direction_of(vector) == SOUTHWEST)
+        //     return (NORTH);
+        // else if (direction_of(vector) == WEST || direction_of(vector) == NORTHWEST)
+        //     return (EAST);
+    // }
+    else
+        return (-1);
 }
 
 void    update_colinfo(t_cub* data, double ratio)

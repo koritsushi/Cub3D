@@ -630,3 +630,35 @@ int	check_dcpt(char** map, int x, int y, t_pt vector)
 	else
 		return (-1);
 }
+
+void	player_move(t_cub* data, char dir)
+{
+	printf("player_move: current p1 (%f, %f)\n", data->p1.x, data->p1.y);
+	if (dir == 'f')
+		data->p1 = dst_of3(data, vector_of(data->dir_angle));
+	else if (dir == 'b')
+		data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 180, 360)));
+	else if (dir == 'l')
+		data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle + 90, 360)));
+	else if (dir == 'r')
+		data->p1 = dst_of3(data, vector_of(mod_angle(data->dir_angle - 90, 360)));
+	printf("player_move: p1 (%f, %f)\n", data->p1.x, data->p1.y);
+}
+
+int	update_state(t_cub* data)
+{
+	usleep(100000);
+	// printf("update_state: running\n");
+	if (!(data->turn_left && data->turn_right) && (data->turn_left || data->turn_right))
+		player_turn(data);
+	if (data->move_fwd && !data->move_back)
+		player_move(data, 'f');
+	if (data->move_back && !data->move_fwd)
+		player_move(data, 'b');
+	if (data->move_left && !data->move_right)
+		player_move(data, 'l');
+	if (data->move_right && !data->move_left)
+		player_move(data, 'r');
+	// render_snapshot(data);
+	return (0);
+}

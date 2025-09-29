@@ -78,11 +78,7 @@ int	main(int argc, char **argv)
 	init_texture(&data, "wolfenstein/mossy.xpm", 1);
 	init_texture(&data, "wolfenstein/eagle.xpm", 2);
 	init_texture(&data, "wolfenstein/blue_stone.xpm", 3);
-	// test_render(&data);
 	cub_exec(&data);
-	// colour_col(&data, 0);
-	// fill_texture(&data, 0);
-	// render_snapshot(&data);
 	free(file);
 	system("xset r on");
 	return 0;

@@ -233,7 +233,7 @@ t_pt    ft_rotate(t_pt pt, double degrees)
     p.y = pt.x * sin(rad) + pt.y * cos(rad);
     p.y = -p.y;
 
-    printf("ft_rotate: %f, %f, (%f, %f)\n", mod_angle(degrees, 360), rad, p.x, p.y);
+    // printf("ft_rotate: %f, %f, (%f, %f)\n", mod_angle(degrees, 360), rad, p.x, p.y);
     return (p);
 }
 
