@@ -255,7 +255,7 @@ char is_solidcpt(char** map, t_pt pt, int dir)
 {
 
 }
-int	orthogonal_solid(t_cub* data, t_pt pt)
+int	orthogonal_solid(t_cub *data, t_pt pt)
 {
 	if (data->dir_pt.x > 0)
 	{
@@ -280,7 +280,7 @@ int	orthogonal_solid(t_cub* data, t_pt pt)
 	return (0);
 }
 
-int	diagonal_solid(t_cub* data, t_pt pt)
+int	diagonal_solid(t_cub *data, t_pt pt)
 {
 	//if diagonal is solid || two sides are solid, return 1
 	// else return 0
@@ -315,7 +315,7 @@ int	diagonal_solid(t_cub* data, t_pt pt)
 	return (0);
 }
 
-int	pt_on_solid(t_cub* data, t_pt pt)
+int	pt_on_solid(t_cub *data, t_pt pt)
 {
 	printf("pt_on_solid: running\n");
 
@@ -359,7 +359,7 @@ int	pt_on_solid(t_cub* data, t_pt pt)
 	return (0);
 }
 
-void	player_move(t_cub* data, char dir)
+void	player_move(t_cub *data, char dir)
 {
 	if (dir == 'f' && is_clear(data))
 	{
@@ -631,7 +631,7 @@ int	check_dcpt(char** map, int x, int y, t_pt vector)
 		return (-1);
 }
 
-void	player_move(t_cub* data, char dir)
+void	player_move(t_cub *data, char dir)
 {
 	printf("player_move: current p1 (%f, %f)\n", data->p1.x, data->p1.y);
 	if (dir == 'f')
@@ -645,7 +645,7 @@ void	player_move(t_cub* data, char dir)
 	printf("player_move: p1 (%f, %f)\n", data->p1.x, data->p1.y);
 }
 
-int	update_state(t_cub* data)
+int	update_state(t_cub *data)
 {
 	usleep(100000);
 	// printf("update_state: running\n");
@@ -663,7 +663,7 @@ int	update_state(t_cub* data)
 	return (0);
 }
 
-float adj_dist(t_cub* data, int x)
+float adj_dist(t_cub *data, int x)
 {
     float   angle_inc;
     float   angle;
@@ -678,7 +678,7 @@ float adj_dist(t_cub* data, int x)
     return d_fisheye(data->p1, endpt, angle_diff(angle, data->dir_angle));
 }
 
-void    test_render(t_cub* data)
+void    test_render(t_cub *data)
 {
 	data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
     data->snapshot.addr = (int*)mlx_get_data_addr(data->snapshot.img, &data->snapshot.bpp, &data->snapshot.size_line, &data->snapshot.endian);
@@ -755,7 +755,7 @@ void    test_render(t_cub* data)
 }
 
 
-void    update_colinfo(t_cub* data, double ratio)
+void    update_colinfo(t_cub *data, double ratio)
 {
     int x;
 
@@ -782,4 +782,109 @@ float srcx_of(t_pt pt, t_pt vector)
     else if (texture_of(pt, vector) == WEST)
         return (vector.y - floor(vector.y));
     return (-1);
+}
+
+
+//processing texture
+int	side_to_use(t_pt endpt, t_pt vector)
+{
+	if (is_bordering(endpt) == 1 && vector.x > 0)
+		return (WEST);
+	else if (is_bordering(endpt) == 1 && vector.x < 0)
+		return (EAST);
+	else if (is_bordering(endpt) == 2 && vector.y > 0)
+		return (NORTH);
+	else if (is_bordering(endpt) == 2 && vector.y < 0)
+		return (SOUTH);
+	else if (is_bordering(endpt) == 3)
+		return (NORTH); // this is arbitrary. need to fix later
+	else
+		return (-1);
+}
+
+
+int	dist(t_cub *data)
+{
+	int	i;
+	double	angle;
+	double	step;
+
+	i = 0;
+	step = get_step(data);
+	while (i <= S_WIDTH)
+	{
+		angle = atan((S_WIDTH / 2 - i) * step) / M_PI * 180;
+		angle = mod_angle(data->dir_angle + angle, 360);
+		// printf("angle is %f\n", angle);
+		i++;
+	}
+	return (0);
+}
+
+double	get_ratio(t_cub *data, int i)
+{
+	double	angle;
+	double	dist;
+	double	factor;
+	double	d_cam;
+	double	d_wall;
+
+	angle = atan((S_WIDTH / 2 - i) * data->step);
+	d_cam = fabs(D_CAMERA / cos(angle));
+	d_wall = d_betw(data->p1, end_point(data, data->p1, data->ray_vector));
+	if (d_cam >= d_wall)
+		return (-d_wall / d_cam);		
+	else
+	{
+		factor = d_cam / sqrt(ft_power(data->ray_vector.x, 2) + ft_power(data->ray_vector.y, 2));
+		data->ray_start.x = data->p1.x + factor * data->ray_vector.x;
+		data->ray_start.y = data->p1.y + factor * data->ray_vector.y;
+		dist = d_betw(data->ray_start, end_point(data, data->ray_start, data->dir_pt));
+		dist = data->d_ray;
+		// dist = d_fisheye(ray_start, end_point(data, ray_start, data->dir_pt), fabs(angle));
+		if (dist >= HORIZON)
+			return (0.5);
+		else
+			return (dist / HORIZON * 0.5);
+	}
+}
+
+//find camera start point
+// if d_camerapoint > d_endpoint, LOS is blocked - render all wall
+// else count camerapoint, dir_pt vector to endpoint to get distance (no need fisheye) -> this gives distance
+// use distance to count ratio
+// increment by step to render next column
+
+int	nb_units(int x)
+{
+	int	p;
+	int	i;
+	int	mid;
+
+	mid = S_WIDTH / 2;
+	p = mid;
+	i = -1;
+	if (x < mid)
+	{
+		while (++i < x)
+			p += (mid - i - 1);
+	}
+	else
+	{
+		i = mid - 1;
+		p = mid * (mid + 1) / 2;
+		while (++i < x)
+			p += (i - mid);
+	}
+	return (p);
+}
+
+float	angle_diff(float angle1, float angle2)
+{
+	float	p;
+
+	p = fabs(angle1 - angle2);
+	if (p > 180)
+		return (360 - p);
+	return (p);
 }

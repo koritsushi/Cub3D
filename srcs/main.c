@@ -15,7 +15,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-void	init_p1(t_cub* data, char c)
+void	init_p1(t_cub *data, char c)
 {
 	data->p1.x = 3.5;
 	data->p1.y = 3.5;
@@ -27,36 +27,31 @@ void	init_p1(t_cub* data, char c)
 		data->dir_angle = 0;
 	else if (c == 'W')
 		data->dir_angle = 180;
-	// data->dir_angle = 45;
 	data->dir_pt = vector_of(data->dir_angle);
-	// printf("init_p1: dir_angle %f dir_pt (%f, %f)\n", data->dir_angle, data->dir_pt.x, data->dir_pt.y);
 }
 
 void	struct_init(t_cub *data)
 {
 	init_p1(data, 'N');
 	update_cameraplane(data);
-	data->move_fwd = 0;
-	data->move_back = 0;
-	data->move_left = 0;
-	data->move_right = 0;
-	data->turn_left = 0;
-	data->turn_right = 0;
+	data->mfwd = 0;
+	data->mback = 0;
+	data->mleft = 0;
+	data->mright = 0;
+	data->tleft = 0;
+	data->tright = 0;
 	data->map = create_dummy();
 	data->no = NULL;
 	data->so = NULL;
 	data->ea = NULL;
 	data->we = NULL;
-
-    data->c_col = create_colourcode(0, 100, 0, 0);
-    data->f_col = create_colourcode(0, 0, 0, 200);
-
+	data->c_col = create_colourcode(0, 100, 0, 0);
+	data->f_col = create_colourcode(0, 0, 0, 200);
 	data->step = get_step(data);
-
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		printf("struct_init: error creating exec.mlx\n");
-	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Screen name");	
+	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Screen name");
 }
 
 int	main(int argc, char **argv)
@@ -71,7 +66,6 @@ int	main(int argc, char **argv)
 	struct_init(&data);
 	file = NULL;
 	file = read_file(fd_cub);
-
 	init_texture(&data, "wolfenstein/wood.xpm", 0);
 	init_texture(&data, "wolfenstein/mossy.xpm", 1);
 	init_texture(&data, "wolfenstein/eagle.xpm", 2);
@@ -79,5 +73,5 @@ int	main(int argc, char **argv)
 	cub_exec(&data);
 	free(file);
 	system("xset r on");
-	return 0;
+	return (0);
 }

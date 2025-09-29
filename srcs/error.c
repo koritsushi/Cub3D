@@ -19,14 +19,13 @@ void	ft_error(void)
 	exit(1);
 }
 
-int		check_cub(int *fd, const char *file)
+int	check_cub(int *fd, const char *file)
 {
 	int	i;
 
 	i = ft_strlen(file);
 	*fd = open(file, __O_DIRECTORY);
-	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 &&\
- *fd == -1)
+	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 && *fd == -1)
 	{
 		*fd = open(file, O_RDONLY);
 		if (*fd == -1)

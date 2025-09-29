@@ -6,16 +6,19 @@
 #    By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 14:17:00 by mliyuan           #+#    #+#              #
-#    Updated: 2025/09/23 09:39:18 by booi             ###   ########.fr        #
+#    Updated: 2025/09/29 14:58:11 by booi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS 		=	srcs/error.c	\
 				srcs/parser.c	\
+				srcs/colour_utils.c	\
 				srcs/exec.c		\
 				srcs/exec_updatestate.c \
 				srcs/exec_dda.c		\
 				srcs/exec_utils.c	\
+				srcs/exec_utils2.c	\
+				srcs/exec_utils3.c	\
 				srcs/init_dummymap.c	\
 				srcs/exec_render.c	\
 				srcs/exec_texture.c	\

@@ -20,19 +20,17 @@ t_pt	next_checkpoint(t_pt src, t_pt vector);
 
 float	next_xy(float p, float vector)
 {
-	if  (vector > 0)
-		return (floor(p) + 1); 
-	// else if (vector < 0 && is_wholenum(p))
-	// 	return (floor(p) - 1); 
+	if (vector > 0)
+		return (floor(p) + 1);
 	else if (vector < 0)
-		return (ceil(p) - 1); 
+		return (ceil(p) - 1);
 	return (-1);
 }
 
 t_pt	next_checkpoint(t_pt src, t_pt vector)
 {
-	int	next_x;
-	int	next_y;
+	int		next_x;
+	int		next_y;
 	float	factor;
 	t_pt	p;
 	t_pt	temp;
@@ -40,11 +38,8 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 	p.x = -1;
 	p.y = -1;
 	temp = src;
-	// temp = snap_xy(src);
 	next_x = next_xy(temp.x, vector.x);
 	next_y = next_xy(temp.y, vector.y);
-
-	// printf("next: x %d, y %d\n", next_x, next_y);
 	if (next_x == -1 && next_y == -1)
 		return (p);
 	else if (next_x == -1)
@@ -53,33 +48,16 @@ t_pt	next_checkpoint(t_pt src, t_pt vector)
 		factor = (next_x - src.x) / vector.x;
 	else
 		factor = fmin((next_x - src.x) / vector.x, (next_y - src.y) / vector.y);
-	// printf("next: factor %f\n", factor);
-	// printf("next: src (%f,%f)\n", src.x, src.y);
-
 	p.x = src.x + (vector.x * factor);
 	p.y = src.y + (vector.y * factor);
-
 	return (p);
 }
 
-t_pt	end_point(t_cub* data, t_pt pt, t_pt vector)
+t_pt	end_point(t_cub *data, t_pt pt, t_pt vector)
 {
-	// t_pt	pt;
-
-	// pt = data->p1;
-	// if (is_bordering(pt) && is_stop(data->map, pt, vector))
-	// 	return (pt);
-	// else
-	// pt = next_checkpoint(pt, vector);
 	if (vector.x == 0 && vector.y == 0)
 		return (pt);
 	while (!is_inwall(data, pt))
-	{
 		pt = next_checkpoint(pt, vector);
-		// printf("end_point: pt(%f,%f)\n", pt.x, pt.y);
-		// printf("DEBUG (%f, %f)\n", pt.x, pt.y);
-	}
-	// printf("end_point: pt (%f, %f)\n", pt.x, pt.y);
-	// printf("DEBUG (%f, %f), issolid %d\n", pt.x, pt.y, is_inwall(data, pt));
 	return (pt);
 }

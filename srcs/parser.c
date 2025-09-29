@@ -12,21 +12,6 @@
 
 #include "../includes/cube3d.h"
 
-// int	parse_texture()
-// {
-
-// }
-
-// int	parse_color()
-// {
-
-// }
-
-// int	parse_map()
-// {
-	
-// }
-
 char	*read_file(int fd)
 {
 	char	*line;
