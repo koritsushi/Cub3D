@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/26 18:42:02 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:18:41 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int argc, char **argv)
 	data.exec.mlx = mlx_init();
 	if (parse_file(&data, file) == 0)
 		return (ft_free(&data, 0), ft_error(1), 1);
+	free(file);
 	printf("./cube3D: Valid Colors and Texture\n");
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
