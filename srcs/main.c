@@ -6,24 +6,45 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/26 18:42:02 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:13:21 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
+#include "../minilibx-linux/mlx.h"
+#include <math.h>
+#include <stdlib.h>
+
+void	init_p1(t_cub *data, char c)
+{
+	data->p1.x = 3.5;
+	data->p1.y = 3.5;
+	if (c == 'N')
+		data->dir_angle = 90;
+	else if (c == 'S')
+		data->dir_angle = 270;
+	else if (c == 'E')
+		data->dir_angle = 0;
+	else if (c == 'W')
+		data->dir_angle = 180;
+	data->dir_pt = vector_of(data->dir_angle);
+}
 
 void	struct_init(t_cub *data)
 {
+	init_p1(data, 'N');
+	update_cameraplane(data);
 	int	i;
 
 	i = 0;
-	data->p1.x = 0;
-	data->p1.y = 0;
-	data->dir_angle = 0;
-	data->dir_pt.x = 0;
-	data->dir_pt.y = 0;
-	data->exec.mlx = NULL;
-	data->exec.win = NULL;
+	data->mfwd = 0;
+	data->mback = 0;
+	data->mleft = 0;
+	data->mright = 0;
+	data->tleft = 0;
+	data->tright = 0;
+	data->mlx = NULL;
+	data->win = NULL;
 	while (i < 4)
 	{
 		data->texture[i].img = NULL;
@@ -36,8 +57,13 @@ void	struct_init(t_cub *data)
 	data->width = 0;
 	data->map = NULL;
 	data->cmap = NULL;
-	data->f_col = 0;
 	data->c_col = 0;
+	data->f_col = 0;
+	data->step = get_step(data);
+	data->mlx = mlx_init();
+	if (!data->mlx)
+		printf("struct_init: error creating exec.mlx\n");
+	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Screen name");
 }
 
 int	main(int argc, char **argv)
@@ -53,13 +79,20 @@ int	main(int argc, char **argv)
 	printf("./cube3D: Initialise program\n");
 	struct_init(&data);
 	file = read_file(fd_cub);
-	data.exec.mlx = mlx_init();
 	if (parse_file(&data, file) == 0)
 		return (ft_free(&data, 0), ft_error(1), 1);
 	printf("./cube3D: Valid Colors and Texture\n");
+	free(file);
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
 	printf("./cube3D: Valid Map\n");
-	ft_free(&data, 1);
+	// file = NULL;
+	// init_texture(&data, "wolfenstein/wood.xpm", 0);
+	// init_texture(&data, "wolfenstein/mossy.xpm", 1);
+	// init_texture(&data, "wolfenstein/eagle.xpm", 2);
+	// init_texture(&data, "wolfenstein/blue_stone.xpm", 3);
+	cub_exec(&data);
+	system("xset r on");
+	//ft_free(&data, 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/25 15:21:04 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:54:53 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	parse_file(t_cub *data, char *file)
 	typechecker_init(type, flags);
 	content = ft_split(file, '\n');
 	if (content == NULL)
-		return (0);
+		return (printf("%p\n", content), 0);
 	i = 0;
 	while (content[i] != NULL && i < 6)
 	{
@@ -120,3 +120,4 @@ int	parse_file(t_cub *data, char *file)
 		return (ft_free_arr((void **)content), 0);
 	return (ft_free_arr((void **)content), check_flags(flags));
 }
+
