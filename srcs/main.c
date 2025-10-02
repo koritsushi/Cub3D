@@ -96,7 +96,7 @@ int	main(int argc, char **argv)
 	// init_texture(&data, "wolfenstein/eagle.xpm", 2);
 	// init_texture(&data, "wolfenstein/blue_stone.xpm", 3);
 	cub_exec(&data);
-	// free(file);
+	free(file);
 	ft_free(&data, 1);
 	system("xset r on");
 	return (0);

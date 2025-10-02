@@ -75,7 +75,7 @@ void	player_move(t_cub *data, char dir)
 		angle = mod_angle(data->dir_angle - 90, 360);
 	else if (dir == 'e')
 		angle = mod_angle(data->dir_angle - 45, 360);
-	data->p1 = dst_of(data, vector_of(angle));
+	data->p1 = dst_of(data, vector_of(angle)); //bug?
 }
 
 // this is the main function for auto-refreshing state and rendering view.
@@ -99,6 +99,6 @@ int	update_state(t_cub *data)
 		player_move(data, 'x');
 	else if (!data->mfwd && data->mback && !data->mleft && data->mright)
 		player_move(data, 'c');
-	render_snapshot(data);
+	// render_snapshot(data);
 	return (0);
 }
