@@ -25,7 +25,7 @@ int	parse_texture(t_cub *data, char *path, int type)
 	if (check_ext(&fd, pathname[1], ".xpm") == 0)
 		return (0);
 	data->texture[type].img = mlx_xpm_file_to_image\
-(data->exec.mlx, pathname[1], &width, &height);
+(data->mlx, pathname[1], &width, &height);
 	if (data->texture[type].img == NULL)
 		return (ft_free_arr((void **) pathname), 1);
 	data->texture[type].addr = (int *)mlx_get_data_addr\

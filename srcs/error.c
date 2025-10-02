@@ -36,6 +36,24 @@ void	ft_free(t_cub *data, int flag)
 	ft_free_arr((void **) data->map);
 	ft_free_arr((void **) data->cmap);
 	while (i < 4 && flag == 1)
-		mlx_destroy_image(data->exec.mlx, data->texture[i++].img);
-	free(data->exec.mlx);
+		mlx_destroy_image(data->mlx, data->texture[i++].img);
+	free(data->mlx);
+}
+
+int	check_cub(int *fd, const char *file)
+{
+	int	i;
+
+	i = ft_strlen(file);
+	*fd = open(file, __O_DIRECTORY);
+	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 && *fd == -1)
+	{
+		*fd = open(file, O_RDONLY);
+		if (*fd == -1)
+			return (0);
+		return (1);
+	}
+	close(*fd);
+	return (0);
+
 }

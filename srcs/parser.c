@@ -31,6 +31,7 @@ as long as it respects the rules of the map.
 */
 
 void	typechecker_init(char *type[], int flags[])
+// char	*read_file(int fd)
 {
 	type[0] = "NO";
 	type[1] = "SO";
@@ -119,4 +120,8 @@ int	parse_file(t_cub *data, char *file)
 	if (append_map(data, content, j) == 0)
 		return (ft_free_arr((void **)content), 0);
 	return (ft_free_arr((void **)content), check_flags(flags));
+// =======
+// 	close(fd);
+// 	return (final);
+// >>>>>>> feat/texture
 }
