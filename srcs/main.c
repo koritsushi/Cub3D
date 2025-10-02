@@ -27,8 +27,8 @@ void	struct_init(t_cub *data)
 	while (i < 4)
 	{
 		data->texture[i].img = NULL;
-		data->texture[i].address = NULL;
-		data->texture[i].line_length = 0;
+		data->texture[i].addr = NULL;
+		data->texture[i].size_line = 0;
 		data->texture[i].endian = 0;
 		i++;
 	}

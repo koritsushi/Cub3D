@@ -36,14 +36,16 @@ typedef struct	s_point
 	float	y;
 }			t_pt;
 
-typedef struct s_texture
+typedef struct s_image
 {
 	void 	*img;
-	char	*address;
+	int		*addr;
 	int		bpp;
-	int		line_length;
+	int		size_line;
 	int		endian;
-}			t_texture;
+	int		width;
+	int		height;
+}			t_image;
 
 typedef struct s_var
 {
@@ -62,7 +64,7 @@ typedef struct	s_cub
 	char		**cmap;
 	int			height;
 	int			width;
-	t_texture	texture[4];
+	t_image	texture[4];
 	int			f_col;
 	int			c_col;
 }				t_cub;
