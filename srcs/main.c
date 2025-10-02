@@ -76,25 +76,27 @@ int	main(int argc, char **argv)
 	int		fd_cub;
 	char	*file;
 
+	fd_cub = 0;
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
 		return (ft_error(0), 1);
-	fd_cub = 0;
+	struct_init(&data);
+	printf("datamlx %p\n", data.mlx);
 	file = read_file(fd_cub);
 	printf("./cube3D: Valid ./.cub extension file\n");
 	printf("./cube3D: Initialise program\n");
-	struct_init(&data);
 	if (parse_file(&data, file) == 0)
 		return (ft_free(&data, 0), ft_error(1), 1);
 	printf("./cube3D: Valid Colors and Texture\n");
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
 	printf("./cube3D: Valid Map\n");
+	printf("datamlx %p\n", data.mlx);
 	// init_texture(&data, "wolfenstein/wood.xpm", 0);
 	// init_texture(&data, "wolfenstein/mossy.xpm", 1);
 	// init_texture(&data, "wolfenstein/eagle.xpm", 2);
 	// init_texture(&data, "wolfenstein/blue_stone.xpm", 3);
 	cub_exec(&data);
-	free(file);
+	// free(file);
 	ft_free(&data, 1);
 	system("xset r on");
 	return (0);

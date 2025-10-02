@@ -93,8 +93,7 @@ char	*read_file(int fd)
 	final = ft_strdup("");
 	while (1)
 	{
-	printf("            debuggggggg\n");
-		line = get_next_line(fd); //bug
+		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
 		tmp = ft_strjoin(final, line);
