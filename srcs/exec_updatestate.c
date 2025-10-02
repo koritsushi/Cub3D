@@ -99,6 +99,6 @@ int	update_state(t_cub *data)
 		player_move(data, 'x');
 	else if (!data->mfwd && data->mback && !data->mleft && data->mright)
 		player_move(data, 'c');
-	// render_snapshot(data);
+	render_snapshot(data);
 	return (0);
 }

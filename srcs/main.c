@@ -17,8 +17,8 @@
 
 void	init_p1(t_cub *data, char c)
 {
-	data->p1.x = 3.5;
-	data->p1.y = 3.5;
+	data->p1.x = 11;
+	data->p1.y = 2;
 	if (c == 'N')
 		data->dir_angle = 90;
 	else if (c == 'S')
@@ -80,8 +80,8 @@ int	main(int argc, char **argv)
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
 		return (ft_error(0), 1);
 	struct_init(&data);
-	printf("datamlx %p\n", data.mlx);
 	file = read_file(fd_cub);
+			printf("%s\n", file);
 	printf("./cube3D: Valid ./.cub extension file\n");
 	printf("./cube3D: Initialise program\n");
 	if (parse_file(&data, file) == 0)
@@ -90,11 +90,6 @@ int	main(int argc, char **argv)
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
 	printf("./cube3D: Valid Map\n");
-	printf("datamlx %p\n", data.mlx);
-	// init_texture(&data, "wolfenstein/wood.xpm", 0);
-	// init_texture(&data, "wolfenstein/mossy.xpm", 1);
-	// init_texture(&data, "wolfenstein/eagle.xpm", 2);
-	// init_texture(&data, "wolfenstein/blue_stone.xpm", 3);
 	cub_exec(&data);
 	free(file);
 	ft_free(&data, 1);

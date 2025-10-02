@@ -83,7 +83,6 @@ int	cub_exec(t_cub *data)
 	mlx_loop_hook(data->mlx, update_state, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_display(data->mlx);
-	printf("      debugggg\n");
 	free(data->mlx);
 	return (0);
 }

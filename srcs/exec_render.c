@@ -63,9 +63,9 @@ void	render_snapshot(t_cub *data)
 
 	data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
 	data->snapshot.addr = (int *)(mlx_get_data_addr(data->snapshot.img,
-				&data->snapshot.bpp,
-				&data->snapshot.size_line,
-				&data->snapshot.endian));
+		&data->snapshot.bpp,
+		&data->snapshot.size_line,
+		&data->snapshot.endian));
 	i = -1;
 	while (++i < S_WIDTH)
 	{

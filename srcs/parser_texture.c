@@ -31,6 +31,8 @@ int	parse_texture(t_cub *data, char *path, int type)
 	data->texture[type].addr = (int *)mlx_get_data_addr\
 (data->texture[type].img, &data->texture[type].bpp, \
 &data->texture[type].size_line, &data->texture[type].endian);
+	data->texture[type].width = 64;
+	data->texture[type].height = 64;
 	ft_free_arr((void **) pathname);
 	return (1);
 }
