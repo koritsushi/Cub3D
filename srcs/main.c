@@ -15,10 +15,10 @@
 #include <math.h>
 #include <stdlib.h>
 
-void	init_p1(t_cub *data, char c)
+void	init_p1(t_cub *data, int x, int y, char c)
 {
-	data->p1.x = 11;
-	data->p1.y = 2;
+	data->p1.x = x + 0.5;
+	data->p1.y = y + 0.5;
 	if (c == 'N')
 		data->dir_angle = 90;
 	else if (c == 'S')
@@ -35,7 +35,7 @@ void	struct_init(t_cub *data)
 	int	i;
 
 	i = 0;
-	init_p1(data, 'N');
+	init_p1(data, 11, 2, 'N');
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		printf("struct_init: error creating exec.mlx\n");

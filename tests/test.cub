@@ -1,7 +1,7 @@
-NO ./xpm/blue.xpm
-SO ./xpm/blue.xpm
-WE ./xpm/blue.xpm
-EA ./xpm/blue.xpm
+NO ./wolfenstein/blue_stone.xpm
+SO ./wolfenstein/eagle.xpm
+WE ./wolfenstein/mossy.xpm
+EA ./wolfenstein/red_brick.xpm
 
 F 220,100,0
 C 225,30,0
