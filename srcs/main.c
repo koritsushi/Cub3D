@@ -35,7 +35,6 @@ void	struct_init(t_cub *data)
 	int	i;
 
 	i = 0;
-	init_p1(data, 11, 2, 'N');
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		printf("struct_init: error creating exec.mlx\n");
@@ -52,15 +51,14 @@ void	struct_init(t_cub *data)
 	data->so = NULL;
 	data->ea = NULL;
 	data->we = NULL;
-	data->c_col = create_colourcode(0, 100, 0, 0);
-	data->f_col = create_colourcode(0, 0, 0, 200);
+	data->c_col = 0;
+	data->f_col = 0; 
 
 	data->height = 0;
 	data->width = 0;
 	data->map = NULL;
 	data->cmap = NULL;
 
-	update_cameraplane(data);
 	data->mfwd = 0;
 	data->mback = 0;
 	data->mleft = 0;

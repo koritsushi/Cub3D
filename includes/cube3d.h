@@ -230,4 +230,5 @@ void	update_cameraplane(t_cub *data);
 int		create_colourcode(int t, int r, int g, int b);
 int	check_cub(int *fd, const char *file);
 void	typechecker_init(char *type[], int flags[]);
+void	init_p1(t_cub *data, int x, int y, char c);
 #endif
