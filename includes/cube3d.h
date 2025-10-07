@@ -123,6 +123,7 @@ typedef struct	s_cub
 
 //utils.c
 int		ft_isspace(char c);
+int		ft_isempty(char **str);
 int		ft_arr_len(char **ar);
 //free.c
 void	ft_free_arr(void **arr);

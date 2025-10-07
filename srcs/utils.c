@@ -19,6 +19,29 @@ int	ft_isspace(char c)
 	return (0);
 }
 
+int	ft_isempty(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i] != NULL)
+	{
+		j = 0;
+		while (str[i][j] != '\0')
+		{
+			if (ft_isspace(str[i][j]) == 0)
+				i++;
+			else
+				return (1);
+		}
+	}
+	return (ft_free_arr((void **) str), 0);
+}
+
 int	ft_arr_len(char **arr)
 {
 	int	i;

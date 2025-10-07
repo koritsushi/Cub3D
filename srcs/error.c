@@ -37,6 +37,8 @@ void	ft_free(t_cub *data, int flag)
 	ft_free_arr((void **) data->cmap);
 	while (i < 4 && flag == 1)
 		mlx_destroy_image(data->mlx, data->texture[i++].img);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/25 15:21:04 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/06 15:18:37 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,25 +103,19 @@ int	parse_file(t_cub *data, char *file)
 
 	typechecker_init(type, flags);
 	content = ft_split(file, '\n');
-	if (content == NULL)
+	if (ft_isempty(content) == 0)
 		return (0);
-	i = 0;
-	while (content[i] != NULL && i < 6)
+	i = -1;
+	while (content[++i] != NULL && i < 6)
 	{
-		j = 0;
-		while (type[j] != NULL)
+		j = -1;
+		while (type[++j] != NULL)
 		{
 			if (ft_strncmp(content[i], type[j], ft_strlen(type[j])) == 0)
 				flags[j] += parse_tc(data, content[i], j);
-			j++;
 		}
-		i++;
 	}
 	if (append_map(data, content, j) == 0)
 		return (ft_free_arr((void **)content), 0);
 	return (ft_free_arr((void **)content), check_flags(flags));
-// =======
-// 	close(fd);
-// 	return (final);
-// >>>>>>> feat/texture
 }
