@@ -40,9 +40,9 @@ int	colors(t_cub *data, char *color)
 	unsigned char	colors[3];
 	int				valid;
 
-	rgbs = ft_split_str(color + 1, " ,");
+	rgbs = ft_split_str(color + 1, ", ");
 	i = ft_arr_len(rgbs);
-	if (i != 3)
+	if (i < 3)
 		return (ft_free_arr((void **) rgbs), -1);
 	i = 0;
 	while (i < 3)
@@ -50,8 +50,6 @@ int	colors(t_cub *data, char *color)
 		if (valid_num(rgbs[i]) == 0)
 			return (ft_free_arr((void **) rgbs), -1);
 		colors[i] = ft_atoi(rgbs[i]);
-		if (colors[i] < 0 || colors[i] > 255)
-			return (ft_free_arr((void **)rgbs), -1);
 		i++;
 	}
 	ft_free_arr((void **)rgbs);

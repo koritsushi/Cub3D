@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/08 14:46:55 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/08 18:17:30 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_flags(int flags[])
 	{
 		if (i < 4 && flags[i] != 1)
 			return (0);
-		else if (flags[i] == -1)
+		else if (i > 6 && flags[i] == -1)
 			return (-1);
 		i++;
 	}

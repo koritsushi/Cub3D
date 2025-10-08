@@ -129,6 +129,7 @@ int		ft_arr_len(char **ar);
 void	ft_free_arr(void **arr);
 //error.c
 void	ft_error(int flag);
+void	free_tex(t_cub *data, int len);
 void	ft_free(t_cub *data, int flag);
 //parser.c
 int		parse_file(t_cub *data, char *file);
@@ -216,7 +217,6 @@ void    update_render_info(t_cub *data, int i);
 int texture_of(t_pt pt, t_pt vector);
 int is_inwall(t_cub *data, t_pt pt);
 
-
 double	get_step(t_cub *data);
 int	dist(t_cub *data);
 double	get_ratio(t_cub *data, int i);
@@ -232,4 +232,5 @@ int		create_colourcode(int t, int r, int g, int b);
 int	check_cub(int *fd, const char *file);
 void	typechecker_init(char *type[], int flags[]);
 void	init_p1(t_cub *data, int x, int y, char c);
+
 #endif
