@@ -84,12 +84,12 @@ int	main(int argc, char **argv)
 	printf("./cube3D: Initialise program\n");
 	if (parse_file(&data, file) == 0)
 		return (ft_free(&data, 0), free(file), ft_error(1), 1);
+	free(file);
 	printf("./cube3D: Valid Colors and Texture\n");
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
 	printf("./cube3D: Valid Map\n");
 	cub_exec(&data);
-	free(file);
 	ft_free(&data, 1);
 	system("xset r on");
 	return (0);

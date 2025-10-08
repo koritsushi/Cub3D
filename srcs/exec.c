@@ -50,6 +50,7 @@ int	key_press(int keycode, t_cub *data)
 	{
 		printf("key_hook: ESC pressed.\n");
 		system("xset r on");
+		ft_free(data, 1);
 		exit(0);
 	}
 	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT
