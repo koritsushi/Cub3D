@@ -34,10 +34,11 @@ int	ft_isempty(char **str)
 		while (str[i][j] != '\0')
 		{
 			if (ft_isspace(str[i][j]) == 0)
-				i++;
+				j++;
 			else
 				return (1);
 		}
+		i++;
 	}
 	return (ft_free_arr((void **) str), 0);
 }
