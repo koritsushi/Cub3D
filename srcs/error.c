@@ -15,13 +15,14 @@
 void	error_init(char *err[])
 {
 	err[0] = "./cube3D: Usage: ./.cub3d filename.cub\n";
-	err[1] = "./cube3D: Invalid texture or color!";
-	err[2] = "./cube3D: Invalid Map";
+	err[1] = "./cube3D: Invalid texture or color!\n";
+	err[2] = "./cube3D: Invalid Map\n";
+	err[3] = "./cube3D: null Map input\n";
 }
 
 void	ft_error(int flag)
 {
-	char	*err[3];
+	char	*err[4];
 
 	error_init(err);
 	ft_putstr_fd("./cube3D: Error!\n", 2);
@@ -37,7 +38,20 @@ void	ft_free(t_cub *data, int flag)
 	ft_free_arr((void **) data->cmap);
 	while (i < 4 && flag == 1)
 		mlx_destroy_image(data->mlx, data->texture[i++].img);
-	free(data->mlx);
+
+	if (data->no)
+		free(data->no);
+	if (data->so)
+		free(data->so);
+	if (data->ea)
+		free(data->ea);
+	if (data->we)
+		free(data->we);
+
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+		free(data->mlx);
 }
 
 int	check_cub(int *fd, const char *file)

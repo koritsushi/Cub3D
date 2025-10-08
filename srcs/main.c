@@ -30,6 +30,33 @@ void	init_p1(t_cub *data, int x, int y, char c)
 	data->dir_pt = vector_of(data->dir_angle);
 }
 
+void	init_colvars(t_cub *data)
+{
+	data->step = get_step(data);
+	data->ray_angle = 0;
+	data->ray_endpt.x = -1;
+	data->ray_endpt.y = -1;
+
+	data->ray_vector.x = -1;
+	data->ray_vector.y = -1;
+    data->ray_texture = NULL;
+	data->ray_start.x = -1;
+	data->ray_start.y = -1;
+	data->camera_plane.x = -1;
+	data->camera_plane.y = -1;
+
+	data->d_ray = -1;
+	data->txt_n = -1;
+	data->srcx = -1;
+	data->srcy0 = -1;
+	data->srcy1 = -1;
+	data->src_h = -1;
+	data->dstx = -1;
+	data->dsty0 = -1;
+	data->dsty1 = -1;
+	data->dst_h = -1;
+}
+
 void	struct_init(t_cub *data)
 {
 	int	i;
@@ -43,10 +70,22 @@ void	struct_init(t_cub *data)
 	{
 		data->texture[i].img = NULL;
 		data->texture[i].addr = NULL;
+		data->texture[i].bpp = 0;
 		data->texture[i].size_line = 0;
 		data->texture[i].endian = 0;
+		data->texture[i].width = 0;
+		data->texture[i].height = 0;
 		i++;
 	}
+
+	data->snapshot.img = NULL;
+	data->snapshot.addr = NULL;
+	data->snapshot.bpp = 0;
+	data->snapshot.size_line = 0;
+	data->snapshot.endian = 0;
+	data->snapshot.width = 0;
+	data->snapshot.height = 0;
+
 	data->no = NULL;
 	data->so = NULL;
 	data->ea = NULL;
@@ -54,10 +93,10 @@ void	struct_init(t_cub *data)
 	data->c_col = 0;
 	data->f_col = 0; 
 
-	data->height = 0;
-	data->width = 0;
 	data->map = NULL;
 	data->cmap = NULL;
+	data->height = 0;
+	data->width = 0;
 
 	data->mfwd = 0;
 	data->mback = 0;
@@ -65,7 +104,8 @@ void	struct_init(t_cub *data)
 	data->mright = 0;
 	data->tleft = 0;
 	data->tright = 0;
-	data->step = get_step(data);
+
+	init_colvars(data);
 }
 
 int	main(int argc, char **argv)
@@ -79,9 +119,14 @@ int	main(int argc, char **argv)
 		return (ft_error(0), 1);
 	struct_init(&data);
 	file = read_file(fd_cub);
-			printf("%s\n", file);
+			// printf("main file: %s\n", file);
 	printf("./cube3D: Valid ./.cub extension file\n");
 	printf("./cube3D: Initialise program\n");
+	if (!file[0])
+	{
+		free(file);
+		return (ft_free(&data, 0), ft_error(3), 1);
+	}
 	if (parse_file(&data, file) == 0)
 		return (ft_free(&data, 0), ft_error(1), 1);
 	printf("./cube3D: Valid Colors and Texture\n");
