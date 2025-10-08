@@ -23,8 +23,6 @@ char	*ft_cstrdup(t_cub *data, const char *s)
 		return (NULL);
 	while (s[i] != '\0')
 	{
-		if (s[i] == '\t')
-			return (NULL);
 		if (ft_isspace(s[i]) == 1)
 			cpy[i] = '0';
 		else
