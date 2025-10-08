@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/06 11:57:13 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/08 15:02:02 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,11 @@ void	struct_init(t_cub *data)
 	data->ea = NULL;
 	data->we = NULL;
 	data->c_col = 0;
-	data->f_col = 0; 
-
+	data->f_col = 0;
 	data->height = 0;
 	data->width = 0;
 	data->map = NULL;
 	data->cmap = NULL;
-
 	data->mfwd = 0;
 	data->mback = 0;
 	data->mleft = 0;
@@ -73,6 +71,7 @@ int	main(int argc, char **argv)
 	t_cub	data;
 	int		fd_cub;
 	char	*file;
+	int		status;
 
 	fd_cub = 0;
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
@@ -82,8 +81,12 @@ int	main(int argc, char **argv)
 			printf("%s\n", file);
 	printf("./cube3D: Valid ./.cub extension file\n");
 	printf("./cube3D: Initialise program\n");
-	if (parse_file(&data, file) == 0)
+	status = parse_file(&data, file);
+	printf("status:%d\n", status);
+	if (status == 0)
 		return (ft_free(&data, 0), free(file), ft_error(1), 1);
+	else if (status == -1)
+		return (ft_free(&data, 1), free(file), ft_error(1), 1);
 	free(file);
 	printf("./cube3D: Valid Colors and Texture\n");
 	if (parse_map(&data) == 0)

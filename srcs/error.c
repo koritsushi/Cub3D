@@ -57,5 +57,4 @@ int	check_cub(int *fd, const char *file)
 	}
 	close(*fd);
 	return (0);
-
 }
