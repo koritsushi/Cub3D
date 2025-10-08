@@ -51,6 +51,8 @@ int	check_pm(t_cub *data, int status, int x, int y)
 		data->cmap[x][y] = '0';
 		if (ft_flood_fill(data, data->cmap, x, y) > 0)
 			return (0);
+		init_p1(data, x, y, data->map[x][y]);
+		update_cameraplane(data);
 		return (1);
 	}
 	return (0);
@@ -92,8 +94,5 @@ int	parse_map(t_cub *data)
 		while (data->cmap[i][++j] != '\0')
 			status += check_ppos(data->cmap[i][j], c, i, j);
 	}
-	printf("parse_map: y %d, x %d %c\n", c[0], c[1], data->cmap[c[0]][c[1]]);
-	init_p1(data, c[1], c[0], data->map[c[0]][c[1]]);
-	update_cameraplane(data);
 	return (check_pm(data, status, c[0], c[1]));
 }
