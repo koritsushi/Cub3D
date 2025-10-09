@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/08 18:17:30 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:03:47 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	check_flags(int flags[])
 			return (0);
 		else if (i > 6 && flags[i] == -1)
 			return (-1);
+		else if (flags[i] != 1)
+			return (0);
 		i++;
 	}
 	return (1);
@@ -102,6 +104,7 @@ int	parse_file(t_cub *data, char *file)
 	int		flags[7];
 	char	*type[7];
 	char	**content;
+	char	*tmp;
 
 	typechecker_init(type, flags);
 	content = ft_split(file, '\n');
@@ -113,6 +116,12 @@ int	parse_file(t_cub *data, char *file)
 		j = -1;
 		while (type[++j] != NULL)
 		{
+			if (ft_isspace(content[i][0]))
+			{	
+				tmp = ft_strtrim(content[i], " ");
+				free(content[i]);
+				content[i] = tmp;
+			}
 			if (ft_strncmp(content[i], type[j], ft_strlen(type[j])) == 0)
 				flags[j] += parse_tc(data, content[i], j);
 		}
