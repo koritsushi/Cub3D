@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_state.c                                     :+:      :+:    :+:   */
+/*   exec_updatestate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: booi <booi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 21:47:40 by booi              #+#    #+#             */
-/*   Updated: 2025/08/19 21:47:43 by booi             ###   ########.fr       */
+/*   Updated: 2025/10/09 15:32:42 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	player_move(t_cub *data, char dir)
 		angle = mod_angle(data->dir_angle - 90, 360);
 	else if (dir == 'e')
 		angle = mod_angle(data->dir_angle - 45, 360);
-	data->p1 = dst_of(data, vector_of(angle)); //bug?
+	data->p1 = dst_of(data, vector_of(angle));
 }
 
 // this is the main function for auto-refreshing state and rendering view.

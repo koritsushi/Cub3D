@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: booi <booi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:58:47 by booi              #+#    #+#             */
-/*   Updated: 2025/08/29 16:58:48 by booi             ###   ########.fr       */
+/*   Updated: 2025/10/09 15:30:05 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	render_snapshot(t_cub *data)
 	int	i;
 
 	data->snapshot.img = mlx_new_image(data->mlx, S_WIDTH, S_HEIGHT);
-	data->snapshot.addr = (int *)(mlx_get_data_addr(data->snapshot.img,
-		&data->snapshot.bpp,
-		&data->snapshot.size_line,
-		&data->snapshot.endian));
+	data->snapshot.addr = (int *)(mlx_get_data_addr(data->snapshot.img, \
+&data->snapshot.bpp, \
+&data->snapshot.size_line, \
+&data->snapshot.endian));
 	i = -1;
 	while (++i < S_WIDTH)
 	{
