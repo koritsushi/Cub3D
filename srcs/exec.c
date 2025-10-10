@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: booi <booi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 00:06:06 by booi              #+#    #+#             */
-/*   Updated: 2025/08/19 11:16:42 by booi             ###   ########.fr       */
+/*   Updated: 2025/10/10 18:25:17 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	mlx_close(int keycode, t_cub *data)
 {
 	printf("mlx_close: keycode %d, data %p\n", keycode, data);
 	system("xset r on");
+	ft_free(data, 1);
 	exit(0);
 }
 
@@ -83,7 +84,6 @@ int	cub_exec(t_cub *data)
 	mlx_hook(data->win, 17, 0, mlx_close, data);
 	mlx_loop_hook(data->mlx, update_state, data);
 	mlx_loop(data->mlx);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
+	ft_free(data, 1);
 	return (0);
 }
