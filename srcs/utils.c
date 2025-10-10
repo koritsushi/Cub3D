@@ -27,20 +27,22 @@ int	ft_isempty(char **str)
 	i = 0;
 	j = 0;
 	if (str == NULL)
-		return (0);
+		return (1);
 	while (str[i] != NULL)
 	{
 		j = 0;
 		while (str[i][j] != '\0')
 		{
-			if (ft_isspace(str[i][j]) == 0)
+			if (ft_isspace(str[i][j]) == 1)
 				j++;
 			else
-				return (1);
+				break ;
 		}
+		if (str[i][j] == '\0')
+			return (ft_free_arr((void **) str), 1);
 		i++;
 	}
-	return (ft_free_arr((void **) str), 0);
+	return (0);
 }
 
 int	ft_arr_len(char **arr)
