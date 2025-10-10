@@ -22,10 +22,12 @@ int	valid_num(char *str)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		return (0);
+	if (i == 0 && (str[i] == '-' || str[i] == '+'))
+		i++;
 	while (str[i] != '\0')
 	{
-		if (i == 0 && (str[i] == '-' || str[i] == '+'))
-			i++;
 		if (ft_isdigit(str[i]) == 0)
 			return (0);
 		i++;

@@ -53,6 +53,7 @@ int	check_pm(t_cub *data, int status, int x, int y)
 			return (0);
 		init_p1(data, x, y, data->map[x][y]);
 		update_cameraplane(data);
+		printf("./cube3D: Valid Map\n");
 		return (1);
 	}
 	return (0);
