@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/09 15:05:01 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/10 17:10:25 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int		ft_arr_len(char **ar);
 void	ft_free_arr(void **arr);
 //error.c
 void	ft_error(int flag);
-void	free_tex(t_cub *data, int len);
+void	free_tex(t_cub *data, int flags[]);
 void	ft_free(t_cub *data, int flag);
 //parser.c
 int		parse_file(t_cub *data, char *file);

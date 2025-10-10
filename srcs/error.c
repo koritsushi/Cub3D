@@ -28,13 +28,16 @@ void	ft_error(int flag)
 	ft_putstr_fd(err[flag], 2);
 }
 
-void	free_tex(t_cub *data, int len)
+void	free_tex(t_cub *data, int flags[])
 {
 	int	i;
 
-	i = 0;
-	while (i < len)
-		mlx_destroy_image(data->mlx, data->texture[i++].img);
+	i = -1;
+	while (++i < 4)
+	{
+		if (flags[i] == 1 || flags[i] == 2)
+			mlx_destroy_image(data->mlx, data->texture[i].img);
+	}
 }
 
 void	ft_free(t_cub *data, int flag)
@@ -42,10 +45,13 @@ void	ft_free(t_cub *data, int flag)
 	int	i;
 
 	i = 0;
-	ft_free_arr((void **) data->map);
-	ft_free_arr((void **) data->cmap);
 	if (flag == 1)
-		free_tex(data, 4);
+	{
+		while (i < 4)
+			mlx_destroy_image(data->mlx, data->texture[i++].img);
+		ft_free_arr((void **) data->map);
+		ft_free_arr((void **) data->cmap);
+	}
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
