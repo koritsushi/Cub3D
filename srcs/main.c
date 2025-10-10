@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/10 19:55:04 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/10 20:01:14 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv)
 	fd_cub = 0;
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
 		return (ft_error(0), 1);
-	printf("./cube3D: Valid .cub :%s file\n", argv[1]);
+	printf("./cube3D: Valid .cub extension file: %s\n", argv[1]);
 	struct_init(&data);
 	texcol_init(&data);
 	file = read_file(fd_cub);
