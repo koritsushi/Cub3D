@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/09 14:28:07 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/10 19:15:05 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,11 @@ void	init_p1(t_cub *data, int x, int y, char c)
 	data->dir_pt = vector_of(data->dir_angle);
 }
 
-void	struct_init(t_cub *data)
+void	texcol_init(t_cub *data)
 {
 	int	i;
 
 	i = 0;
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		printf("struct_init: error creating exec.mlx\n");
-	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Screen name");
 	while (i < 4)
 	{
 		data->texture[i].img = NULL;
@@ -47,16 +43,19 @@ void	struct_init(t_cub *data)
 		data->texture[i].endian = 0;
 		i++;
 	}
-	data->no = NULL;
-	data->so = NULL;
-	data->ea = NULL;
-	data->we = NULL;
 	data->c_col = 0;
 	data->f_col = 0;
 	data->height = 0;
 	data->width = 0;
 	data->map = NULL;
 	data->cmap = NULL;
+}
+
+void	struct_init(t_cub *data)
+{
+	data->mlx = mlx_init();
+	if (!data->mlx)
+		printf("struct_init: error creating exec.mlx\n");
 	data->mfwd = 0;
 	data->mback = 0;
 	data->mleft = 0;
@@ -76,21 +75,16 @@ int	main(int argc, char **argv)
 	fd_cub = 0;
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
 		return (ft_error(0), 1);
+	printf("./cube3D: Valid .cub :%s file\n", argv[1]);
 	struct_init(&data);
 	file = read_file(fd_cub);
 	printf("%s\n", file);
-	printf("./cube3D: Valid ./.cub extension file\n");
-	printf("./cube3D: Initialise program\n");
-	status = parse_file(&data, file);
-	if (status == 0)
-		return (ft_free(&data, 0), free(file), ft_error(1), 1);
-	else if (status == -1)
-		return (ft_free(&data, 1), free(file), ft_error(1), 1);
+	if (parse_file(&data, file) == 0)
+		return (free(file), ft_error(1), 1);
 	free(file);
-	printf("./cube3D: Valid Colors and Texture\n");
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
-	printf("./cube3D: Valid Map\n");
+	data.win = mlx_new_window(data.mlx, S_WIDTH, S_HEIGHT, "Cube3D");
 	cub_exec(&data);
 	ft_free(&data, 1);
 	system("xset r on");
