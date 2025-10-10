@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/10 19:15:05 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/10 19:55:04 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	struct_init(t_cub *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		printf("struct_init: error creating exec.mlx\n");
+	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Cube3D");
 	data->mfwd = 0;
 	data->mback = 0;
 	data->mleft = 0;
@@ -77,6 +78,7 @@ int	main(int argc, char **argv)
 		return (ft_error(0), 1);
 	printf("./cube3D: Valid .cub :%s file\n", argv[1]);
 	struct_init(&data);
+	texcol_init(&data);
 	file = read_file(fd_cub);
 	printf("%s\n", file);
 	if (parse_file(&data, file) == 0)
@@ -84,7 +86,6 @@ int	main(int argc, char **argv)
 	free(file);
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
-	data.win = mlx_new_window(data.mlx, S_WIDTH, S_HEIGHT, "Cube3D");
 	cub_exec(&data);
 	ft_free(&data, 1);
 	system("xset r on");
