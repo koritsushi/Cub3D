@@ -51,7 +51,7 @@ int	check_pm(t_cub *data, int status, int x, int y)
 		data->cmap[x][y] = '0';
 		if (ft_flood_fill(data, data->cmap, x, y) > 0)
 			return (0);
-		init_p1(data, x, y, data->map[x][y]);
+		init_p1(data, y, x, data->map[x][y]);
 		update_cameraplane(data);
 		printf("./cube3D: Valid Map\n");
 		return (1);
