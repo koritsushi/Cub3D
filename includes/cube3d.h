@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/10 17:10:25 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/13 17:21:02 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,16 @@ typedef struct s_cub
 
 //utils.c
 int		ft_isspace(char c);
+void	ft_trimspaces(char **str);
 int		ft_isempty(char **str);
 int		ft_arr_len(char **ar);
 //free.c
 void	ft_free_arr(void **arr);
-//error.c
-void	ft_error(int flag);
+int		ft_free_parsing(char **content, t_cub *data, int flags[]);
 void	free_tex(t_cub *data, int flags[]);
 void	ft_free(t_cub *data, int flag);
+//error.c
+void	ft_error(int flag);
 //parser.c
 int		parse_file(t_cub *data, char *file);
 //parser_utils.c
@@ -144,6 +146,9 @@ int		parse_color(t_cub *data, char *rgb, int type);
 int		parse_map(t_cub *data);
 //parser_utils2.c
 char	**ft_split_str(char const *s, char *delimiter);
+//parser_utils3.c
+int		check_flags(t_cub *data, int flags[]);
+int		append_map(t_cub *data, char **content, int len);
 //exec
 int		mlx_close(int keycode, t_cub *data);
 void	update_movement(t_cub *data, int keycode, int state);

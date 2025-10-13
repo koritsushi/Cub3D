@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/10 20:01:14 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/11 17:37:41 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int argc, char **argv)
 	printf("%s\n", file);
 	if (parse_file(&data, file) == 0)
 		return (free(file), ft_error(1), 1);
+	printf("./cube3D: Valid Colors and Texture\n");
 	free(file);
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);

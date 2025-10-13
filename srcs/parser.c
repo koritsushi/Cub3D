@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/10 19:21:56 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/13 17:18:30 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map.
 */
 
-void	typechecker_init(char *type[], int flags[])
+int	ptypechecker_init(char *type[], int flags[])
 // char	*read_file(int fd)
 {
 	type[0] = "NO";
@@ -46,6 +46,7 @@ void	typechecker_init(char *type[], int flags[])
 	flags[3] = 0;
 	flags[4] = 0;
 	flags[5] = 0;
+	return (1);
 }
 
 int	parse_tc(t_cub *data, char *content, int type)
@@ -56,57 +57,55 @@ int	parse_tc(t_cub *data, char *content, int type)
 		return (parse_color(data, content, type));
 }
 
-int	check_flags(t_cub *data, int flags[])
+static int	parse_line(t_cub *data, char *line, char **type, int *flags)
 {
-	int	i;
-	int	status;
+	int	j;
 
-	i = 0;
-	status = 1;
-	while (i < 6)
+	j = -1;
+	ft_trimspaces(&line);
+	while (type[++j] != NULL)
 	{
-		if (i < 4 && (flags[i] == 0 || flags[i] == 2))
+		if (ft_strncmp(line, type[j], ft_strlen(type[j])) == 0)
 		{
-			status = 0;
+			if (flags[j] == 1)
+				return (0);
+			flags[j] += parse_tc(data, line, j);
 			break ;
 		}
-		else if (i >= 4 && (flags[i] == -1 || flags[i] == 0 || flags[i] == 2))
-		{
-			status = 0;
-			break ;
-		}
-		i++;
 	}
-	if (status == 0)
+	return (1);
+}
+
+static int	validate_and_append(t_cub *data, char **content, int *flags, int j)
+{
+	if (check_flags(data, flags) == 0 || append_map(data, content, j) == 0)
 		return (0);
 	return (1);
 }
 
-int	append_map(t_cub *data, char **content, int len)
+int	parse_file(t_cub *data, char *file)
 {
-	int	i;
+	int		i;
+	int		flags[7];
+	char	*type[7];
+	char	**content;
 
-	i = 0;
-	data->height = append_height(content, len);
-	data->width = append_width(content, len);
-	if (data->height == 0 && data->width == 0)
-		return (0);
-	data->map = malloc(sizeof(char *) * (ft_arr_len(content + len) + 1));
-	data->cmap = malloc(sizeof(char *) * (ft_arr_len(content + len) + 1));
-	if (data->map == NULL || data->cmap == NULL)
-		return (0);
-	while (content[len] != NULL)
+	content = ft_split(file, '\n');
+	ptypechecker_init(type, flags);
+	if (ft_isempty(content))
+		return (ft_free(data, 0), 0);
+	i = -1;
+	while (content[++i] && i < 6)
 	{
-		data->map[i] = ft_cstrdup(data, content[len]);
-		data->cmap[i] = ft_cstrdup(data, content[len]);
-		len++;
-		i++;
+		if (parse_line(data, content[i], type, flags) == 0)
+			return (ft_free_parsing(content, data, flags));
 	}
-	data->map[i] = NULL;
-	data->cmap[i] = NULL;
-	return (1);
+	if (validate_and_append(data, content, flags, i) == 0)
+		return (ft_free_parsing(content, data, flags));
+	return (ft_free_arr((void **)content), 1);
 }
 
+/*
 int	parse_file(t_cub *data, char *file)
 {
 	int		i;
@@ -114,38 +113,28 @@ int	parse_file(t_cub *data, char *file)
 	int		flags[7];
 	char	*type[7];
 	char	**content;
-	char	*tmp;
 
-	typechecker_init(type, flags);
 	content = ft_split(file, '\n');
+	ptypechecker_init(type, flags);
 	if (ft_isempty(content) == 1)
 		return (ft_free(data, 0), 0);
-	i = 0;
-	while (content[i] != NULL && i < 6)
+	i = -1;
+	while (content[++i] != NULL && i < 6)
 	{
-		j = 0;
-		while (type[j] != NULL)
+		j = -1;
+		while (type[++j] != NULL)
 		{
-			if (ft_isspace(content[i][0]) == 1)
-			{
-				tmp = ft_strtrim(content[i], " ");
-				free(content[i]);
-				content[i] = tmp;
-			}
+			ft_trimspaces(&content[i]);
 			if (ft_strncmp(content[i], type[j], ft_strlen(type[j])) == 0)
 			{
 				if (flags[j] == 1)
-					return (ft_free_arr((void **)content), free_tex(data, flags), ft_free(data, 0), 0);
+					return (ft_free_parsing(content, data, flags));
 				flags[j] += parse_tc(data, content[i], j);
 			}
-			j++;
 		}
-		i++;
 	}
-	if (check_flags(data, flags) == 0)
-		return (ft_free_arr((void **)content), free_tex(data, flags), ft_free(data, 0), 0);
-	if (append_map(data, content, j) == 0)
-		return (ft_free_arr((void **)content), free_tex(data, flags), ft_free(data, 0), 0);
-	printf("./cube3D: Valid Colors and Texture\n");
+	if (check_flags(data, flags) == 0 || append_map(data, content, j) == 0)
+		return (ft_free_parsing(content, data, flags));
 	return (ft_free_arr((void **)content), 1);
 }
+*/
