@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:13:43 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/13 17:21:02 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/15 17:17:55 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ typedef struct s_cub
 
 //utils.c
 int		ft_isspace(char c);
-void	ft_trimspaces(char **str);
 int		ft_isempty(char **str);
 int		ft_arr_len(char **ar);
 //free.c

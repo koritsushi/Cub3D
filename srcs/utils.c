@@ -19,17 +19,6 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-void	ft_trimspaces(char **str)
-{
-	char	*tmp;
-
-	if (ft_isspace(str[0][0]) == 0)
-		return ;
-	tmp = ft_strtrim(str[0], " ");
-	free(str[0]);
-	str[0] = tmp;
-}
-
 int	ft_isempty(char **str)
 {
 	int	i;

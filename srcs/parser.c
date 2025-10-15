@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/10/13 17:18:30 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/15 17:06:33 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	parse_line(t_cub *data, char *line, char **type, int *flags)
 	int	j;
 
 	j = -1;
-	ft_trimspaces(&line);
 	while (type[++j] != NULL)
 	{
 		if (ft_strncmp(line, type[j], ft_strlen(type[j])) == 0)
@@ -89,6 +88,7 @@ int	parse_file(t_cub *data, char *file)
 	int		flags[7];
 	char	*type[7];
 	char	**content;
+	char	*tmp;
 
 	content = ft_split(file, '\n');
 	ptypechecker_init(type, flags);
@@ -97,6 +97,12 @@ int	parse_file(t_cub *data, char *file)
 	i = -1;
 	while (content[++i] && i < 6)
 	{
+		if (ft_isspace(content[i][0]) == 1)
+		{	
+			tmp = ft_strtrim(content[i], " ");
+			free(content[i]);
+			content[i] = tmp;
+		}
 		if (parse_line(data, content[i], type, flags) == 0)
 			return (ft_free_parsing(content, data, flags));
 	}
