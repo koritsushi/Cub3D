@@ -19,6 +19,42 @@ int	ft_isspace(char c)
 	return (0);
 }
 
+void	ft_trimspaces(char **str)
+{
+	char	*tmp;
+
+	if (ft_isspace(str[0][0]) == 0)
+		return ;
+	tmp = ft_strtrim(str[0], " ");
+	free(str[0]);
+	str[0] = tmp;
+}
+
+int	ft_isempty(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (str == NULL)
+		return (1);
+	while (str[i] != NULL)
+	{
+		j = 0;
+		while (str[i][j] != '\0')
+		{
+			if (ft_isspace(str[i][j]) == 1)
+				j++;
+			else if (str[i][j + 1] == '\0')
+				return (ft_free_arr((void **) str), 1);
+			else
+				break ;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	ft_arr_len(char **arr)
 {
 	int	i;

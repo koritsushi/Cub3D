@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:21:12 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/08/15 14:57:38 by booi             ###   ########.fr       */
+/*   Updated: 2025/10/11 17:37:41 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,42 +30,42 @@ void	init_p1(t_cub *data, int x, int y, char c)
 	data->dir_pt = vector_of(data->dir_angle);
 }
 
-void	init_colvars(t_cub *data)
-{
-	data->step = get_step(data);
-	data->ray_angle = 0;
-	data->ray_endpt.x = -1;
-	data->ray_endpt.y = -1;
+// <<<<<<< HEAD
+// void	init_colvars(t_cub *data)
+// {
+// 	data->step = get_step(data);
+// 	data->ray_angle = 0;
+// 	data->ray_endpt.x = -1;
+// 	data->ray_endpt.y = -1;
 
-	data->ray_vector.x = -1;
-	data->ray_vector.y = -1;
-    data->ray_texture = NULL;
-	data->ray_start.x = -1;
-	data->ray_start.y = -1;
-	data->camera_plane.x = -1;
-	data->camera_plane.y = -1;
+// 	data->ray_vector.x = -1;
+// 	data->ray_vector.y = -1;
+//     data->ray_texture = NULL;
+// 	data->ray_start.x = -1;
+// 	data->ray_start.y = -1;
+// 	data->camera_plane.x = -1;
+// 	data->camera_plane.y = -1;
 
-	data->d_ray = -1;
-	data->txt_n = -1;
-	data->srcx = -1;
-	data->srcy0 = -1;
-	data->srcy1 = -1;
-	data->src_h = -1;
-	data->dstx = -1;
-	data->dsty0 = -1;
-	data->dsty1 = -1;
-	data->dst_h = -1;
-}
+// 	data->d_ray = -1;
+// 	data->txt_n = -1;
+// 	data->srcx = -1;
+// 	data->srcy0 = -1;
+// 	data->srcy1 = -1;
+// 	data->src_h = -1;
+// 	data->dstx = -1;
+// 	data->dsty0 = -1;
+// 	data->dsty1 = -1;
+// 	data->dst_h = -1;
+// }
 
-void	struct_init(t_cub *data)
+// void	struct_init(t_cub *data)
+// =======
+void	texcol_init(t_cub *data)
+// >>>>>>> par1-parsefix
 {
 	int	i;
 
 	i = 0;
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		printf("struct_init: error creating exec.mlx\n");
-	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Screen name");
 	while (i < 4)
 	{
 		data->texture[i].img = NULL;
@@ -77,27 +77,43 @@ void	struct_init(t_cub *data)
 		data->texture[i].height = 0;
 		i++;
 	}
+// <<<<<<< HEAD
 
-	data->snapshot.img = NULL;
-	data->snapshot.addr = NULL;
-	data->snapshot.bpp = 0;
-	data->snapshot.size_line = 0;
-	data->snapshot.endian = 0;
-	data->snapshot.width = 0;
-	data->snapshot.height = 0;
+// 	data->snapshot.img = NULL;
+// 	data->snapshot.addr = NULL;
+// 	data->snapshot.bpp = 0;
+// 	data->snapshot.size_line = 0;
+// 	data->snapshot.endian = 0;
+// 	data->snapshot.width = 0;
+// 	data->snapshot.height = 0;
 
-	data->no = NULL;
-	data->so = NULL;
-	data->ea = NULL;
-	data->we = NULL;
+// 	data->no = NULL;
+// 	data->so = NULL;
+// 	data->ea = NULL;
+// 	data->we = NULL;
+// 	data->c_col = 0;
+// 	data->f_col = 0; 
+
+// 	data->map = NULL;
+// 	data->cmap = NULL;
+// 	data->height = 0;
+// 	data->width = 0;
+// =======
 	data->c_col = 0;
-	data->f_col = 0; 
-
-	data->map = NULL;
-	data->cmap = NULL;
+	data->f_col = 0;
 	data->height = 0;
 	data->width = 0;
+	data->map = NULL;
+	data->cmap = NULL;
+}
+// >>>>>>> par1-parsefix
 
+void	struct_init(t_cub *data)
+{
+	data->mlx = mlx_init();
+	if (!data->mlx)
+		printf("struct_init: error creating exec.mlx\n");
+	data->win = mlx_new_window(data->mlx, S_WIDTH, S_HEIGHT, "Cube3D");
 	data->mfwd = 0;
 	data->mback = 0;
 	data->mleft = 0;
@@ -113,12 +129,16 @@ int	main(int argc, char **argv)
 	t_cub	data;
 	int		fd_cub;
 	char	*file;
+	int		status;
 
 	fd_cub = 0;
 	if (argc != 2 || check_ext(&fd_cub, argv[1], ".cub") == 0)
 		return (ft_error(0), 1);
+	printf("./cube3D: Valid .cub extension file: %s\n", argv[1]);
 	struct_init(&data);
+	texcol_init(&data);
 	file = read_file(fd_cub);
+<<<<<<< HEAD
 			// printf("main file: %s\n", file);
 	printf("./cube3D: Valid ./.cub extension file\n");
 	printf("./cube3D: Initialise program\n");
@@ -127,14 +147,16 @@ int	main(int argc, char **argv)
 		free(file);
 		return (ft_free(&data, 0), ft_error(3), 1);
 	}
+=======
+	printf("%s\n", file);
+>>>>>>> par1-parsefix
 	if (parse_file(&data, file) == 0)
-		return (ft_free(&data, 0), ft_error(1), 1);
+		return (free(file), ft_error(1), 1);
 	printf("./cube3D: Valid Colors and Texture\n");
+	free(file);
 	if (parse_map(&data) == 0)
 		return (ft_free(&data, 1), ft_error(2), 1);
-	printf("./cube3D: Valid Map\n");
 	cub_exec(&data);
-	free(file);
 	ft_free(&data, 1);
 	system("xset r on");
 	return (0);

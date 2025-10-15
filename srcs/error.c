@@ -29,31 +29,34 @@ void	ft_error(int flag)
 	ft_putstr_fd(err[flag], 2);
 }
 
-void	ft_free(t_cub *data, int flag)
-{
-	int	i;
+// <<<<<<< HEAD
+// void	ft_free(t_cub *data, int flag)
+// {
+// 	int	i;
 
-	i = 0;
-	ft_free_arr((void **) data->map);
-	ft_free_arr((void **) data->cmap);
-	while (i < 4 && flag == 1)
-		mlx_destroy_image(data->mlx, data->texture[i++].img);
+// 	i = 0;
+// 	ft_free_arr((void **) data->map);
+// 	ft_free_arr((void **) data->cmap);
+// 	while (i < 4 && flag == 1)
+// 		mlx_destroy_image(data->mlx, data->texture[i++].img);
 
-	if (data->no)
-		free(data->no);
-	if (data->so)
-		free(data->so);
-	if (data->ea)
-		free(data->ea);
-	if (data->we)
-		free(data->we);
+// 	if (data->no)
+// 		free(data->no);
+// 	if (data->so)
+// 		free(data->so);
+// 	if (data->ea)
+// 		free(data->ea);
+// 	if (data->we)
+// 		free(data->we);
 
-	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);
-	if (data->mlx)
-		free(data->mlx);
-}
+// 	if (data->win)
+// 		mlx_destroy_window(data->mlx, data->win);
+// 	if (data->mlx)
+// 		free(data->mlx);
+// }
 
+// =======
+// >>>>>>> par1-parsefix
 int	check_cub(int *fd, const char *file)
 {
 	int	i;
@@ -69,5 +72,4 @@ int	check_cub(int *fd, const char *file)
 	}
 	close(*fd);
 	return (0);
-
 }

@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 14:21:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/25 15:21:04 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/13 17:18:30 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ map and are up to you to handle. You must be able to parse any kind of map,
 as long as it respects the rules of the map.
 */
 
-void	typechecker_init(char *type[], int flags[])
+int	ptypechecker_init(char *type[], int flags[])
 // char	*read_file(int fd)
 {
 	type[0] = "NO";
@@ -46,19 +46,6 @@ void	typechecker_init(char *type[], int flags[])
 	flags[3] = 0;
 	flags[4] = 0;
 	flags[5] = 0;
-}
-
-int	check_flags(int flags[])
-{
-	int	i;
-
-	i = 0;
-	while (i < 6)
-	{
-		if (flags[i] != 1)
-			return (0);
-		i++;
-	}
 	return (1);
 }
 
@@ -70,29 +57,55 @@ int	parse_tc(t_cub *data, char *content, int type)
 		return (parse_color(data, content, type));
 }
 
-int	append_map(t_cub *data, char **content, int len)
+static int	parse_line(t_cub *data, char *line, char **type, int *flags)
 {
-	int	i;
+	int	j;
 
-	i = 0;
-	data->height = append_height(content, len);
-	data->width = append_width(content, len);
-	data->map = malloc(sizeof(char *) * (ft_arr_len(content + len) + 1));
-	data->cmap = malloc(sizeof(char *) * (ft_arr_len(content + len) + 1));
-	if (data->map == NULL)
-		return (0);
-	while (content[len] != NULL)
+	j = -1;
+	ft_trimspaces(&line);
+	while (type[++j] != NULL)
 	{
-		data->map[i] = ft_cstrdup(data, content[len]);
-		data->cmap[i] = ft_cstrdup(data, content[len]);
-		len++;
-		i++;
+		if (ft_strncmp(line, type[j], ft_strlen(type[j])) == 0)
+		{
+			if (flags[j] == 1)
+				return (0);
+			flags[j] += parse_tc(data, line, j);
+			break ;
+		}
 	}
-	data->map[i] = NULL;
-	data->cmap[i] = NULL;
 	return (1);
 }
 
+static int	validate_and_append(t_cub *data, char **content, int *flags, int j)
+{
+	if (check_flags(data, flags) == 0 || append_map(data, content, j) == 0)
+		return (0);
+	return (1);
+}
+
+int	parse_file(t_cub *data, char *file)
+{
+	int		i;
+	int		flags[7];
+	char	*type[7];
+	char	**content;
+
+	content = ft_split(file, '\n');
+	ptypechecker_init(type, flags);
+	if (ft_isempty(content))
+		return (ft_free(data, 0), 0);
+	i = -1;
+	while (content[++i] && i < 6)
+	{
+		if (parse_line(data, content[i], type, flags) == 0)
+			return (ft_free_parsing(content, data, flags));
+	}
+	if (validate_and_append(data, content, flags, i) == 0)
+		return (ft_free_parsing(content, data, flags));
+	return (ft_free_arr((void **)content), 1);
+}
+
+/*
 int	parse_file(t_cub *data, char *file)
 {
 	int		i;
@@ -101,27 +114,27 @@ int	parse_file(t_cub *data, char *file)
 	char	*type[7];
 	char	**content;
 
-	typechecker_init(type, flags);
 	content = ft_split(file, '\n');
-	if (content == NULL)
-		return (0);
-	i = 0;
-	while (content[i] != NULL && i < 6)
+	ptypechecker_init(type, flags);
+	if (ft_isempty(content) == 1)
+		return (ft_free(data, 0), 0);
+	i = -1;
+	while (content[++i] != NULL && i < 6)
 	{
-		j = 0;
-		while (type[j] != NULL)
+		j = -1;
+		while (type[++j] != NULL)
 		{
+			ft_trimspaces(&content[i]);
 			if (ft_strncmp(content[i], type[j], ft_strlen(type[j])) == 0)
+			{
+				if (flags[j] == 1)
+					return (ft_free_parsing(content, data, flags));
 				flags[j] += parse_tc(data, content[i], j);
-			j++;
+			}
 		}
-		i++;
 	}
-	if (append_map(data, content, j) == 0)
-		return (ft_free_arr((void **)content), 0);
-	return (ft_free_arr((void **)content), check_flags(flags));
-// =======
-// 	close(fd);
-// 	return (final);
-// >>>>>>> feat/texture
+	if (check_flags(data, flags) == 0 || append_map(data, content, j) == 0)
+		return (ft_free_parsing(content, data, flags));
+	return (ft_free_arr((void **)content), 1);
 }
+*/

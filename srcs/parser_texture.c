@@ -6,7 +6,7 @@
 /*   By: mliyuan <mliyuan@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 16:41:04 by mliyuan           #+#    #+#             */
-/*   Updated: 2025/09/26 14:04:21 by mliyuan          ###   ########.fr       */
+/*   Updated: 2025/10/10 16:51:21 by mliyuan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	parse_texture(t_cub *data, char *path, int type)
 	int		fd;
 
 	pathname = ft_split(path, ' ');
-	if (pathname == NULL || pathname[1] == NULL)
+	if (pathname == NULL)
 		return (0);
 	if (check_ext(&fd, pathname[1], ".xpm") == 0)
-		return (0);
+		return (ft_free_arr((void **) pathname), 0);
 	data->texture[type].img = mlx_xpm_file_to_image\
 (data->mlx, pathname[1], &width, &height);
 	if (data->texture[type].img == NULL)
-		return (ft_free_arr((void **) pathname), 1);
+		return (ft_free_arr((void **) pathname), 0);
 	data->texture[type].addr = (int *)mlx_get_data_addr\
 (data->texture[type].img, &data->texture[type].bpp, \
 &data->texture[type].size_line, &data->texture[type].endian);

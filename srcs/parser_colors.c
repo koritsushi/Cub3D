@@ -22,10 +22,12 @@ int	valid_num(char *str)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		return (0);
+	if (i == 0 && (str[i] == '-' || str[i] == '+'))
+		i++;
 	while (str[i] != '\0')
 	{
-		if (i == 0 && (str[i] == '-' || str[i] == '+'))
-			i++;
 		if (ft_isdigit(str[i]) == 0)
 			return (0);
 		i++;
@@ -40,18 +42,16 @@ int	colors(t_cub *data, char *color)
 	unsigned char	colors[3];
 	int				valid;
 
-	rgbs = ft_split_str(color + 1, " ,");
+	rgbs = ft_split_str(color + 1, ", ");
 	i = ft_arr_len(rgbs);
-	if (i != 3)
-		return (-1);
+	if (i < 3)
+		return (ft_free_arr((void **) rgbs), -1);
 	i = 0;
 	while (i < 3)
 	{
 		if (valid_num(rgbs[i]) == 0)
-			return (-1);
+			return (ft_free_arr((void **) rgbs), -1);
 		colors[i] = ft_atoi(rgbs[i]);
-		if (colors[i] < 0 || colors[i] > 255)
-			return (ft_free_arr((void **)rgbs), -1);
 		i++;
 	}
 	ft_free_arr((void **)rgbs);
