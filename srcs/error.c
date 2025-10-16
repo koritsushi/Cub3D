@@ -12,21 +12,29 @@
 
 #include "../includes/cube3d.h"
 
-void	ft_error(void)
+void	error_init(char *err[])
 {
-	ft_putstr_fd("./cub3D: Error!\n", 2);
-	ft_putstr_fd("./cub3D: usage: ./cub3d filename.cub\n", 2);
-	exit(1);
+	err[0] = "./cub3D: Usage: ./.cub3d filename.cub\n";
+	err[1] = "./cub3D: Invalid texture or color!";
+	err[2] = "./cub3D: Invalid Map";
 }
 
-int		check_cub(int *fd, const char *file)
+void	ft_error(int flag)
+{
+	char	*err[3];
+
+	error_init(err);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(err[flag], 2);
+}
+
+int	check_cub(int *fd, const char *file)
 {
 	int	i;
 
 	i = ft_strlen(file);
 	*fd = open(file, __O_DIRECTORY);
-	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 &&\
- *fd == -1)
+	if (ft_strncmp(file + (i - 4), ".cub", 4) == 0 && *fd == -1)
 	{
 		*fd = open(file, O_RDONLY);
 		if (*fd == -1)
