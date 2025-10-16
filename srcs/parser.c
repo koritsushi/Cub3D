@@ -98,7 +98,7 @@ int	parse_file(t_cub *data, char *file)
 	while (content[++i] && i < 6)
 	{
 		if (ft_isspace(content[i][0]) == 1)
-		{	
+		{
 			tmp = ft_strtrim(content[i], " ");
 			free(content[i]);
 			content[i] = tmp;
