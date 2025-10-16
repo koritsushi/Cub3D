@@ -34,9 +34,9 @@ int	ptypechecker_init(char *type[], int flags[])
 // char	*read_file(int fd)
 {
 	type[0] = "NO";
-	type[1] = "SO";
-	type[2] = "WE";
-	type[3] = "EA";
+	type[2] = "SO";
+	type[3] = "WE";
+	type[1] = "EA";
 	type[4] = "F";
 	type[5] = "C";
 	type[6] = NULL;
